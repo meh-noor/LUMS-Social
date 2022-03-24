@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "219395755326",
+    "project_id": "lums-social-5ef7b",
+    "storage_bucket": "lums-social-5ef7b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:219395755326:android:c931170b28faccad38b06f",
+        "android_client_info": {
+          "package_name": "com.edu.lumsocial"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "219395755326-l23nb9jhdvs6qr146lqc6f4tkbu39au4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNwpJYyFGG2jl2P5xz_sLEpAI8cgdAd8c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "219395755326-l23nb9jhdvs6qr146lqc6f4tkbu39au4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:219395755326:android:fe39f337b961ffe238b06f",
+        "android_client_info": {
+          "package_name": "com.example.lums_social_app2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "219395755326-l23nb9jhdvs6qr146lqc6f4tkbu39au4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNwpJYyFGG2jl2P5xz_sLEpAI8cgdAd8c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "219395755326-l23nb9jhdvs6qr146lqc6f4tkbu39au4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
