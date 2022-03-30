@@ -91,7 +91,7 @@ class _SignInState extends State<SignIn> {
   }
   Widget buildButton() => ButtonWidget(
         //  0xFF5DCAD1
-        text: 'LOGIN',
+        text: 'Login',
         
         
         onClicked: () async { 
@@ -111,7 +111,7 @@ class _SignInState extends State<SignIn> {
       
         // margin: EdgeInsets.all(50.0),
         child: Image(
-          image: AssetImage('images/finallogo.png'),
+          image: AssetImage('images/finallogo.png'),fit: BoxFit.cover,
           
         ),
   );
@@ -147,8 +147,10 @@ class _SignInState extends State<SignIn> {
             ),),
           onPressed: () {},
            style: TextButton.styleFrom(
-          primary: Color(0xFFFFFFFF), // Text Color
+          primary: Color(0xFFFFFFFF),
+           // Text Color
         ),
+        
         ),
       );
 
@@ -174,10 +176,14 @@ class _SignInState extends State<SignIn> {
                decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: 'Enter Password Here',
-                ),
+                // icon: Icon(Icons.lock),
+                 ),
                 autofocus: false,
                 obscureText: true,
+                
+
                   )
                 );
+
 
 }
