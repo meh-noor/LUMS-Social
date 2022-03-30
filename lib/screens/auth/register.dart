@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:lums_social_app2/services/auth.dart';
 
-class SignIn extends StatefulWidget {
-  // const SignIn({Key? key}) : super(key: key);
-  final Function toggleView;
-  SignIn({required this.toggleView});
+class Register extends StatefulWidget {
+  // const Register({Key? key}) : super(key: key);
 
+  final Function toggleView;
+  Register({required this.toggleView});
   @override
-  State<SignIn> createState() => _SignInState();
+  State<Register> createState() => _RegisterState();
 }
 
-class _SignInState extends State<SignIn> {
+class _RegisterState extends State<Register> {
   final AuthService _auth = AuthService();
-
-  //text field state
 
   String email = '';
   String password = "";
@@ -27,11 +25,11 @@ class _SignInState extends State<SignIn> {
       appBar: AppBar(
         backgroundColor: Colors.purple[400],
         elevation: 0.0,
-        title: Text('Sign in to LUMS Social'),
+        title: Text('Sign up to LUMS Social'),
         actions: <Widget>[
           TextButton.icon(
             icon: Icon(Icons.person),
-            label: Text('Sign up'),
+            label: Text('Sign in'),
             onPressed: () {
               widget.toggleView();
             },
@@ -64,18 +62,19 @@ class _SignInState extends State<SignIn> {
                     }),
                 SizedBox(height: 20.0),
                 ElevatedButton(
-                  child: Text('Sign in', style: TextStyle(color: Colors.black)),
+                  child: Text('Sign Up', style: TextStyle(color: Colors.black)),
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
                           Color.fromARGB(255, 243, 243, 243))),
                   onPressed: () async {
                     if (_formkey.currentState!.validate()) {
-                      dynamic result = await _auth.signInWithEmailAndPassword(
+                      dynamic result = await _auth.registerWithEmailAndPassword(
                           email, password);
+
                       if (result == null) {
                         // email error message
                         setState(() {
-                          error = 'Could not sign in with those credentials';
+                          error = 'Please enter a valid email';
                         });
                       }
                     }
