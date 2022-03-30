@@ -162,6 +162,7 @@ class _SignInState extends State<SignIn> {
                decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: 'Enter email Here',
+                suffixIcon: Icon(Icons.email),
                 ),
                 autofocus: false,
                 obscureText: false,
@@ -176,7 +177,7 @@ class _SignInState extends State<SignIn> {
                decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: 'Enter Password Here',
-                // icon: Icon(Icons.lock),
+                suffixIcon: Icon(Icons.lock),
                  ),
                 autofocus: false,
                 obscureText: true,
