@@ -112,7 +112,7 @@ class _RegisterState extends State<Register> {
           child: Form(
         key: _formkey,
         child: SingleChildScrollView(
-          padding: EdgeInsets.all(16),
+          padding: EdgeInsets.all(20),
           child: AutofillGroup(
             child: Column(
               children: [
@@ -127,7 +127,7 @@ class _RegisterState extends State<Register> {
                 const SizedBox(height: 10),
                 reEnterpasswordTextBox(),
                 // buildForgotPassword(),
-                const SizedBox(height: 10),
+                const SizedBox(height: 20),
 
                 NextButton(),
                 const SizedBox(height: 200),

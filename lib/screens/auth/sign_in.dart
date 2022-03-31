@@ -24,38 +24,25 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF050A30),
-      appBar: AppBar(
-        backgroundColor: Colors.purple[400],
-        elevation: 0.0,
-        title: const Text('Sign in to LUMS Social'),
-        actions: <Widget>[
-          TextButton.icon(
-            icon: const Icon(Icons.person),
-            label: const Text('Sign up'),
-            onPressed: () {
-              widget.toggleView();
-            },
-          )
-        ],
-      ),
       body: Center(
           child: Form(
         key: _formkey,
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
+          padding: EdgeInsets.all(20),
           child: AutofillGroup(
             child: Column(
               children: [
-                iconWidget(),
+                IconWidget(),
                 emailTextBox(),
                 const SizedBox(height: 10),
                 passwordTextBox(),
                 const SizedBox(height: 10),
                 buildForgotPassword(),
                 buildButton(),
+                const SizedBox(height: 20),
+                ErrorWidget(),
                 const SizedBox(height: 100),
                 buildNoAccount(),
-                errorWidget(),
               ],
             ),
           ),
@@ -80,14 +67,18 @@ class _SignInState extends State<SignIn> {
         },
       );
 
-  Widget errorWidget() => Text(
+  Widget ErrorWidget() => Text(
         error,
         style: const TextStyle(color: Colors.red, fontSize: 14.0),
       );
 
-  Widget iconWidget() => const Image(
-        image: AssetImage('images/finallogo.png'),
-        fit: BoxFit.cover,
+  Widget IconWidget() => Container(
+        // margin: EdgeInsets.all(50.0),
+        child: Image(
+          image: AssetImage('images/finallogo.png'),
+          fit: BoxFit.cover,
+          width: 300,
+        ),
       );
 
   Widget buildNoAccount() => Row(
@@ -100,7 +91,9 @@ class _SignInState extends State<SignIn> {
               'SIGN UP',
               style: TextStyle(decoration: TextDecoration.underline),
             ),
-            onPressed: () {},
+            onPressed: () {
+              widget.toggleView();
+            },
             style: TextButton.styleFrom(
               primary: const Color(0xFFFFFFFF),
               // Text Color
