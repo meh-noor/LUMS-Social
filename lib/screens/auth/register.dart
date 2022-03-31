@@ -18,40 +18,12 @@ class _RegisterState extends State<Register> {
   String email = "";
   String password = "";
   String error = "";
+  String reEnterPassword = "";
   final _formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.purple[10],
-      // appBar: AppBar(
-      //   backgroundColor: Colors.purple[400],
-      //   elevation: 0.0,
-      //   title: Text('Sign up to LUMS Social'),
-      //   actions: <Widget>[
-      //     TextButton.icon(
-      //       icon: Icon(Icons.person),
-      //       label: Text('Sign in'),
-      //       onPressed: () {
-      //         widget.toggleView(); // TODO Redirect to sign in
-      //       },
-      //     )
-      //   ],
-      // ),
-      // body: Container(
-      //     padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
-      //     child: Form(
-      //       key: _formkey,
-      //       child: Column(
-      //         children: <Widget>[
-      //           SizedBox(height: 20.0),
-      //           TextFormField(
-      // validator: (val) => val!.isEmpty ? 'Enter an email' : null,
-      // onChanged: (val) {
-      //   setState(() {
-      //     email = val;
-      //   });
-      // }),
       //           TextFormField(
       //               obscureText: true,
       //               validator: (val) => val!.length < 6
@@ -128,8 +100,9 @@ class _RegisterState extends State<Register> {
                 reEnterpasswordTextBox(),
                 // buildForgotPassword(),
                 const SizedBox(height: 20),
-
                 NextButton(),
+                const SizedBox(height: 10),
+                toggleToSignIn(),
                 const SizedBox(height: 200),
                 // NextButton(),
                 // ErrorWidget(),
@@ -145,7 +118,19 @@ class _RegisterState extends State<Register> {
   Widget NextButton() => ButtonWidget(
       //  0xFF5DCAD1
       text: 'Next',
-      onClicked: () {});
+      onClicked: () async {
+        if (_formkey.currentState!.validate()) {
+          dynamic result =
+              await _auth.registerWithEmailAndPassword(email, password);
+
+          if (result == null) {
+            // email error message
+            setState(() {
+              error = 'Please enter a valid email';
+            });
+          }
+        }
+      });
 
   Widget ErrorWidget() => Text(
         error,
@@ -157,6 +142,7 @@ class _RegisterState extends State<Register> {
         child: Image(
           image: AssetImage('images/finallogo.png'),
           width: 300,
+          height: 250,
           // fit: BoxFit.cover,
         ),
       );
@@ -229,7 +215,8 @@ class _RegisterState extends State<Register> {
       width: 400,
       color: const Color(0xFFFFFFFF),
       child: TextFormField(
-        validator: (val) => val!.length < 6 ? 'Password' : null,
+        validator: (val) =>
+            val!.length < 6 ? 'Password must be atleast 6 chars long' : null,
         onChanged: (val) {
           setState(() {
             password = val;
@@ -248,10 +235,10 @@ class _RegisterState extends State<Register> {
       width: 400,
       color: const Color(0xFFFFFFFF),
       child: TextFormField(
-        validator: (val) => val == password ? 'Password' : null,
+        validator: (val) => val != password ? 'Passwords do not match' : null,
         onChanged: (val) {
           setState(() {
-            password = val;
+            reEnterPassword = val;
           });
         },
         style: TextStyle(color: Color.fromARGB(255, 2, 2, 2)),
@@ -263,4 +250,25 @@ class _RegisterState extends State<Register> {
         autofocus: false,
         obscureText: true,
       ));
+
+  Widget toggleToSignIn() => Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text('Already have an account?',
+              style: TextStyle(color: Color(0xFFFFFFFF))),
+          TextButton(
+            child: const Text(
+              'LOGIN',
+              style: TextStyle(decoration: TextDecoration.underline),
+            ),
+            onPressed: () {
+              widget.toggleView();
+            },
+            style: TextButton.styleFrom(
+              primary: const Color(0xFFFFFFFF),
+              // Text Color
+            ),
+          ),
+        ],
+      );
 }

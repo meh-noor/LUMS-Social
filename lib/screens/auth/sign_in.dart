@@ -33,6 +33,9 @@ class _SignInState extends State<SignIn> {
             child: Column(
               children: [
                 IconWidget(),
+                LogInText(),
+                // const SizedBox(height: 27.5),
+                const SizedBox(height: 10),
                 emailTextBox(),
                 const SizedBox(height: 10),
                 passwordTextBox(),
@@ -67,6 +70,12 @@ class _SignInState extends State<SignIn> {
         },
       );
 
+  Widget LogInText() => Center(
+        child: Text("Enter Credentials",
+            style: TextStyle(
+                color: Colors.white, fontFamily: 'poppins', fontSize: 25)),
+      );
+
   Widget ErrorWidget() => Text(
         error,
         style: const TextStyle(color: Colors.red, fontSize: 14.0),
@@ -76,8 +85,9 @@ class _SignInState extends State<SignIn> {
         // margin: EdgeInsets.all(50.0),
         child: Image(
           image: AssetImage('images/finallogo.png'),
-          fit: BoxFit.cover,
+          // fit: BoxFit.cover,
           width: 300,
+          height: 250,
         ),
       );
 
