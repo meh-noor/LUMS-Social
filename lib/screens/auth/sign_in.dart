@@ -5,9 +5,8 @@ import 'package:lums_social_app2/widget/button_widget.dart';
 // import 'package:lums_social_app2/widget/password_field_widget.dart';
 
 class SignIn extends StatefulWidget {
-  // const SignIn({Key? key}) : super(key: key);
   final Function toggleView;
-  SignIn({required this.toggleView});
+  const SignIn({required this.toggleView});
 
   @override
   State<SignIn> createState() => _SignInState();
@@ -15,9 +14,7 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   final AuthService _auth = AuthService();
-
-  //text field state
-
+  // email,password and error are common
   String email = '';
   String password = "";
   String error = '';
@@ -30,11 +27,11 @@ class _SignInState extends State<SignIn> {
       appBar: AppBar(
         backgroundColor: Colors.purple[400],
         elevation: 0.0,
-        title: Text('Sign in to LUMS Social'),
+        title: const Text('Sign in to LUMS Social'),
         actions: <Widget>[
           TextButton.icon(
-            icon: Icon(Icons.person),
-            label: Text('Sign up'),
+            icon: const Icon(Icons.person),
+            label: const Text('Sign up'),
             onPressed: () {
               widget.toggleView();
             },
@@ -42,16 +39,14 @@ class _SignInState extends State<SignIn> {
         ],
       ),
       body: Center(
-          // padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
-
           child: Form(
         key: _formkey,
         child: SingleChildScrollView(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: AutofillGroup(
             child: Column(
               children: [
-                IconWidget(),
+                iconWidget(),
                 emailTextBox(),
                 const SizedBox(height: 10),
                 passwordTextBox(),
@@ -60,52 +55,8 @@ class _SignInState extends State<SignIn> {
                 buildButton(),
                 const SizedBox(height: 100),
                 buildNoAccount(),
-                ErrorWidget(),
+                errorWidget(),
               ],
-              // children: <Widget>[
-              //   SizedBox(height: 20.0),
-              //   TextFormField(
-              //       validator: (val) => val!.isEmpty ? 'Enter an email' : null,
-              //       onChanged: (val) {
-              //         setState(() {
-              //           email = val;
-              //         });
-              //       }),
-              //   TextFormField(
-              //       obscureText: true,
-              //       validator: (val) => val!.length < 6
-              //           ? 'Enter a password 6+ chars long'
-              //           : null,
-              //       onChanged: (val) {
-              //         setState(() {
-              //           password = val;
-              //         });
-              //       }),
-              //   SizedBox(height: 20.0),
-              //   ElevatedButton(
-              //     child: Text('Sign in', style: TextStyle(color: Colors.black)),
-              //     style: ButtonStyle(
-              //         backgroundColor: MaterialStateProperty.all(
-              //             Color.fromARGB(255, 243, 243, 243))),
-              // onPressed: () async {
-              //   if (_formkey.currentState!.validate()) {
-              //     dynamic result = await _auth.signInWithEmailAndPassword(
-              //         email, password);
-              //     if (result == null) {
-              //       // email error message
-              //       setState(() {
-              //         error = 'Could not sign in with those credentials';
-              //       });
-              //     }
-              //   }
-              // },
-              //   ),
-              //   SizedBox(height: 12.0),
-              //   Text(
-              //     error,
-              //     style: TextStyle(color: Colors.red, fontSize: 14.0),
-              //   )
-              // ],
             ),
           ),
         ),
@@ -113,11 +64,8 @@ class _SignInState extends State<SignIn> {
     );
   }
 
-// Widget mySizedBox()
   Widget buildButton() => ButtonWidget(
-        //  0xFF5DCAD1
         text: 'Login',
-
         onClicked: () async {
           if (_formkey.currentState!.validate()) {
             dynamic result =
@@ -132,32 +80,29 @@ class _SignInState extends State<SignIn> {
         },
       );
 
-  Widget ErrorWidget() => Text(
+  Widget errorWidget() => Text(
         error,
-        style: TextStyle(color: Colors.red, fontSize: 14.0),
+        style: const TextStyle(color: Colors.red, fontSize: 14.0),
       );
 
-  Widget IconWidget() => Container(
-        // margin: EdgeInsets.all(50.0),
-        child: Image(
-          image: AssetImage('images/finallogo.png'),
-          fit: BoxFit.cover,
-        ),
+  Widget iconWidget() => const Image(
+        image: AssetImage('images/finallogo.png'),
+        fit: BoxFit.cover,
       );
 
   Widget buildNoAccount() => Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('Don\'t have an account?',
+          const Text('Don\'t have an account?',
               style: TextStyle(color: Color(0xFFFFFFFF))),
           TextButton(
-            child: Text(
+            child: const Text(
               'SIGN UP',
               style: TextStyle(decoration: TextDecoration.underline),
             ),
             onPressed: () {},
             style: TextButton.styleFrom(
-              primary: Color(0xFFFFFFFF),
+              primary: const Color(0xFFFFFFFF),
               // Text Color
             ),
           ),
@@ -167,13 +112,13 @@ class _SignInState extends State<SignIn> {
   Widget buildForgotPassword() => Container(
         alignment: Alignment.centerRight,
         child: TextButton(
-          child: Text(
+          child: const Text(
             'Forgot Password?',
             style: TextStyle(decoration: TextDecoration.underline),
           ),
           onPressed: () {},
           style: TextButton.styleFrom(
-            primary: Color(0xFFFFFFFF),
+            primary: const Color(0xFFFFFFFF),
             // Text Color
           ),
         ),
@@ -189,7 +134,7 @@ class _SignInState extends State<SignIn> {
             email = val;
           });
         },
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           border: OutlineInputBorder(),
           hintText: 'Enter email Here',
           suffixIcon: Icon(Icons.email),
@@ -208,8 +153,8 @@ class _SignInState extends State<SignIn> {
             password = val;
           });
         },
-        style: TextStyle(color: Color.fromARGB(255, 2, 2, 2)),
-        decoration: InputDecoration(
+        style: const TextStyle(color: Color.fromARGB(255, 2, 2, 2)),
+        decoration: const InputDecoration(
           border: OutlineInputBorder(),
           hintText: 'Enter Password Here',
           suffixIcon: Icon(Icons.lock),
