@@ -27,27 +27,14 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF050A30),
-      appBar: AppBar(
-        backgroundColor: Colors.purple[400],
-        elevation: 0.0,
-        title: Text('Sign in to LUMS Social'),
-        actions: <Widget>[
-          TextButton.icon(
-            icon: Icon(Icons.person),
-            label: Text('Sign up'),
-            onPressed: () {
-              widget.toggleView();
-            },
-          )
-        ],
-      ),
+      
       body: Center(
           // padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
 
           child: Form(
         key: _formkey,
         child: SingleChildScrollView(
-          padding: EdgeInsets.all(16),
+          padding: EdgeInsets.all(20),
           child: AutofillGroup(
             child: Column(
               children: [
@@ -57,10 +44,14 @@ class _SignInState extends State<SignIn> {
                 passwordTextBox(),
                 const SizedBox(height: 10),
                 buildForgotPassword(),
+
                 buildButton(),
+                const SizedBox(height: 20),
+
+                ErrorWidget(),
+
                 const SizedBox(height: 100),
                 buildNoAccount(),
-                ErrorWidget(),
               ],
               // children: <Widget>[
               //   SizedBox(height: 20.0),
@@ -117,6 +108,7 @@ class _SignInState extends State<SignIn> {
   Widget buildButton() => ButtonWidget(
         //  0xFF5DCAD1
         text: 'Login',
+        
 
         onClicked: () async {
           if (_formkey.currentState!.validate()) {
@@ -142,6 +134,7 @@ class _SignInState extends State<SignIn> {
         child: Image(
           image: AssetImage('images/finallogo.png'),
           fit: BoxFit.cover,
+          width: 300,
         ),
       );
 
@@ -155,7 +148,9 @@ class _SignInState extends State<SignIn> {
               'SIGN UP',
               style: TextStyle(decoration: TextDecoration.underline),
             ),
-            onPressed: () {},
+            onPressed: () {
+              widget.toggleView();
+            },
             style: TextButton.styleFrom(
               primary: Color(0xFFFFFFFF),
               // Text Color
