@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lums_social_app2/screens/auth/forget_password.dart';
 import 'package:lums_social_app2/services/auth.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
 // import 'package:lums_social_app2/widget/email_field_widget.dart';
@@ -6,7 +7,8 @@ import 'package:lums_social_app2/widget/button_widget.dart';
 
 class SignIn extends StatefulWidget {
   final Function toggleView;
-  const SignIn({required this.toggleView});
+  final Function toggleView2;
+  const SignIn({required this.toggleView, required this.toggleView2});
 
   @override
   State<SignIn> createState() => _SignInState();
@@ -119,7 +121,9 @@ class _SignInState extends State<SignIn> {
             'Forgot Password?',
             style: TextStyle(decoration: TextDecoration.underline),
           ),
-          onPressed: () {},
+          onPressed: () {
+            return widget.toggleView2();
+          },
           style: TextButton.styleFrom(
             primary: const Color(0xFFFFFFFF),
             // Text Color
@@ -139,7 +143,7 @@ class _SignInState extends State<SignIn> {
         },
         decoration: const InputDecoration(
           border: OutlineInputBorder(),
-          hintText: 'Enter email Here',
+          hintText: 'Email',
           suffixIcon: Icon(Icons.email),
         ),
         autofocus: false,
@@ -159,7 +163,7 @@ class _SignInState extends State<SignIn> {
         style: const TextStyle(color: Color.fromARGB(255, 2, 2, 2)),
         decoration: const InputDecoration(
           border: OutlineInputBorder(),
-          hintText: 'Enter Password Here',
+          hintText: 'Password',
           suffixIcon: Icon(Icons.lock),
         ),
         autofocus: false,

@@ -72,9 +72,9 @@ class _RegisterState extends State<Register> {
       //     TextButton.icon(
       //       icon: Icon(Icons.person),
       //       label: Text('Sign up'),
-      //       onPressed: () {
+      // onPressed: () {
       //         widget.toggleView();
-      //       },
+      // },
       //     )
       //   ],
       // ),
