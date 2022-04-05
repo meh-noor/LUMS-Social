@@ -8,7 +8,8 @@ class ForgotPassword extends StatefulWidget {
   // final Function toggleView;
 
   final Function toggleView2;
-  const ForgotPassword({required this.toggleView2});
+  final Function toggleView;
+  const ForgotPassword({required this.toggleView, required this.toggleView2});
 
   @override
   State<ForgotPassword> createState() => _ForgotPasswordState();
@@ -96,11 +97,15 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         onClicked: () async {
           if (_formkey.currentState!.validate()) {
             dynamic result = await _auth.forgotPassword(email);
-            if (result == null) {
+            if (result == 10) {
               // email error message
               setState(() {
                 error = 'Invalid email address';
               });
+            } else {
+              error = '';
+              widget.toggleView2();
+              print('reached here');
             }
           }
         },

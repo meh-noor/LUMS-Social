@@ -80,7 +80,7 @@ class AuthService {
       return await _auth.sendPasswordResetEmail(email: email);
     } on FirebaseAuthException catch (e) {
       print(e.toString());
-      return null;
+      return 10;
     }
   }
 }
