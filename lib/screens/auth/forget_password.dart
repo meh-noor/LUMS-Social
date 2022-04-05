@@ -46,8 +46,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 // buildForgotPassword(),
                 buildButton(),
                 const SizedBox(height: 20),
-                ErrorWidget(),
-                const SizedBox(height: 100),
+                errorWidget(),
+                // const SizedBox(height: 10),
+                buildSwitchToSignIn(),
                 // buildNoAccount(),
               ],
             ),
@@ -111,8 +112,25 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         },
       );
 
-  Widget ErrorWidget() => Text(
+  Widget errorWidget() => Text(
         error,
         style: const TextStyle(color: Colors.red, fontSize: 14.0),
+      );
+
+  Widget buildSwitchToSignIn() => Container(
+        alignment: Alignment.centerRight,
+        child: TextButton(
+          child: const Text(
+            'Sign In',
+            style: TextStyle(decoration: TextDecoration.underline),
+          ),
+          onPressed: () {
+            return widget.toggleView2();
+          },
+          style: TextButton.styleFrom(
+            primary: const Color(0xFFFFFFFF),
+            // Text Color
+          ),
+        ),
       );
 }
