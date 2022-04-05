@@ -3,6 +3,7 @@ import 'package:lums_social_app2/models/user.dart';
 import 'package:lums_social_app2/screens/wrapper.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:lums_social_app2/services/auth.dart';
+import 'package:lums_social_app2/splash.dart';
 import 'package:provider/provider.dart';
 import 'models/user.dart';
 
@@ -22,7 +23,8 @@ class MyApp extends StatelessWidget {
       initialData: null,
       value: AuthService().user,
       child: const MaterialApp(
-        home: Wrapper(),
+        // home: Wrapper(),
+        home: Splash(),
       ),
     );
   }
