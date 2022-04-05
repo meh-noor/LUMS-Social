@@ -22,8 +22,8 @@ class _AuthenticateState extends State<Authenticate> {
 
   void toggleView2() {
     setState(() {
-      showForgotPass = true;
-      showSignin = false;
+      showForgotPass = !showForgotPass;
+      showSignin = !showSignin;
     });
   }
 
@@ -31,7 +31,7 @@ class _AuthenticateState extends State<Authenticate> {
     if (showSignin) {
       return SignIn(toggleView: toggleView, toggleView2: toggleView2);
     } else if (!showSignin && showForgotPass) {
-      return ForgotPassword(toggleView2: toggleView2);
+      return ForgotPassword(toggleView: toggleView, toggleView2: toggleView2);
     } else {
       return Register(toggleView: toggleView);
     }
