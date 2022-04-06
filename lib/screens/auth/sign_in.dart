@@ -37,7 +37,7 @@ class _SignInState extends State<SignIn> {
                 IconWidget(),
                 LogInText(),
                 // const SizedBox(height: 27.5),
-                const SizedBox(height: 10),
+                const SizedBox(height: 20),
                 emailTextBox(),
                 const SizedBox(height: 10),
                 passwordTextBox(),

@@ -38,7 +38,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 // LogInText(),
                 const SizedBox(height: 17.5),
                 forgotPassText(),
-                const SizedBox(height: 10),
+                const SizedBox(height: 20),
+
+                IntroText(),
+                IntroText2(),
+                const SizedBox(height: 30),
+
                 emailTextBox(),
                 const SizedBox(height: 10),
                 // passwordTextBox(),
@@ -49,6 +54,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 errorWidget(),
                 // const SizedBox(height: 10),
                 buildSwitchToSignIn(),
+                const SizedBox(height: 112.5),
                 // buildNoAccount(),
               ],
             ),
@@ -78,7 +84,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       ));
 
   Widget forgotPassText() => const Center(
-        child: Text("Password Reset",
+        child: Text("Reset Password",
             style: TextStyle(
                 color: Colors.white, fontFamily: 'poppins', fontSize: 25)),
       );
@@ -94,7 +100,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       );
 
   Widget buildButton() => ButtonWidget(
-        text: 'Reset Password',
+        text: 'Next',
         onClicked: () async {
           if (_formkey.currentState!.validate()) {
             dynamic result = await _auth.forgotPassword(email);
@@ -112,6 +118,20 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         },
       );
 
+  Widget IntroText() => const Center(
+        child: Text("Enter email associated with your",
+        textAlign: TextAlign.center,
+            style: TextStyle(
+                color: Colors.white, fontFamily: 'poppins', fontSize: 16)),
+      );
+
+  Widget IntroText2() => const Center(
+        child: Text("account to change password",
+        textAlign: TextAlign.center,
+            style: TextStyle(
+                color: Colors.white, fontFamily: 'poppins', fontSize: 16)),
+      );
+
   Widget errorWidget() => Text(
         error,
         style: const TextStyle(color: Colors.red, fontSize: 14.0),
@@ -121,7 +141,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         alignment: Alignment.centerRight,
         child: TextButton(
           child: const Text(
-            'Sign In',
+            'Login',
             style: TextStyle(decoration: TextDecoration.underline),
           ),
           onPressed: () {
