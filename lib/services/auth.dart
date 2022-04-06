@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:lums_social_app2/models/user.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -49,12 +50,24 @@ class AuthService {
   }
 
   //register with email and password
-  Future registerWithEmailAndPassword(String email, String password) async {
+  MyUser? registerWithEmailAndPassword(
+      String email, String password, String name) {
     try {
-      UserCredential result = await _auth.createUserWithEmailAndPassword(
+      Future<UserCredential> result = _auth.createUserWithEmailAndPassword(
           email: email, password: password);
 
-      User? user1 = result.user;
+      User? user1;
+      result.then((value) => {
+            user1 = value.user,
+            FirebaseFirestore.instance
+                .collection("users")
+                .doc(value.user?.uid)
+                .set({
+              "email": value.user?.email,
+              "password": password,
+              "name": name
+            })
+          });
 
       return _userFromFirebaseUser(user1);
     } catch (e) {

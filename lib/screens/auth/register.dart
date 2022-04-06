@@ -19,68 +19,14 @@ class _RegisterState extends State<Register> {
   String password = "";
   String error = "";
   String reEnterPassword = "";
+  String name = "";
   final _formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //           TextFormField(
-      //               obscureText: true,
-      //               validator: (val) => val!.length < 6
-      //                   ? 'Enter a password 6+ chars long'
-      //                   : null,
-      //               onChanged: (val) {
-      //                 setState(() {
-      //                   password = val;
-      //                 });
-      //               }),
-      //           SizedBox(height: 20.0),
-      //           ElevatedButton(
-      //             child: Text('Sign Up', style: TextStyle(color: Colors.black)),
-      //             style: ButtonStyle(
-      //                 backgroundColor: MaterialStateProperty.all(
-      //                     Color.fromARGB(255, 243, 243, 243))),
-      //             onPressed: () async {
-      //               if (_formkey.currentState!.validate()) {
-      //                 dynamic result = await _auth.registerWithEmailAndPassword(
-      //                     email, password);
-
-      //                 if (result == null) {
-      //                   // email error message
-      //                   setState(() {
-      //                     error = 'Please enter a valid email';
-      //                   });
-      //                 }
-      //               }
-      //             },
-      //           ),
-      //           SizedBox(height: 12.0),
-      //           Text(
-      //             error,
-      //             style: TextStyle(color: Colors.red, fontSize: 14.0),
-      //           )
-      //         ],
-      //       ),
-      //     )),
-
       backgroundColor: const Color(0xFF050A30),
-      // appBar: AppBar(
-      //   backgroundColor: Colors.purple[400],
-      //   elevation: 0.0,
-      //   title: Text('Sign in to LUMS Social'),
-      //   actions: <Widget>[
-      //     TextButton.icon(
-      //       icon: Icon(Icons.person),
-      //       label: Text('Sign up'),
-      // onPressed: () {
-      //         widget.toggleView();
-      // },
-      //     )
-      //   ],
-      // ),
       body: Center(
-          // padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
-
           child: Form(
         key: _formkey,
         child: SingleChildScrollView(
@@ -121,7 +67,7 @@ class _RegisterState extends State<Register> {
       onClicked: () async {
         if (_formkey.currentState!.validate()) {
           dynamic result =
-              await _auth.registerWithEmailAndPassword(email, password);
+              await _auth.registerWithEmailAndPassword(email, password, name);
 
           if (result == null) {
             // email error message
@@ -182,9 +128,9 @@ class _RegisterState extends State<Register> {
       child: TextFormField(
         validator: (val) => val!.isEmpty ? 'Enter Name' : null,
         onChanged: (val) {
-          // setState(() {
-          //   email = val;
-          // });
+          setState(() {
+            name = val;
+          });
         },
         decoration: InputDecoration(
           border: OutlineInputBorder(),
