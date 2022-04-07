@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lums_social_app2/services/auth.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
+import 'package:lums_social_app2/screens/news/newsButton.dart';
 // import 'package:lums_social_app2/widget/email_field_widget.dart';
 // import 'package:lums_social_app2/widget/password_field_widget.dart';
 
@@ -114,23 +115,32 @@ class _SignInState extends State<SignIn> {
   }
 
 // Widget mySizedBox()
-  Widget buildButton() => ButtonWidget(
-        //  0xFF5DCAD1
-        text: 'Login',
+  // Widget buildButton() => ButtonWidget(
+  //       //  0xFF5DCAD1
+  //       text: 'Login',
 
-        onClicked: () async {
-          if (_formkey.currentState!.validate()) {
-            dynamic result =
-                await _auth.signInWithEmailAndPassword(email, password);
-            if (result == null) {
-              // email error message
-              setState(() {
-                error = 'Could not sign in with those credentials';
-              });
-            }
-          }
-        },
-      );
+  //       onClicked: () async {
+  //         if (_formkey.currentState!.validate()) {
+  //           dynamic result =
+  //               await _auth.signInWithEmailAndPassword(email, password);
+  //           if (result == null) {
+  //             // email error message
+  //             setState(() {
+  //               error = 'Could not sign in with those credentials';
+  //             });
+  //           }
+  //         }
+  //       },
+  //     );
+  Widget buildButton() => ButtonWidget(
+      //  0xFF5DCAD1
+      text: 'Test Button',
+      onClicked: () async {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => newsButton()),
+        );
+      });
 
   Widget ErrorWidget() => Text(
         error,
