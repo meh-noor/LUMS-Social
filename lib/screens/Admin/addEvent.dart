@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_tags/flutter_tags.dart';
+import 'package:lums_social_app2/screens/Admin/hashtags.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddEvent extends StatefulWidget {
   @override
@@ -8,17 +11,19 @@ class AddEvent extends StatefulWidget {
 
 class _AddEventState extends State<AddEvent> {
   String email = '';
+  // List tags = new List(5);
   final _formKey = GlobalKey<FormBuilderState>();
+  final _globalKey = GlobalKey<TagsState>();
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: Color.fromARGB(255, 255, 255, 255),
-        body: ListView(
-          children: <Widget>[
-            FormBuilder(
-                child: SingleChildScrollView(
-                    child: Column(children: [
+        body: ListView(children: <Widget>[
+          FormBuilder(
+              child: SingleChildScrollView(
+            child: Column(children: [
               blueDecor(),
               Padding(
                 padding: const EdgeInsets.only(
@@ -58,10 +63,18 @@ class _AddEventState extends State<AddEvent> {
                               left: 15.0, right: 15.0, bottom: 4.0, top: 8.0),
                           child: TimeField())),
                 ],
-              )
-            ])))
-          ],
-        ));
+              ),
+              Padding(
+                  padding: const EdgeInsets.only(
+                      left: 15.0, right: 15.0, bottom: 4.0, top: 8.0),
+                  child: SizedBox(
+                    height: size.height,
+                    width: size.width,
+                    child: Hashtags(),
+                  )),
+            ]),
+          ))
+        ]));
   }
 }
 
@@ -147,3 +160,6 @@ Widget TimeField() => FormBuilderDateTimePicker(
           Icon(Icons.watch_later_rounded, size: 30, color: Color(0xFF050A30)),
       // contentPadding: const EdgeInsets.only(left: 15.0)),
     ));
+
+Widget ImageUpload() => Container();
+//       
