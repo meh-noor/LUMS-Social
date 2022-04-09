@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lums_social_app2/screens/news/addNews.dart';
 import 'package:lums_social_app2/screens/news/noNews.dart';
 import 'package:lums_social_app2/services/auth.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
@@ -156,7 +157,7 @@ class _SignInState extends State<SignIn> {
       onClicked: () async {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => NoNews()),
+          MaterialPageRoute(builder: (context) => AddNews()),
         );
       });
 
