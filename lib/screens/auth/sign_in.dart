@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:lums_social_app2/screens/Admin/addEvent.dart';
+import 'package:lums_social_app2/screens/Admin/editEvent.dart';
 import 'package:lums_social_app2/services/auth.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
 import 'package:lums_social_app2/screens/Admin/adminDashboard.dart';
-// import 'package:lums_social_app2/screens/Admin/addEvent.dart';
 import 'package:lums_social_app2/screens/Admin/hashtags.dart';
-// import 'package:lums_social_app2/widget/email_field_widget.dart';
-// import 'package:lums_social_app2/widget/password_field_widget.dart';
 
 class SignIn extends StatefulWidget {
   // const SignIn({Key? key}) : super(key: key);
@@ -124,7 +121,7 @@ class _SignInState extends State<SignIn> {
       onClicked: () async {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => AddEvent()),
+          MaterialPageRoute(builder: (context) => EditEvent()),
         );
       });
 
