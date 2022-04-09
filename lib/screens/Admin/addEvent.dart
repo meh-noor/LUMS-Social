@@ -1,5 +1,27 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_tags/flutter_tags.dart';
+import 'package:lums_social_app2/screens/Admin/hashtags.dart';
+import 'package:image_picker/image_picker.dart';
+// import 'package:lums_social_app2/screens/Admin/imageGallery.dart';
+import 'package:lums_social_app2/widget/button_widget.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
+
+class upload {
+  Future uploadImageToFirebase(BuildContext context) async {
+    final XFile? image =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    FirebaseStorage storage = FirebaseStorage.instance;
+    Reference ref = storage.ref().child("images/" + DateTime.now().toString());
+    UploadTask uploadTask = ref.putFile(File(image!.path));
+    uploadTask.then((res) {
+      res.ref.getDownloadURL();
+    });
+  }
+}
 
 class AddEvent extends StatefulWidget {
   @override
@@ -8,17 +30,21 @@ class AddEvent extends StatefulWidget {
 
 class _AddEventState extends State<AddEvent> {
   String email = '';
+  final imageFile = upload();
+
+  // List tags = new List(5);
   final _formKey = GlobalKey<FormBuilderState>();
+  final _globalKey = GlobalKey<TagsState>();
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: Color.fromARGB(255, 255, 255, 255),
-        body: ListView(
-          children: <Widget>[
-            FormBuilder(
-                child: SingleChildScrollView(
-                    child: Column(children: [
+        body: ListView(children: <Widget>[
+          FormBuilder(
+              child: SingleChildScrollView(
+            child: Column(children: [
               blueDecor(),
               Padding(
                 padding: const EdgeInsets.only(
@@ -45,6 +71,11 @@ class _AddEventState extends State<AddEvent> {
                     left: 15.0, right: 15.0, bottom: 4.0, top: 15.0),
                 child: DescriptionField(),
               ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 15.0, right: 15.0, bottom: 4.0, top: 15.0),
+                child: FilterCategory(),
+              ),
               Row(
                 children: [
                   Expanded(
@@ -58,10 +89,33 @@ class _AddEventState extends State<AddEvent> {
                               left: 15.0, right: 15.0, bottom: 4.0, top: 8.0),
                           child: TimeField())),
                 ],
+              ),
+              Row(
+                children: [
+                  Expanded(
+                      child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 15.0, right: 15.0, bottom: 4.0, top: 8.0),
+                          child: AddImage())),
+                  Expanded(
+                      child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 30.0, right: 15.0, bottom: 4.0, top: 8.0),
+                          child: ButtonWidget(
+                            text: 'Upload',
+                            onClicked: () =>
+                                imageFile.uploadImageToFirebase(context),
+                          ))),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 15.0, right: 15.0, bottom: 4.0, top: 8.0),
+                child: AddButton(),
               )
-            ])))
-          ],
-        ));
+            ]),
+          ))
+        ]));
   }
 }
 
@@ -114,12 +168,6 @@ Widget DescriptionField() => FormBuilderTextField(
           contentPadding: const EdgeInsets.only(left: 15.0)),
     );
 
-// Widget DateTime() {
-//   return Row(
-//     children: [DateField(), TimeField()],
-//   );
-// }
-
 Widget DateField() => FormBuilderDateTimePicker(
     name: 'date',
     initialValue: DateTime.now(),
@@ -147,3 +195,38 @@ Widget TimeField() => FormBuilderDateTimePicker(
           Icon(Icons.watch_later_rounded, size: 30, color: Color(0xFF050A30)),
       // contentPadding: const EdgeInsets.only(left: 15.0)),
     ));
+
+Widget FilterCategory() => FormBuilderChoiceChip(
+      name: 'choice_chip',
+      padding: EdgeInsets.all(2.0),
+      // runSpacing: 2.0,
+      selectedColor: Color(0xFF5DCAD1),
+      decoration: InputDecoration(
+          labelText: 'Select an option', labelStyle: TextStyle(fontSize: 22)),
+      labelPadding: EdgeInsets.all(2.0),
+      options: [
+        FormBuilderFieldOption(value: 'Test', child: Text('Academic')),
+        FormBuilderFieldOption(value: 'Test 1', child: Text('Non-Academic')),
+      ],
+    );
+//
+Widget AddImage() => Row(
+      children: [
+        Icon(Icons.photo, size: 30, color: Color(0xFF050A30)),
+        Padding(
+            padding: EdgeInsets.all(5.0),
+            child: Text(
+              'Upload Image',
+              style: TextStyle(
+                fontFamily: 'Poppins',
+                color: Colors.black,
+                fontSize: 18,
+                // padding: const EdgeInsets.all(15.0),
+              ),
+            )),
+      ],
+    );
+Widget AddButton() => ButtonWidget(
+    //  0xFF5DCAD1
+    text: 'Add Event',
+    onClicked: () async {});
