@@ -17,9 +17,9 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   final AuthService _auth = AuthService();
   // email,password and error are common
-  String email = '';
+  String email = "";
   String password = "";
-  String error = '';
+  String error = "";
   final _formkey = GlobalKey<FormState>();
 
   @override
