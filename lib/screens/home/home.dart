@@ -11,7 +11,7 @@ class Home extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.purple,
       appBar: AppBar(
-        title: Text('LUMS Social'),
+        title: const Text('LUMS Social'),
         backgroundColor: Colors.black,
         elevation: 0.0,
         actions: <Widget>[
@@ -19,8 +19,8 @@ class Home extends StatelessWidget {
               onPressed: () async {
                 await _auth.signOut();
               },
-              icon: Icon(Icons.person),
-              label: Text('Logout'))
+              icon: const Icon(Icons.person),
+              label: const Text('Logout'))
         ],
       ),
     );

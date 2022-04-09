@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lums_social_app2/screens/auth/forget_password.dart';
 import 'package:lums_social_app2/screens/Admin/editEvent.dart';
 import 'package:lums_social_app2/services/auth.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
@@ -7,9 +8,9 @@ import 'package:lums_social_app2/screens/Admin/adminDashboard.dart';
 import 'package:lums_social_app2/screens/Admin/hashtags.dart';
 
 class SignIn extends StatefulWidget {
-  // const SignIn({Key? key}) : super(key: key);
   final Function toggleView;
-  SignIn({required this.toggleView});
+  final Function toggleView2;
+  const SignIn({required this.toggleView, required this.toggleView2});
 
   @override
   State<SignIn> createState() => _SignInState();
@@ -17,97 +18,39 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   final AuthService _auth = AuthService();
-
-  //text field state
-
-  String email = '';
+  // email,password and error are common
+  String email = "";
   String password = "";
-  String error = '';
+  String error = "";
   final _formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF050A30),
-      appBar: AppBar(
-        backgroundColor: Colors.purple[400],
-        elevation: 0.0,
-        title: Text('Sign in to LUMS Social'),
-        actions: <Widget>[
-          TextButton.icon(
-            icon: Icon(Icons.person),
-            label: Text('Sign up'),
-            onPressed: () {
-              widget.toggleView();
-            },
-          )
-        ],
-      ),
       body: Center(
-          // padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
-
           child: Form(
         key: _formkey,
         child: SingleChildScrollView(
-          padding: EdgeInsets.all(16),
+          padding: EdgeInsets.all(20),
           child: AutofillGroup(
             child: Column(
               children: [
                 IconWidget(),
+                LogInText(),
+                // const SizedBox(height: 27.5),
+                const SizedBox(height: 20),
                 emailTextBox(),
                 const SizedBox(height: 10),
                 passwordTextBox(),
                 const SizedBox(height: 10),
                 buildForgotPassword(),
                 buildButton(),
+                const SizedBox(height: 20),
+                ErrorWidget(),
                 const SizedBox(height: 100),
                 buildNoAccount(),
-                ErrorWidget(),
               ],
-              // children: <Widget>[
-              //   SizedBox(height: 20.0),
-              //   TextFormField(
-              //       validator: (val) => val!.isEmpty ? 'Enter an email' : null,
-              //       onChanged: (val) {
-              //         setState(() {
-              //           email = val;
-              //         });
-              //       }),
-              //   TextFormField(
-              //       obscureText: true,
-              //       validator: (val) => val!.length < 6
-              //           ? 'Enter a password 6+ chars long'
-              //           : null,
-              //       onChanged: (val) {
-              //         setState(() {
-              //           password = val;
-              //         });
-              //       }),
-              //   SizedBox(height: 20.0),
-              //   ElevatedButton(
-              //     child: Text('Sign in', style: TextStyle(color: Colors.black)),
-              //     style: ButtonStyle(
-              //         backgroundColor: MaterialStateProperty.all(
-              //             Color.fromARGB(255, 243, 243, 243))),
-              // onPressed: () async {
-              //   if (_formkey.currentState!.validate()) {
-              //     dynamic result = await _auth.signInWithEmailAndPassword(
-              //         email, password);
-              //     if (result == null) {
-              //       // email error message
-              //       setState(() {
-              //         error = 'Could not sign in with those credentials';
-              //       });
-              //     }
-              //   }
-              // },
-              //   ),
-              //   SizedBox(height: 12.0),
-              //   Text(
-              //     error,
-              //     style: TextStyle(color: Colors.red, fontSize: 14.0),
-              //   )
-              // ],
             ),
           ),
         ),
@@ -115,75 +58,59 @@ class _SignInState extends State<SignIn> {
     );
   }
 
-//test button
-  Widget buildButton() => ButtonWidget(
-      //  0xFF5DCAD1
-      text: 'Test Button',
-      onClicked: () async {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => admin()),
-        );
-      });
 
-// Widget mySizedBox()
-  // Widget buildButton() => ButtonWidget(
-  //       //  0xFF5DCAD1
-  //       text: 'Login',
-
-  //       onClicked: () async {
-  //         // Navigator.push(
-  //         //   context,
-  //         //   MaterialPageRoute(builder: (context) => adminDashboard()),
-  //         // );
-  //         if (_formkey.currentState!.validate()) {
-  //           dynamic result =
-  //               await _auth.signInWithEmailAndPassword(email, password);
-  //           if (result == null) {
-  //             // email error message
-  //             setState(() {
-  //               error = 'Could not sign in with those credentials';
-  //             });
-  //           }
-  //         }
-  //       },
-  //     );
   Widget buildButton() => ButtonWidget(
-      //  0xFF5DCAD1
-      text: 'Test Button',
-      onClicked: () async {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => newsButton()),
-        );
-      });
+        text: 'Login',
+        onClicked: () async {
+          if (_formkey.currentState!.validate()) {
+            dynamic result =
+                await _auth.signInWithEmailAndPassword(email, password);
+            if (result == null) {
+              // email error message
+              setState(() {
+                error = 'Could not sign in with those credentials';
+              });
+            }
+          }
+        },
+      );
+
+  Widget LogInText() => Center(
+        child: Text("Enter Credentials",
+            style: TextStyle(
+                color: Colors.white, fontFamily: 'poppins', fontSize: 25)),
+      );
 
   Widget ErrorWidget() => Text(
         error,
-        style: TextStyle(color: Colors.red, fontSize: 14.0),
+        style: const TextStyle(color: Colors.red, fontSize: 14.0),
       );
 
   Widget IconWidget() => Container(
         // margin: EdgeInsets.all(50.0),
         child: Image(
           image: AssetImage('images/finallogo.png'),
-          fit: BoxFit.cover,
+          // fit: BoxFit.cover,
+          width: 300,
+          height: 250,
         ),
       );
 
   Widget buildNoAccount() => Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('Don\'t have an account?',
+          const Text('Don\'t have an account?',
               style: TextStyle(color: Color(0xFFFFFFFF))),
           TextButton(
-            child: Text(
+            child: const Text(
               'SIGN UP',
               style: TextStyle(decoration: TextDecoration.underline),
             ),
-            onPressed: () {},
+            onPressed: () {
+              widget.toggleView();
+            },
             style: TextButton.styleFrom(
-              primary: Color(0xFFFFFFFF),
+              primary: const Color(0xFFFFFFFF),
               // Text Color
             ),
           ),
@@ -193,13 +120,15 @@ class _SignInState extends State<SignIn> {
   Widget buildForgotPassword() => Container(
         alignment: Alignment.centerRight,
         child: TextButton(
-          child: Text(
+          child: const Text(
             'Forgot Password?',
             style: TextStyle(decoration: TextDecoration.underline),
           ),
-          onPressed: () {},
+          onPressed: () {
+            return widget.toggleView2();
+          },
           style: TextButton.styleFrom(
-            primary: Color(0xFFFFFFFF),
+            primary: const Color(0xFFFFFFFF),
             // Text Color
           ),
         ),
@@ -215,9 +144,9 @@ class _SignInState extends State<SignIn> {
             email = val;
           });
         },
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           border: OutlineInputBorder(),
-          hintText: 'Enter email Here',
+          hintText: 'Email',
           suffixIcon: Icon(Icons.email),
         ),
         autofocus: false,
@@ -234,10 +163,10 @@ class _SignInState extends State<SignIn> {
             password = val;
           });
         },
-        style: TextStyle(color: Color.fromARGB(255, 2, 2, 2)),
-        decoration: InputDecoration(
+        style: const TextStyle(color: Color.fromARGB(255, 2, 2, 2)),
+        decoration: const InputDecoration(
           border: OutlineInputBorder(),
-          hintText: 'Enter Password Here',
+          hintText: 'Password',
           suffixIcon: Icon(Icons.lock),
         ),
         autofocus: false,
