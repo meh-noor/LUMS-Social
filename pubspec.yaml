@@ -37,7 +37,15 @@ dependencies:
   firebase_auth: ^3.3.11
   cloud_firestore: ^3.1.10
   firebase_core: ^1.10.2
+  firebase_storage: ^10.2.10
   provider: ^6.0.2
+  table_calendar: ^3.0.5
+  flutter_form_builder: ^7.1.1
+  flutter_tags: ^0.4.9+1
+  flutter_typeahead: 
+  image_picker: ^0.8.5
+  # firebase_storage: ^3.0.8
+  # firebase_analytics: ^5.0.6
 
 dev_dependencies:
   flutter_test:
@@ -59,11 +67,16 @@ flutter:
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
+ 
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
   assets:
     - images/finallogo.png
+    - images/dummyImage.jpg
+    - images/editImage.png
+    - images/
+    # - images/Ellipse12.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
