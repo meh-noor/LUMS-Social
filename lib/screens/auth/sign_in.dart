@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:lums_social_app2/screens/Admin/addEvent.dart';
+import 'package:lums_social_app2/screens/Admin/editEvent.dart';
 import 'package:lums_social_app2/services/auth.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
 import 'package:lums_social_app2/screens/news/newsButton.dart';
 import 'package:lums_social_app2/screens/Admin/adminDashboard.dart';
-// import 'package:lums_social_app2/screens/Admin/addEvent.dart';
 import 'package:lums_social_app2/screens/Admin/hashtags.dart';
-// import 'package:lums_social_app2/widget/email_field_widget.dart';
-// import 'package:lums_social_app2/widget/password_field_widget.dart';
 
 class SignIn extends StatefulWidget {
   // const SignIn({Key? key}) : super(key: key);
@@ -119,15 +116,15 @@ class _SignInState extends State<SignIn> {
   }
 
 //test button
-  // Widget buildButton() => ButtonWidget(
-  //     //  0xFF5DCAD1
-  //     text: 'Test Button',
-  //     onClicked: () async {
-  //       Navigator.push(
-  //         context,
-  //         MaterialPageRoute(builder: (context) => AddEvent()),
-  //       );
-  //     });
+  Widget buildButton() => ButtonWidget(
+      //  0xFF5DCAD1
+      text: 'Test Button',
+      onClicked: () async {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => admin()),
+        );
+      });
 
 // Widget mySizedBox()
   // Widget buildButton() => ButtonWidget(

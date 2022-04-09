@@ -21,12 +21,12 @@ class upload {
   }
 }
 
-class AddEvent extends StatefulWidget {
+class EditEvent extends StatefulWidget {
   @override
-  State<AddEvent> createState() => _AddEventState();
+  State<EditEvent> createState() => _EditEventState();
 }
 
-class _AddEventState extends State<AddEvent> {
+class _EditEventState extends State<EditEvent> {
   String email = '';
   final imageFile = upload();
 
@@ -99,17 +99,42 @@ class _AddEventState extends State<AddEvent> {
                       child: Padding(
                           padding: const EdgeInsets.only(
                               left: 30.0, right: 15.0, bottom: 4.0, top: 8.0),
-                          child: ButtonWidget(
-                            text: 'Upload',
-                            onClicked: () =>
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: Color(0xFF5DCAD1),
+                              minimumSize: Size.fromHeight(30),
+                              shape: new RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(5.0),
+                              ),
+                            ),
+                            child: FittedBox(
+                              child: Text(
+                                'Upload',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                    decoration: TextDecoration.underline),
+                              ),
+                            ),
+                            onPressed: () =>
                                 imageFile.uploadImageToFirebase(context),
                           ))),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 15.0, right: 15.0, bottom: 4.0, top: 8.0),
-                child: AddButton(),
+              Row(
+                children: [
+                  Expanded(
+                      child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 15.0, right: 15.0, bottom: 15.0, top: 8.0),
+                          child: EditButton())),
+                  Expanded(
+                      child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: 30.0, right: 15.0, bottom: 15.0, top: 8.0),
+                    child: deleteButton(),
+                  )),
+                ],
               ),
               const SizedBox(height: 10),
             ]),
@@ -119,7 +144,7 @@ class _AddEventState extends State<AddEvent> {
 }
 
 Widget blueDecor() => Image(
-      image: AssetImage('images/background.png'),
+      image: AssetImage('images/editbackground.png'),
       fit: BoxFit.cover,
       height: 250,
       width: 600,
@@ -225,7 +250,7 @@ Widget AddImage() => Row(
             )),
       ],
     );
-Widget AddButton() => ElevatedButton(
+Widget EditButton() => ElevatedButton(
       style: ElevatedButton.styleFrom(
         primary: Color(0xFF5DCAD1),
         minimumSize: Size.fromHeight(40),
@@ -235,7 +260,27 @@ Widget AddButton() => ElevatedButton(
       ),
       child: FittedBox(
         child: Text(
-          'Add Event',
+          'Update',
+          style: TextStyle(
+              fontSize: 20,
+              color: Colors.white,
+              decoration: TextDecoration.underline),
+        ),
+      ),
+      onPressed: () async {},
+    );
+
+Widget deleteButton() => ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        primary: Colors.red,
+        minimumSize: Size.fromHeight(40),
+        shape: new RoundedRectangleBorder(
+          borderRadius: new BorderRadius.circular(5.0),
+        ),
+      ),
+      child: FittedBox(
+        child: Text(
+          'Delete',
           style: TextStyle(
               fontSize: 20,
               color: Colors.white,
