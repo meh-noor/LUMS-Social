@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:lums_social_app2/screens/Admin/addEvent.dart';
 import 'package:lums_social_app2/screens/Admin/editEvent.dart';
 import 'package:lums_social_app2/services/auth.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
 import 'package:lums_social_app2/screens/news/newsButton.dart';
 import 'package:lums_social_app2/screens/Admin/adminDashboard.dart';
-import 'package:lums_social_app2/screens/Admin/hashtags.dart';
+// import 'package:lums_social_app2/screens/Admin/hashtags.dart';
 
 class SignIn extends StatefulWidget {
   // const SignIn({Key? key}) : super(key: key);
@@ -122,7 +123,7 @@ class _SignInState extends State<SignIn> {
       onClicked: () async {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => admin()),
+          MaterialPageRoute(builder: (context) => AddEvent()),
         );
       });
 
@@ -148,15 +149,15 @@ class _SignInState extends State<SignIn> {
   //         }
   //       },
   //     );
-  Widget buildButton() => ButtonWidget(
-      //  0xFF5DCAD1
-      text: 'Test Button',
-      onClicked: () async {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => newsButton()),
-        );
-      });
+  // Widget buildButton() => ButtonWidget(
+  //     //  0xFF5DCAD1
+  //     text: 'Test Button',
+  //     onClicked: () async {
+  //       Navigator.push(
+  //         context,
+  //         MaterialPageRoute(builder: (context) => newsButton()),
+  //       );
+  //     });
 
   Widget ErrorWidget() => Text(
         error,
