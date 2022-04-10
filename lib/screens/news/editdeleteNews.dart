@@ -21,13 +21,13 @@ class upload
     });
   }
 }
-class AddNews extends StatefulWidget 
+class EditNews extends StatefulWidget 
 {
   @override
-  State<AddNews> createState() => _AddNewsState();
+  State<EditNews> createState() => _EditNewsState();
 }
 
-class _AddNewsState extends State<AddNews> 
+class _EditNewsState extends State<EditNews> 
 {
   final imageFile = upload();
   final AuthService _auth = AuthService();
@@ -105,10 +105,28 @@ class _AddNewsState extends State<AddNews>
                         )
                         ]
                       ),
-                      Padding
+                      Row
                       (
-                        padding: const EdgeInsets.fromLTRB(15, 8, 15, 4),
-                        child: finalButton()
+                        children: 
+                        [
+                          Expanded
+                        (
+                          child: Padding
+                          (
+                            padding: const EdgeInsets.fromLTRB(15, 0, 20, 0),
+                            child:updateButton()
+                          )
+                          
+                        ),
+                        Expanded
+                        (
+                          child: Padding
+                          (
+                            padding: const EdgeInsets.fromLTRB(30, 0, 10, 0),
+                              child:deleteButton()
+                          )
+                      )
+                        ]
                       )
                     ],
                     )
@@ -131,7 +149,7 @@ Widget title() => Container
 (
     //alignment: Alignment.topCenter,
     padding: const EdgeInsets.fromLTRB(60, 70, 60, 0),
-    child:const Text("Add News",
+    child:const Text("Edit News",
         style: TextStyle(fontSize: 30, color: Color(0xFF0e1337), fontFamily: 'Poppins',  fontWeight: FontWeight.w500),)  
 );
 
@@ -242,18 +260,35 @@ Widget uploadImage() => Row
 );
 
 
-Widget finalButton() => ElevatedButton
+Widget updateButton() => ElevatedButton
 (
     style: ElevatedButton.styleFrom(
       primary: const Color(0xFF5DCAD1),
-      minimumSize: const Size.fromHeight(50),
+      minimumSize: const Size.fromHeight(45),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(5.0),
       ),
     ),
     child: const FittedBox
     (
-      child: Text('Add Event',
+      child: Text('Update',
+      style: TextStyle(fontSize: 20, color: Colors.white, decoration: TextDecoration.underline),
+      ),
+    ),
+    onPressed: () async {},
+);
+Widget deleteButton() => ElevatedButton
+(
+    style: ElevatedButton.styleFrom(
+      primary: const Color(0xFFE71010),
+      minimumSize: const Size.fromHeight(45),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(5.0),
+      ),
+    ),
+    child: const FittedBox
+    (
+      child: Text('Delete',
       style: TextStyle(fontSize: 20, color: Colors.white, decoration: TextDecoration.underline),
       ),
     ),
