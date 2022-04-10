@@ -1,9 +1,11 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 // import 'package:flutter_tags/flutter_tags.dart';
 // import 'package:lums_social_app2/screens/Admin/hashtags.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lums_social_app2/services/addToCollection.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
@@ -26,9 +28,39 @@ class EditEvent extends StatefulWidget {
   State<EditEvent> createState() => _EditEventState();
 }
 
+String? title;
+String? loc;
+String? organiser;
+String? description;
+DateTime? start_date;
+DateTime? start_time;
+String? image;
+String? event_type;
+String uid = 'abcdefghij12';
+
+List eventData = [];
+
 class _EditEventState extends State<EditEvent> {
   String email = '';
   final imageFile = upload();
+
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  fetchData() async {
+    dynamic resultant = await addCollection().getEventDatat();
+    if (resultant == null) {
+      print("UNable to get");
+    } else {
+      setState(() {
+        eventData = resultant;
+        // print(eventData[0].title);
+      });
+    }
+  }
 
   // List tags = new List(5);
   final _formKey = GlobalKey<FormBuilderState>();
@@ -138,13 +170,13 @@ class _EditEventState extends State<EditEvent> {
               ),
               const SizedBox(height: 10),
             ]),
-          ))
+          )),
         ]));
   }
 }
 
 Widget blueDecor() => Image(
-      image: AssetImage('images/editbackground.png'),
+      image: AssetImage('images/background.png'),
       fit: BoxFit.cover,
       height: 250,
       width: 600,
@@ -163,62 +195,90 @@ Widget subText() => Text(
 
 Widget nameField() => FormBuilderTextField(
       name: 'title',
+      initialValue: "Test Title",
       decoration: InputDecoration(
           hintText: "Enter Event Name",
           border: OutlineInputBorder(),
           contentPadding: const EdgeInsets.only(left: 15.0)),
+      validator: (val) => val!.isEmpty ? "Please enter event name" : null,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      onChanged: (val) => {title = val},
     );
+
 Widget OrganiserField() => FormBuilderTextField(
-      name: 'title',
+      name: 'organiser',
       decoration: InputDecoration(
           hintText: "Enter Organizer Name",
           border: OutlineInputBorder(),
           contentPadding: const EdgeInsets.only(left: 15.0)),
+      validator: (val) => val!.isEmpty ? "Please enter event organiser" : null,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      onChanged: (val) => {organiser = val},
     );
 Widget LocationField() => FormBuilderTextField(
-      name: 'title',
+      name: 'location',
       decoration: InputDecoration(
           hintText: "Enter Location",
           border: OutlineInputBorder(),
           contentPadding: const EdgeInsets.only(left: 15.0)),
+      // validator: (val) => val!.isEmpty ? "Please enter event location" : null,
+      validator: (val) => val!.isEmpty ? "Please enter event location" : null,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      onChanged: (val) => {loc = val},
     );
 Widget DescriptionField() => FormBuilderTextField(
-      name: 'title',
+      name: 'description',
       maxLines: 6,
       minLines: 1,
       decoration: InputDecoration(
           hintText: "Enter Description",
           border: OutlineInputBorder(),
           contentPadding: const EdgeInsets.only(left: 15.0)),
+      validator: (val) =>
+          val!.isEmpty ? "Please enter event description" : null,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      onChanged: (val) => {description = val},
     );
 
 Widget DateField() => FormBuilderDateTimePicker(
-    name: 'date',
-    initialValue: DateTime.now(),
-    fieldHintText: "Add Date",
-    inputType: InputType.date,
-    decoration: InputDecoration(
-      labelText: "Select Date",
-      labelStyle: TextStyle(fontSize: 22),
-      border: InputBorder.none,
-      prefixIcon:
-          Icon(Icons.calendar_today, size: 30, color: Color(0xFF050A30)),
-      // contentPadding: const EdgeInsets.only(left: 15.0)),
-    ));
+      name: 'date',
+      firstDate: DateTime.now(),
+      initialValue: DateTime.now(),
+      initialDate: DateTime.now(),
+      fieldHintText: "Add Date",
+      inputType: InputType.date,
+      decoration: InputDecoration(
+        labelText: "Select Date",
+        labelStyle: TextStyle(fontSize: 22),
+        border: InputBorder.none,
+        prefixIcon:
+            Icon(Icons.calendar_today, size: 30, color: Color(0xFF050A30)),
+
+        // contentPadding: const EdgeInsets.only(left: 15.0)),
+      ),
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      onChanged: (val) => {start_date = val},
+    );
 
 Widget TimeField() => FormBuilderDateTimePicker(
-    name: 'time',
-    initialTime: TimeOfDay(hour: 8, minute: 0),
-    fieldHintText: "Add Date",
-    inputType: InputType.time,
-    decoration: InputDecoration(
-      labelText: "Select Time",
-      labelStyle: TextStyle(fontSize: 22),
-      border: InputBorder.none,
-      prefixIcon:
-          Icon(Icons.watch_later_rounded, size: 30, color: Color(0xFF050A30)),
-      // contentPadding: const EdgeInsets.only(left: 15.0)),
-    ));
+      name: 'time',
+      // initialValue: DateTime.now(),
+      // initialTime: TimeOfDay(hour: 8, minute: 0),
+      fieldHintText: "Add Date",
+      inputType: InputType.time,
+      initialDate: DateTime.now(),
+      decoration: InputDecoration(
+        labelText: "Select Time",
+        labelStyle: TextStyle(fontSize: 22),
+        border: InputBorder.none,
+        prefixIcon:
+            Icon(Icons.watch_later_rounded, size: 30, color: Color(0xFF050A30)),
+
+        // contentPadding: const EdgeInsets.only(left: 15.0)),
+      ),
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      onChanged: (val) => {start_time = val},
+    );
 
 Widget FilterCategory() => FormBuilderChoiceChip(
       name: 'choice_chip',

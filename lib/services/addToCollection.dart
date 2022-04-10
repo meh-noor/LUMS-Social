@@ -24,4 +24,19 @@ class addCollection {
       'event_type': event_type
     });
   }
+
+  Future getEventDatat() async {
+    List items = [];
+    try {
+      await eventCollection.get().then((value) => {
+            value.docs.forEach((element) {
+              items.add(element.data);
+            })
+          });
+      return items;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
 }
