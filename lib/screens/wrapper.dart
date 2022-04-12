@@ -28,7 +28,7 @@ class Wrapper extends StatelessWidget {
           if (snapshot.data == true) {
             return admin();
           } else if (snapshot.data == false) {
-            return RegisterDetails();
+            return Home();
           } else {
             return splashScreen();
           }
