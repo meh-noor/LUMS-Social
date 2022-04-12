@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lums_social_app2/models/user.dart';
 import 'package:lums_social_app2/screens/auth/authenticate.dart';
+import 'package:lums_social_app2/screens/auth/registerUserDetails.dart';
+import 'package:lums_social_app2/screens/auth/sign_in.dart';
 import 'package:lums_social_app2/screens/home/home.dart';
 import 'package:provider/provider.dart';
 
@@ -19,12 +21,12 @@ class Wrapper extends StatelessWidget {
     // // return either Home or Authenticate Widget
     // bool temp = true;
     if (user == null) {
-      return Authenticate();
+      return SignIn();
     } else {
       return FutureBuilder(
         builder: ((context, snapshot) {
           if (snapshot.data == true) {
-            return Text('You are an Admin');
+            return Home();
           } else if (snapshot.data == false) {
             return Home();
           } else {
@@ -38,7 +40,7 @@ class Wrapper extends StatelessWidget {
 
   // getDocs(){}
 
-  Future<bool> getData(uid) async {
+  Future<bool?> getData(uid) async {
     // print(uid);
 
     DocumentSnapshot<Map<String, dynamic>> x1;
