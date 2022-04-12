@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:lums_social_app2/screens/Admin/addEvent.dart';
 import 'package:lums_social_app2/screens/auth/forget_password.dart';
 import 'package:lums_social_app2/screens/Admin/editEvent.dart';
 import 'package:lums_social_app2/services/auth.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
 import 'package:lums_social_app2/screens/news/newsButton.dart';
 import 'package:lums_social_app2/screens/Admin/adminDashboard.dart';
-import 'package:lums_social_app2/screens/Admin/hashtags.dart';
+// import 'package:lums_social_app2/screens/Admin/hashtags.dart';
 
 class SignIn extends StatefulWidget {
   final Function toggleView;
@@ -58,7 +59,6 @@ class _SignInState extends State<SignIn> {
     );
   }
 
-
   Widget buildButton() => ButtonWidget(
         text: 'Login',
         onClicked: () async {
@@ -80,6 +80,7 @@ class _SignInState extends State<SignIn> {
             style: TextStyle(
                 color: Colors.white, fontFamily: 'poppins', fontSize: 25)),
       );
+
 
   Widget ErrorWidget() => Text(
         error,
