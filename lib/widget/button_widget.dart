@@ -16,15 +16,16 @@ class ButtonWidget extends StatelessWidget {
           primary: Color(0xFF5DCAD1),
           minimumSize: Size.fromHeight(50),
           shape: new RoundedRectangleBorder(
-               borderRadius: new BorderRadius.circular(10.0),
-              ),
+            borderRadius: new BorderRadius.circular(5.0),
+          ),
         ),
-
         child: FittedBox(
           child: Text(
             text,
-            style: TextStyle(fontSize: 20, color: Colors.white,
-            decoration: TextDecoration.underline),
+            style: TextStyle(
+                fontSize: 20,
+                color: Colors.white,
+                decoration: TextDecoration.underline),
           ),
         ),
         onPressed: onClicked,

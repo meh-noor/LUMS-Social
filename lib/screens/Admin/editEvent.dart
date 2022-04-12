@@ -1,11 +1,10 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 // import 'package:flutter_tags/flutter_tags.dart';
 // import 'package:lums_social_app2/screens/Admin/hashtags.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:lums_social_app2/screens/Admin/adminDashboard.dart';
-import 'package:lums_social_app2/screens/home/home.dart';
 import 'package:lums_social_app2/services/addToCollection.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -24,6 +23,11 @@ class upload {
   }
 }
 
+class EditEvent extends StatefulWidget {
+  @override
+  State<EditEvent> createState() => _EditEventState();
+}
+
 String? title;
 String? loc;
 String? organiser;
@@ -32,15 +36,31 @@ DateTime? start_date;
 DateTime? start_time;
 String? image;
 String? event_type;
+String uid = 'abcdefghij12';
 
-class AddEvent extends StatefulWidget {
-  @override
-  State<AddEvent> createState() => _AddEventState();
-}
+List eventData = [];
 
-class _AddEventState extends State<AddEvent> {
+class _EditEventState extends State<EditEvent> {
   String email = '';
   final imageFile = upload();
+
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  fetchData() async {
+    dynamic resultant = await addCollection().getEventDatat();
+    if (resultant == null) {
+      print("UNable to get");
+    } else {
+      setState(() {
+        eventData = resultant;
+        // print(eventData[0].title);
+      });
+    }
+  }
 
   // List tags = new List(5);
   final _formKey = GlobalKey<FormBuilderState>();
@@ -111,27 +131,52 @@ class _AddEventState extends State<AddEvent> {
                       child: Padding(
                           padding: const EdgeInsets.only(
                               left: 30.0, right: 15.0, bottom: 4.0, top: 8.0),
-                          child: ButtonWidget(
-                            text: 'Upload',
-                            onClicked: () =>
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: Color(0xFF5DCAD1),
+                              minimumSize: Size.fromHeight(30),
+                              shape: new RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(5.0),
+                              ),
+                            ),
+                            child: FittedBox(
+                              child: Text(
+                                'Upload',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                    decoration: TextDecoration.underline),
+                              ),
+                            ),
+                            onPressed: () =>
                                 imageFile.uploadImageToFirebase(context),
                           ))),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 15.0, right: 15.0, bottom: 4.0, top: 8.0),
-                child: AddButton(),
+              Row(
+                children: [
+                  Expanded(
+                      child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 15.0, right: 15.0, bottom: 15.0, top: 8.0),
+                          child: EditButton())),
+                  Expanded(
+                      child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: 30.0, right: 15.0, bottom: 15.0, top: 8.0),
+                    child: deleteButton(),
+                  )),
+                ],
               ),
               const SizedBox(height: 10),
             ]),
-          ))
+          )),
         ]));
   }
 }
 
 Widget blueDecor() => Image(
-      image: AssetImage('images/background.png'),
+      image: AssetImage('images/editbackground.png'),
       fit: BoxFit.cover,
       height: 250,
       width: 600,
@@ -150,6 +195,7 @@ Widget subText() => Text(
 
 Widget nameField() => FormBuilderTextField(
       name: 'title',
+      initialValue: "Test Title",
       decoration: InputDecoration(
           hintText: "Enter Event Name",
           border: OutlineInputBorder(),
@@ -216,8 +262,8 @@ Widget DateField() => FormBuilderDateTimePicker(
 
 Widget TimeField() => FormBuilderDateTimePicker(
       name: 'time',
-      initialValue: DateTime.now(),
-      initialTime: TimeOfDay(hour: 8, minute: 0),
+      // initialValue: DateTime.now(),
+      // initialTime: TimeOfDay(hour: 8, minute: 0),
       fieldHintText: "Add Date",
       inputType: InputType.time,
       initialDate: DateTime.now(),
@@ -243,14 +289,9 @@ Widget FilterCategory() => FormBuilderChoiceChip(
           labelText: 'Select an option', labelStyle: TextStyle(fontSize: 22)),
       labelPadding: EdgeInsets.all(2.0),
       options: [
-        FormBuilderFieldOption(value: 'Academic', child: Text('Academic')),
-        FormBuilderFieldOption(
-            value: 'Non-Academic', child: Text('Non-Academic')),
+        FormBuilderFieldOption(value: 'Test', child: Text('Academic')),
+        FormBuilderFieldOption(value: 'Test 1', child: Text('Non-Academic')),
       ],
-      onChanged: (val) => {
-        event_type = val.toString()
-        // print(val.toString())
-      },
     );
 //
 Widget AddImage() => Row(
@@ -269,7 +310,7 @@ Widget AddImage() => Row(
             )),
       ],
     );
-Widget AddButton() => ElevatedButton(
+Widget EditButton() => ElevatedButton(
       style: ElevatedButton.styleFrom(
         primary: Color(0xFF5DCAD1),
         minimumSize: Size.fromHeight(40),
@@ -279,23 +320,32 @@ Widget AddButton() => ElevatedButton(
       ),
       child: FittedBox(
         child: Text(
-          'Add Event',
+          'Update',
           style: TextStyle(
               fontSize: 20,
               color: Colors.white,
               decoration: TextDecoration.underline),
         ),
       ),
-      onPressed: () async {
-        if (title!.isNotEmpty &&
-            organiser!.isNotEmpty &&
-            loc!.isNotEmpty &&
-            description!.isNotEmpty &&
-            event_type!.isNotEmpty) {
-          print(title);
-          print(title!.isNotEmpty);
-          addCollection().addEvent(title, organiser, loc, description,
-              start_date, start_time, event_type, "abcdefghij12");
-        }
-      },
+      onPressed: () async {},
+    );
+
+Widget deleteButton() => ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        primary: Colors.red,
+        minimumSize: Size.fromHeight(40),
+        shape: new RoundedRectangleBorder(
+          borderRadius: new BorderRadius.circular(5.0),
+        ),
+      ),
+      child: FittedBox(
+        child: Text(
+          'Delete',
+          style: TextStyle(
+              fontSize: 20,
+              color: Colors.white,
+              decoration: TextDecoration.underline),
+        ),
+      ),
+      onPressed: () async {},
     );
