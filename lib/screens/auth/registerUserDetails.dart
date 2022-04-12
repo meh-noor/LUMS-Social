@@ -84,6 +84,7 @@ class _RegisterStateDetails extends State<RegisterDetails> {
       text: 'Next',
       onClicked: ()  {
         Navigator.push(
+          
         context,
         MaterialPageRoute(builder: (context) => Home()));
       });
@@ -151,12 +152,14 @@ class _RegisterStateDetails extends State<RegisterDetails> {
       style: const TextStyle(fontSize: 16),
 
     )
+    
   );
 
   Widget schoolTextBox() => 
   Container(
     color: Colors.white,
-  child:SizedBox
+  child:Form(
+    child: SizedBox
     (
       width:380,
     child: DropdownButtonFormField<String> 
@@ -174,9 +177,14 @@ class _RegisterStateDetails extends State<RegisterDetails> {
       
       icon: const Icon(Icons.arrow_drop_down, color:Colors.black),
       items: schoolList.map(buildMenu).toList(),
+      
+      validator: (val) => val!.isEmpty ? 'Enter School' : null,
+      
+     
       onChanged:(value) => setState(()=> this.value = value),
+      
     )
-    ));
+    )));
   
   Widget graduatingYearTextBox() => 
   Container(
