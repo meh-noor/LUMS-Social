@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lums_social_app2/services/auth.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:lums_social_app2/screens/settings/editmainProfile.dart';
 
 
 class EditSchool extends StatefulWidget 
@@ -13,11 +14,22 @@ class EditSchool extends StatefulWidget
 
 class _EditSchoolState extends State<EditSchool> 
 {
-  final AuthService _auth = AuthService();
-
+  late TextEditingController _controller;
+  final items = 
+  [ 'MGHSS', 'SAHSOL', 'SDSB' , 'SOE',  'SSE'];
+  String? value;
+  //final AuthService _auth = AuthService();
+  @override
+  void initState() 
+  {
+    //******************* FETCH School  *********************/
+    _controller = TextEditingController(text: 'SSE');
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) 
   {
+    
     return Container(
       decoration: const BoxDecoration
       (
@@ -56,17 +68,36 @@ class _EditSchoolState extends State<EditSchool>
                       Padding
                         (
                             padding: const EdgeInsets.fromLTRB(20, 40, 20, 20),
-                            child:currentSchool()
+                            child:currentSchool(_controller)
                         ),
                         Padding
                         (
                             padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-                            child:newSchool()
+                            child:SizedBox
+                            (
+                              width:380,
+                            child: DropdownButtonFormField<String> 
+                            (
+                              menuMaxHeight: 150,
+
+                              decoration: const InputDecoration
+                              (labelText: 'New school',
+                                border: OutlineInputBorder(),
+                                contentPadding: EdgeInsets.only(left: 15.0)),
+                              //value:value,
+                              isExpanded: true,
+                              isDense: false,
+                              icon: const Icon(Icons.arrow_drop_down, color:Colors.black),
+                              items: items.map(buildMenu).toList(),
+                              //********************* STORE VALUE **********************/
+                              onChanged:(value) => setState(()=> this.value = value),
+                            )
+                            )
                         ),
                         Padding
                         (
                             padding: const EdgeInsets.fromLTRB(250, 20, 30, 20),
-                            child: updateButton()
+                            child: updateButton(context)
                         ),
                     ],
                     )
@@ -78,6 +109,17 @@ class _EditSchoolState extends State<EditSchool>
     );
   }
 }
+DropdownMenuItem<String> buildMenu (String item)=>DropdownMenuItem
+(
+  value: item, 
+  child: Text
+  (
+    item,
+    style: const TextStyle(fontSize: 16),
+
+  )
+);
+
 
 Widget title() => Container
 (
@@ -87,13 +129,7 @@ Widget title() => Container
         style: TextStyle(fontSize: 30, color: Color(0xFF0e1337), fontFamily: 'Poppins',  fontWeight: FontWeight.w500),)  
 );
 
-// Widget settingTitle() => Container
-// (
-//     //alignment: Alignment.topCenter,
-//     padding: const EdgeInsets.fromLTRB(60, 120, 60, 0),
-//     child:const Text("Update Name",
-//         style: TextStyle(fontSize: 22, color: Color(0xFF0e1337), fontFamily: 'Poppins',  fontWeight: FontWeight.w500),)  
-// );
+
 
 Widget settingTitle() => Row
 (
@@ -126,35 +162,27 @@ Widget instructions() => Container
         style: TextStyle(fontSize: 14, color: Colors.black, fontFamily: 'Poppins'),)  
 );
 
-Widget currentSchool() => SizedBox
+Widget currentSchool(_controller) =>  SizedBox
 (
   width: 380,
-    child: FormBuilderTextField(
-      name: 'title',
-      decoration: const InputDecoration
-      (
-          labelText: "Current school",
-          border: OutlineInputBorder(),
-          contentPadding: EdgeInsets.only(left: 15.0)
-      ),
-    )
+  child: TextField
+  (
+    readOnly: false,
+    enabled: false,
+    controller: _controller,
+
+    decoration: const InputDecoration
+    (
+        labelText: "Current school",
+        border: OutlineInputBorder(),
+        contentPadding: EdgeInsets.only(left: 15.0),
+        //readOnly: true
+    ),
+  )
 );
 
-Widget newSchool() => SizedBox
-(
-  width: 380,
-    child: FormBuilderTextField(
-      name: 'title',
-      decoration: const InputDecoration
-      (
-          labelText: "New school",
-          border: OutlineInputBorder(),
-          contentPadding: EdgeInsets.only(left: 15.0)
-      ),
-    )
-);
 
-Widget updateButton() => ElevatedButton
+Widget updateButton(context) => ElevatedButton
 (
     style: ElevatedButton.styleFrom(
       primary: const Color(0xFF5DCAD1),
@@ -169,5 +197,15 @@ Widget updateButton() => ElevatedButton
       style: TextStyle(fontSize: 18, color: Colors.white, decoration: TextDecoration.underline),
       ),
     ),
-    onPressed: () async {},
+    onPressed: () async 
+    {var async;
+      async; 
+      {
+        Navigator.push
+        (
+          context,
+          MaterialPageRoute(builder: (context) => const EditProfile())
+        );
+      }
+    }
 );

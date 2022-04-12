@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lums_social_app2/services/auth.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:lums_social_app2/screens/settings/editmainProfile.dart';
+
 
 
 class EditName extends StatefulWidget 
@@ -13,7 +15,17 @@ class EditName extends StatefulWidget
 
 class _EditNameState extends State<EditName> 
 {
+  late TextEditingController _controller;
+
   final AuthService _auth = AuthService();
+
+   @override
+  void initState() 
+  {
+    //******************* FETCH School  *********************/
+    _controller = TextEditingController(text: 'Bismah Najeeb');
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) 
@@ -56,7 +68,7 @@ class _EditNameState extends State<EditName>
                       Padding
                         (
                             padding: const EdgeInsets.fromLTRB(20, 40, 20, 20),
-                            child:currentName()
+                            child:currentName(_controller)
                         ),
                         Padding
                         (
@@ -66,7 +78,7 @@ class _EditNameState extends State<EditName>
                         Padding
                         (
                             padding: const EdgeInsets.fromLTRB(250, 20, 30, 20),
-                            child: updateButton()
+                            child: updateButton(context)
                         ),
                     ],
                     )
@@ -87,13 +99,7 @@ Widget title() => Container
         style: TextStyle(fontSize: 30, color: Color(0xFF0e1337), fontFamily: 'Poppins',  fontWeight: FontWeight.w500),)  
 );
 
-// Widget settingTitle() => Container
-// (
-//     //alignment: Alignment.topCenter,
-//     padding: const EdgeInsets.fromLTRB(60, 120, 60, 0),
-//     child:const Text("Update Name",
-//         style: TextStyle(fontSize: 22, color: Color(0xFF0e1337), fontFamily: 'Poppins',  fontWeight: FontWeight.w500),)  
-// );
+
 
 Widget settingTitle() => Row
 (
@@ -126,18 +132,23 @@ Widget instructions() => Container
         style: TextStyle(fontSize: 14, color: Colors.black, fontFamily: 'Poppins'),)  
 );
 
-Widget currentName() => SizedBox
+Widget currentName(_controller) =>  SizedBox
 (
   width: 380,
-    child: FormBuilderTextField(
-      name: 'title',
-      decoration: const InputDecoration
-      (
-          labelText: "Current name",
-          border: OutlineInputBorder(),
-          contentPadding: EdgeInsets.only(left: 15.0)
-      ),
-    )
+  child: TextField
+  (
+    readOnly: false,
+    enabled: false,
+    controller: _controller,
+
+    decoration: const InputDecoration
+    (
+        labelText: "Current name",
+        border: OutlineInputBorder(),
+        contentPadding: EdgeInsets.only(left: 15.0),
+        //readOnly: true
+    ),
+  )
 );
 
 Widget newName() => SizedBox
@@ -154,7 +165,7 @@ Widget newName() => SizedBox
     )
 );
 
-Widget updateButton() => ElevatedButton
+Widget updateButton(context) => ElevatedButton
 (
     style: ElevatedButton.styleFrom(
       primary: const Color(0xFF5DCAD1),
@@ -169,5 +180,14 @@ Widget updateButton() => ElevatedButton
       style: TextStyle(fontSize: 18, color: Colors.white, decoration: TextDecoration.underline),
       ),
     ),
-    onPressed: () async {},
+    onPressed: () async{var async;
+      async; 
+      {
+        Navigator.push
+        (
+          context,
+          MaterialPageRoute(builder: (context) => const EditProfile())
+        );
+      }
+    },
 );
