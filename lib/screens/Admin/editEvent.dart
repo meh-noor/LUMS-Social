@@ -176,7 +176,7 @@ class _EditEventState extends State<EditEvent> {
 }
 
 Widget blueDecor() => Image(
-      image: AssetImage('images/background.png'),
+      image: AssetImage('images/editbackground.png'),
       fit: BoxFit.cover,
       height: 250,
       width: 600,

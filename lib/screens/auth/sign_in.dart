@@ -123,7 +123,7 @@ class _SignInState extends State<SignIn> {
       onClicked: () async {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => EditEvent()),
+          MaterialPageRoute(builder: (context) => admin()),
         );
       });
 
