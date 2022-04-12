@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lums_social_app2/screens/news/addNews.dart';
+import 'package:lums_social_app2/screens/news/noNews.dart';
 import 'package:lums_social_app2/screens/Admin/addEvent.dart';
 import 'package:lums_social_app2/screens/auth/forget_password.dart';
 import 'package:lums_social_app2/screens/Admin/editEvent.dart';
@@ -6,6 +8,12 @@ import 'package:lums_social_app2/services/auth.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
 import 'package:lums_social_app2/screens/news/newsButton.dart';
 import 'package:lums_social_app2/screens/Admin/adminDashboard.dart';
+import 'package:lums_social_app2/screens/Admin/addEvent.dart';
+import 'package:lums_social_app2/screens/settings/editmainProfile.dart';
+
+import '../news/editdeleteNews.dart';
+// import 'package:lums_social_app2/widget/email_field_widget.dart';
+// import 'package:lums_social_app2/widget/password_field_widget.dart';
 // import 'package:lums_social_app2/screens/Admin/hashtags.dart';
 
 class SignIn extends StatefulWidget {
@@ -81,6 +89,32 @@ class _SignInState extends State<SignIn> {
                 color: Colors.white, fontFamily: 'poppins', fontSize: 25)),
       );
 
+  //       onClicked: () async {
+  //         // Navigator.push(
+  //         //   context,
+  //         //   MaterialPageRoute(builder: (context) => adminDashboard()),
+  //         // );
+  //         if (_formkey.currentState!.validate()) {
+  //           dynamic result =
+  //               await _auth.signInWithEmailAndPassword(email, password);
+  //           if (result == null) {
+  //             // email error message
+  //             setState(() {
+  //               error = 'Could not sign in with those credentials';
+  //             });
+  //           }
+  //         }
+  //       },
+  //     );
+  // Widget buildButton() => ButtonWidget(
+  //     //  0xFF5DCAD1
+  //     text: 'Test Button',
+  //     onClicked: () async {
+  //       Navigator.push(
+  //         context,
+  //         MaterialPageRoute(builder: (context) => const EditProfile()),
+  //       );
+  //     });
 
   Widget ErrorWidget() => Text(
         error,

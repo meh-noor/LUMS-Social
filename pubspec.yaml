@@ -41,9 +41,12 @@ dependencies:
   provider: ^6.0.2
   table_calendar: ^3.0.5
   flutter_form_builder: ^7.1.1
-  # flutter_tags: ^0.4.9+1
-  flutter_typeahead: 
   image_picker: ^0.8.5
+
+
+  # flutter_tags: ^0.4.9+1
+  # flutter_typeahead: 
+  # image_picker: ^0.8.5
   # firebase_storage: ^3.0.8
   # firebase_analytics: ^5.0.6
 
@@ -75,7 +78,8 @@ flutter:
     - images/finallogo.png
     - images/dummyImage.jpg
     - images/editImage.png
-    - images/
+    - images/newsBG.png
+    - images/calender.png
     # - images/Ellipse12.png
   #   - images/a_dot_ham.jpeg
 
