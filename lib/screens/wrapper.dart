@@ -1,5 +1,4 @@
 import 'dart:ffi';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lums_social_app2/models/user.dart';
@@ -15,7 +14,7 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = Provider.of<MyUser?>(context);
 
-    print('now print use');
+    print('now print user in wrapper');
     print(user);
     // // return either Home or Authenticate Widget
     // bool temp = true;

@@ -54,7 +54,6 @@ class _SignInState extends State<SignIn> {
                 const SizedBox(height: 10),
                 buildForgotPassword(),
                 buildButton(),
-                bismahTestButton(),
                 const SizedBox(height: 20),
                 ErrorWidget(),
                 const SizedBox(height: 100),
@@ -88,15 +87,6 @@ class _SignInState extends State<SignIn> {
             style: TextStyle(
                 color: Colors.white, fontFamily: 'poppins', fontSize: 25)),
       );
-  Widget bismahTestButton() => ButtonWidget(
-      //  0xFF5DCAD1
-      text: 'Test Button',
-      onClicked: () async {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const EditProfile()),
-        );
-      });
 
   Widget ErrorWidget() => Text(
         error,
