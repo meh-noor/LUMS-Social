@@ -35,7 +35,7 @@ class _newsButtonState extends State<newsButton>
               [
                 title(),
                 date(),
-                time(),
+                //time(),
                 image(),
                 text(),
                 author(),
@@ -50,7 +50,7 @@ class _newsButtonState extends State<newsButton>
     );
   }
 }
-// FETCH TITLE
+// ********************************** FETCH HEADLINE **********************************
 Widget title() => Container
 (
     alignment: Alignment.topLeft,
@@ -59,7 +59,7 @@ Widget title() => Container
         style: TextStyle(fontSize: 25, color: Color(0xFF5DCAD1), fontWeight: FontWeight.bold, fontFamily: 'Poppins'),)  
 );
 
-// FETCH DATE
+// ********************************** FETCH DATE **********************************
 Widget date() => Container
 (
     alignment: Alignment.topLeft,
@@ -68,16 +68,16 @@ Widget date() => Container
         style: TextStyle(fontSize: 14, color: Color(0xffA19F9F), fontFamily: 'Poppins'),)  
 );
 
-// FETCH TIME
-Widget time() => Container
-(
-    alignment: Alignment.topLeft,
-    padding: const EdgeInsets.fromLTRB(35, 0, 0, 20),
-    child:const Text("11:10 AM",
-        style: TextStyle(fontSize: 14, color: Color(0xffA19F9F), fontFamily: 'Poppins'),)  
-);
+// // FETCH TIME
+// Widget time() => Container
+// (
+//     alignment: Alignment.topLeft,
+//     padding: const EdgeInsets.fromLTRB(35, 0, 0, 20),
+//     child:const Text("11:10 AM",
+//         style: TextStyle(fontSize: 14, color: Color(0xffA19F9F), fontFamily: 'Poppins'),)  
+// );
 
-// FETCH IMAGE
+// ********************************** FETCH IMAGE **********************************
 Widget image() => Container
 (
   alignment: Alignment.topLeft,
@@ -94,7 +94,7 @@ Widget image() => Container
 );
 
 
-// FETCH TEXT
+// ********************************** FETCH NEWS DESC **********************************
 Widget text() => Container
 (
     alignment: Alignment.topLeft,
@@ -111,6 +111,7 @@ Widget author() => Container
         style: TextStyle(fontSize: 14, color: Color(0xffA19F9F), fontFamily: 'Poppins'),)  
 );
 
+// ********************************** FETCH AUTHOR **********************************
 Widget authorName() => Container
 (
     alignment: Alignment.topLeft,

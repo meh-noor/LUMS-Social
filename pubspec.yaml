@@ -46,6 +46,8 @@ dependencies:
   # firebase_storage: ^3.0.8
   # firebase_analytics: ^5.0.6
 
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -74,7 +76,8 @@ flutter:
     - images/finallogo.png
     - images/dummyImage.jpg
     - images/editImage.png
-    - images/
+    - images/newsBG.png
+    - images/calender.png
     # - images/Ellipse12.png
   #   - images/a_dot_ham.jpeg
 
