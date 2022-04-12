@@ -3,6 +3,11 @@ import 'package:lums_social_app2/services/auth.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:lums_social_app2/screens/settings/editNameS.dart';
 import 'package:lums_social_app2/screens/settings/editSchoolS.dart';
+import 'package:lums_social_app2/screens/settings/editMajorS.dart';
+import 'package:lums_social_app2/screens/settings/editYearS.dart';
+
+
+
 
 class EditProfile extends StatefulWidget 
 {
@@ -68,12 +73,12 @@ class _EditProfileState extends State<EditProfile>
                       Padding
                       (
                           padding: const EdgeInsets.fromLTRB(40, 0, 0, 35),
-                          child:editMajor()
+                          child:editMajor(context)
                       ),
                       Padding
                       (
                           padding: const EdgeInsets.fromLTRB(40, 0, 0, 0),
-                          child:editYear()
+                          child:editYear(context)
                       ),
                     ],
                     )
@@ -251,7 +256,7 @@ Widget displayEmail() => Row
     ],
   );
 
-Widget editMajor() => Row
+Widget editMajor(context) => Row
 (
     //mainAxisAlignment: MainAxisAlignment.start,
     children: <Widget>
@@ -288,7 +293,13 @@ Widget editMajor() => Row
           padding: const EdgeInsets.fromLTRB(0, 0, 40, 0),
           child: IconButton
           (
-            onPressed: () {}, 
+            onPressed: () {  var async;
+              async; {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const EditMajor()),
+        );
+      } } , 
             icon: const Icon
             (
               Icons.navigate_next, size: 40, color: Colors.black,
@@ -299,7 +310,7 @@ Widget editMajor() => Row
     ],
   );
 
-  Widget editYear() => Row
+  Widget editYear(context) => Row
 (
     //mainAxisAlignment: MainAxisAlignment.start,
     children: <Widget>
@@ -336,7 +347,13 @@ Widget editMajor() => Row
           padding: const EdgeInsets.fromLTRB(0, 0, 40, 0),
           child: IconButton
           (
-            onPressed: () {}, 
+            onPressed: ()  {  var async;
+              async; {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const EditYear()),
+        );
+      } } , 
             icon: const Icon
             (
               Icons.navigate_next, size: 40, color: Colors.black,
