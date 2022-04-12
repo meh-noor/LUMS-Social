@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lums_social_app2/screens/auth/forgetPasswordRedirect.dart';
+import 'package:lums_social_app2/screens/auth/sign_in.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
 import 'package:lums_social_app2/services/auth.dart';
 
@@ -112,6 +114,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             } else {
               error = '';
               widget.toggleView2();
+              // Navigator.push(
+              // context,
+              // MaterialPageRoute(builder: (context) => forgetPasswordRedirect(myEmail: email, toggleView: widget.toggleView, toggleView2: widget.toggleView2,)));
               print('reached here');
             }
           }
