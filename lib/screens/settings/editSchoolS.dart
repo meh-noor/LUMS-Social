@@ -3,15 +3,15 @@ import 'package:lums_social_app2/services/auth.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 
-class EditName extends StatefulWidget 
+class EditSchool extends StatefulWidget 
 {
-  const EditName({Key? key}) : super(key: key);
+  const EditSchool({Key? key}) : super(key: key);
 
   @override
-  State<EditName> createState() => _EditNameState();
+  State<EditSchool> createState() => _EditSchoolState();
 }
 
-class _EditNameState extends State<EditName> 
+class _EditSchoolState extends State<EditSchool> 
 {
   final AuthService _auth = AuthService();
 
@@ -56,12 +56,12 @@ class _EditNameState extends State<EditName>
                       Padding
                         (
                             padding: const EdgeInsets.fromLTRB(20, 40, 20, 20),
-                            child:currentName()
+                            child:currentSchool()
                         ),
                         Padding
                         (
                             padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-                            child:newName()
+                            child:newSchool()
                         ),
                         Padding
                         (
@@ -109,7 +109,7 @@ Widget settingTitle() => Row
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const <Widget>
             [
-              Text("Update Name",
+              Text("Update School",
               style: TextStyle(fontSize: 22, color: Color(0xFF0e1337), fontFamily: 'Poppins',  fontWeight: FontWeight.w500),)  
             ],
           ),
@@ -122,32 +122,32 @@ Widget instructions() => Container
 (
     alignment: Alignment.topLeft,
     padding: const EdgeInsets.fromLTRB(80, 20, 80, 10),
-    child:const Text("Enter current name of profile and revised new name of choice.", 	textAlign: TextAlign.center,
+    child:const Text("Enter current school and revised new school.", 	textAlign: TextAlign.center,
         style: TextStyle(fontSize: 14, color: Colors.black, fontFamily: 'Poppins'),)  
 );
 
-Widget currentName() => SizedBox
+Widget currentSchool() => SizedBox
 (
   width: 380,
     child: FormBuilderTextField(
       name: 'title',
       decoration: const InputDecoration
       (
-          labelText: "Current name",
+          labelText: "Current school",
           border: OutlineInputBorder(),
           contentPadding: EdgeInsets.only(left: 15.0)
       ),
     )
 );
 
-Widget newName() => SizedBox
+Widget newSchool() => SizedBox
 (
   width: 380,
     child: FormBuilderTextField(
       name: 'title',
       decoration: const InputDecoration
       (
-          labelText: "New name",
+          labelText: "New school",
           border: OutlineInputBorder(),
           contentPadding: EdgeInsets.only(left: 15.0)
       ),

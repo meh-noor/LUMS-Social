@@ -151,7 +151,7 @@ Widget newsHeadline() => SizedBox
       name: 'title',
       decoration: const InputDecoration
       (
-          hintText: "Enter News Headline",
+          labelText: "Enter News Headline",
           border: OutlineInputBorder(),
            contentPadding: EdgeInsets.only(left: 15.0)
       ),
@@ -167,7 +167,7 @@ Widget newsAuthor() => SizedBox
       name: 'title',
       decoration: const InputDecoration
       (
-          hintText: "Enter Name of Author",
+          labelText: "Enter Name of Author",
           border: OutlineInputBorder(),
           contentPadding: EdgeInsets.only(left: 15.0)
       ),
@@ -183,7 +183,7 @@ Widget newsDesc() => SizedBox
       name: 'title',
       decoration: const InputDecoration
       (
-          hintText: "Add description",
+          labelText: "Add description",
           border: OutlineInputBorder(),
           //contentPadding: const EdgeInsets.only(left: 15.0)
           contentPadding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 15.0),
