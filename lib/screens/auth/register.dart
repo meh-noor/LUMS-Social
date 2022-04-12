@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lums_social_app2/screens/auth/registerUserDetails.dart';
+import 'package:lums_social_app2/screens/auth/sign_in.dart';
 import 'package:lums_social_app2/services/auth.dart';
 import 'package:lums_social_app2/widget/next_button.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
@@ -6,8 +8,8 @@ import 'package:lums_social_app2/widget/button_widget.dart';
 class Register extends StatefulWidget {
   // const Register({Key? key}) : super(key: key);
 
-  final Function toggleView;
-  Register({required this.toggleView});
+  // final Function toggleView;
+  // Register({required this.toggleView});
   @override
   State<Register> createState() => _RegisterState();
 }
@@ -75,6 +77,7 @@ class _RegisterState extends State<Register> {
               error = 'Please enter a valid email';
             });
           }
+          
         }
       });
 
@@ -208,7 +211,13 @@ class _RegisterState extends State<Register> {
               style: TextStyle(decoration: TextDecoration.underline),
             ),
             onPressed: () {
-              widget.toggleView();
+              // widget.toggleView();
+           
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => SignIn()));
+
+
             },
             style: TextButton.styleFrom(
               primary: const Color(0xFFFFFFFF),

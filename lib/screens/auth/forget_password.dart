@@ -9,9 +9,9 @@ class ForgotPassword extends StatefulWidget {
   // us navigate between forgot password and sign in screen.
   // final Function toggleView;
 
-  final Function toggleView2;
-  final Function toggleView;
-  const ForgotPassword({required this.toggleView, required this.toggleView2});
+  // final Function toggleView2;
+  // final Function toggleView;
+  // const ForgotPassword({required this.toggleView, required this.toggleView2});
 
   @override
   State<ForgotPassword> createState() => _ForgotPasswordState();
@@ -113,10 +113,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               });
             } else {
               error = '';
-              widget.toggleView2();
-              // Navigator.push(
-              // context,
-              // MaterialPageRoute(builder: (context) => forgetPasswordRedirect(myEmail: email, toggleView: widget.toggleView, toggleView2: widget.toggleView2,)));
+              // widget.toggleView2();
+              Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => forgetPasswordRedirect(myEmail: email)));
               print('reached here');
             }
           }
@@ -150,7 +150,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             style: TextStyle(decoration: TextDecoration.underline),
           ),
           onPressed: () {
-            return widget.toggleView2();
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => SignIn()));
+            // return widget.toggleView2();
           },
           style: TextButton.styleFrom(
             primary: const Color(0xFFFFFFFF),

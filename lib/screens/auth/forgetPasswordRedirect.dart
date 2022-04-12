@@ -7,16 +7,16 @@ import 'package:lums_social_app2/services/auth.dart';
 class forgetPasswordRedirect extends StatefulWidget {
   // here toggleView2 is a new toggleView function which will help
   // us navigate between forgot password and sign in screen.
-  final Function toggleView;
+  // final Function toggleView;
 
-  final Function toggleView2;
+  // final Function toggleView2;
   // final Function toggleView;
 
   String ? myEmail;
 
-  forgetPasswordRedirect({required this.myEmail,required this.toggleView, required this.toggleView2});
+  // forgetPasswordRedirect({required this.myEmail,required this.toggleView, required this.toggleView2});
 
-  // forgetPasswordRedirect({required this.myEmail});
+  forgetPasswordRedirect({required this.myEmail});
   
   // const SignIn({required this.toggleView, required this.toggleView2});
   @override
@@ -110,8 +110,9 @@ class _ForgotPasswordStateRedirect extends State<forgetPasswordRedirect> {
   Widget buildButton() => ButtonWidget(
         text: 'Login',
         onClicked: () async {
-
-              return widget.toggleView();
+              Navigator.push(
+              context,
+            MaterialPageRoute(builder: (context) => SignIn()));
             }
       );
 
@@ -126,10 +127,12 @@ class _ForgotPasswordStateRedirect extends State<forgetPasswordRedirect> {
               style: TextStyle(decoration: TextDecoration.underline),
             ),
             onPressed: () {
-              // Navigator.push(
-              // context,
-              // MaterialPageRoute(builder: (context) => ForgotPassword()));
-              return widget.toggleView2();
+              
+              // return widget.toggleView2();
+              Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ForgotPassword()));
+
 
             },
             style: TextButton.styleFrom(

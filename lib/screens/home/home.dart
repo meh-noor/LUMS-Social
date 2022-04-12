@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lums_social_app2/screens/settings/editmainProfile.dart';
+import 'package:lums_social_app2/models/user.dart';
+import 'package:lums_social_app2/screens/auth/sign_in.dart';
 import 'package:lums_social_app2/services/auth.dart';
+import 'package:provider/provider.dart';
 
 import '../../widget/button_widget.dart';
 
@@ -11,6 +14,10 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<MyUser?>(context);
+    print("reacherrrrrrrr");
+    print(user);
+
     return Scaffold(
       backgroundColor: Colors.purple,
       appBar: AppBar(
@@ -21,6 +28,8 @@ class Home extends StatelessWidget {
           TextButton.icon(
               onPressed: () async {
                 await _auth.signOut();
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => SignIn()));
               },
               icon: const Icon(Icons.person),
               label: const Text('Logout'))

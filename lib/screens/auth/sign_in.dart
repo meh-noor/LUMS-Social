@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:lums_social_app2/screens/auth/forget_password.dart';
 import 'package:lums_social_app2/screens/Admin/editEvent.dart';
+import 'package:lums_social_app2/screens/auth/register.dart';
 import 'package:lums_social_app2/screens/news/addNews.dart';
 import 'package:lums_social_app2/screens/news/noNews.dart';
 import 'package:lums_social_app2/services/auth.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
 import 'package:lums_social_app2/screens/news/newsButton.dart';
 import 'package:lums_social_app2/screens/Admin/adminDashboard.dart';
+// import 'package:lums_social_app2/screens/Admin/hashtags.dart';
 import 'package:lums_social_app2/screens/Admin/hashtags.dart';
 import 'package:lums_social_app2/screens/Admin/addEvent.dart';
 import 'package:lums_social_app2/screens/settings/editmainProfile.dart';
@@ -16,9 +18,9 @@ import '../news/editdeleteNews.dart';
 // import 'package:lums_social_app2/widget/password_field_widget.dart';
 
 class SignIn extends StatefulWidget {
-  final Function toggleView;
-  final Function toggleView2;
-  const SignIn({required this.toggleView, required this.toggleView2});
+  // final Function toggleView;
+  // final Function toggleView2;
+  // const SignIn({required this.toggleView, required this.toggleView2});
 
   @override
   State<SignIn> createState() => _SignInState();
@@ -114,7 +116,11 @@ class _SignInState extends State<SignIn> {
               style: TextStyle(decoration: TextDecoration.underline),
             ),
             onPressed: () {
-              widget.toggleView();
+              // widget.toggleView();
+              Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Register()));
+
             },
             style: TextButton.styleFrom(
               primary: const Color(0xFFFFFFFF),
@@ -132,7 +138,11 @@ class _SignInState extends State<SignIn> {
             style: TextStyle(decoration: TextDecoration.underline),
           ),
           onPressed: () {
-            return widget.toggleView2();
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ForgotPassword()));
+
+            // return widget.toggleView2();
           },
           style: TextButton.styleFrom(
             primary: const Color(0xFFFFFFFF),
