@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:lums_social_app2/screens/auth/forget_password.dart';
+import 'package:lums_social_app2/screens/Admin/editEvent.dart';
 import 'package:lums_social_app2/services/auth.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
-// import 'package:lums_social_app2/widget/email_field_widget.dart';
-// import 'package:lums_social_app2/widget/password_field_widget.dart';
+import 'package:lums_social_app2/screens/news/newsButton.dart';
+import 'package:lums_social_app2/screens/Admin/adminDashboard.dart';
+import 'package:lums_social_app2/screens/Admin/hashtags.dart';
 
 class SignIn extends StatefulWidget {
   final Function toggleView;
@@ -17,9 +19,9 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   final AuthService _auth = AuthService();
   // email,password and error are common
-  String email = '';
+  String email = "";
   String password = "";
-  String error = '';
+  String error = "";
   final _formkey = GlobalKey<FormState>();
 
   @override
@@ -55,6 +57,7 @@ class _SignInState extends State<SignIn> {
       )),
     );
   }
+
 
   Widget buildButton() => ButtonWidget(
         text: 'Login',
