@@ -132,23 +132,6 @@ class _RegisterState extends State<Register> {
         // ],
       );
 
-  // Widget NextButton() => Row(
-  //       mainAxisAlignment: MainAxisAlignment.center,
-  //       children: [
-  //         TextButton(
-  //           child: Text(
-  //             'Next',
-  //             style: TextStyle(decoration: TextDecoration.underline),
-  //           ),
-  //           onPressed: () {},
-  //           style: TextButton.styleFrom(
-  //             primary: Color(0xFFFFFFFF),
-  //             // Text Color
-  //           ),
-  //         ),
-  //       ],
-  //     );
-
   Widget nameTextBox() => Container(
       width: 400,
       color: const Color(0xFFFFFFFF),
@@ -162,6 +145,8 @@ class _RegisterState extends State<Register> {
         decoration: InputDecoration(
           border: OutlineInputBorder(),
           hintText: 'Name',
+          suffixText: '*',
+          suffixStyle: TextStyle(color: Colors.red)
         ),
         autofocus: false,
         obscureText: false,
@@ -180,6 +165,8 @@ class _RegisterState extends State<Register> {
         decoration: InputDecoration(
           border: OutlineInputBorder(),
           hintText: 'Email',
+          suffixText: '*',
+          suffixStyle: TextStyle(color: Colors.red)
         ),
         autofocus: false,
         obscureText: false,
@@ -199,6 +186,8 @@ class _RegisterState extends State<Register> {
         decoration: InputDecoration(
           border: OutlineInputBorder(),
           hintText: 'Enter Password',
+          suffixText: '*',
+          suffixStyle: TextStyle(color: Colors.red)
         ),
         autofocus: false,
         obscureText: true,

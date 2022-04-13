@@ -43,7 +43,6 @@ class _ForgotPasswordStateRedirect extends State<forgetPasswordRedirect> {
             child: Column(
               children: [
                 const SizedBox(height: 130),
-
                 IconWidget(),
                 const SizedBox(height: 40),
                 textone(),
