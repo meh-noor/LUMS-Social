@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lums_social_app2/models/user.dart';
+import 'package:lums_social_app2/screens/auth/forgetPasswordRedirect.dart';
 import 'package:lums_social_app2/screens/wrapper.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:lums_social_app2/services/auth.dart';
+import 'package:lums_social_app2/splash.dart';
 import 'package:provider/provider.dart';
 import 'models/user.dart';
 
@@ -21,8 +23,10 @@ class MyApp extends StatelessWidget {
     return StreamProvider<MyUser?>.value(
       initialData: null,
       value: AuthService().user,
-      child: MaterialApp(
-        home: Wrapper(),
+      child: const MaterialApp(
+        // home: Wrapper(),
+        home: Splash(),
+        // home: forgetPasswordRedirect(myEmail:"fawaz@gmail.com"),
       ),
     );
   }

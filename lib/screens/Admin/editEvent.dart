@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 // import 'package:flutter_tags/flutter_tags.dart';
 // import 'package:lums_social_app2/screens/Admin/hashtags.dart';
+// import 'package:lums_social_app2/screens/Admin/hashtags.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lums_social_app2/screens/Admin/addEvent.dart';
 import 'package:lums_social_app2/services/addToCollection.dart';
@@ -164,6 +165,7 @@ class _EditEventState extends State<EditEvent> {
         ]));
   }
 
+<<<<<<< HEAD
   Widget blueDecor() => Image(
         image: AssetImage('images/editbackground.png'),
         fit: BoxFit.cover,
@@ -171,6 +173,15 @@ class _EditEventState extends State<EditEvent> {
         width: 600,
         alignment: Alignment.topCenter,
       );
+=======
+Widget blueDecor() => Image(
+      image: AssetImage('images/editbackground.png'),
+      fit: BoxFit.cover,
+      height: 250,
+      width: 600,
+      alignment: Alignment.topCenter,
+    );
+>>>>>>> a12ed1e8fff8e8fecbc99112cb694d014f8ddfbf
 
   Widget subText() => Text(
         'Please fill in the following details carefully to add your event.',
