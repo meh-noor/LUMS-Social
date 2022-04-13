@@ -18,10 +18,10 @@ class RegisterDetails extends StatefulWidget {
 class _RegisterStateDetails extends State<RegisterDetails> {
   final AuthService _auth = AuthService();
 
-  String email = "";
-  String password = "";
+  String ?school = "";
+  String ?major = "";
   String error = "";
-  String reEnterPassword = "";
+  String ?year = "";
   String name = "";
   final _formkey = GlobalKey<FormState>();
 
@@ -65,11 +65,12 @@ class _RegisterStateDetails extends State<RegisterDetails> {
                 // buildForgotPassword(),
                 const SizedBox(height: 20),
                 NextButton(),
-                const SizedBox(height: 10),
+                const SizedBox(height: 20),
+                ErrorWidget(),
+
                 // toggleToSignIn(),
                 const SizedBox(height: 200),
                 // NextButton(),
-                // ErrorWidget(),
               ],
             ),
           ),
@@ -83,10 +84,21 @@ class _RegisterStateDetails extends State<RegisterDetails> {
       //  0xFF5DCAD1
       text: 'Next',
       onClicked: ()  {
+        if(this.school != "" && this.major != "" && this.year != "")
+        {
+       
+        
         Navigator.push(
           
         context,
         MaterialPageRoute(builder: (context) => Home()));
+      }
+      else
+      {
+        setState(() {
+              error = 'Please enter all fields';
+            });
+      }
       });
 
   Widget ErrorWidget() => Text(
@@ -103,6 +115,8 @@ class _RegisterStateDetails extends State<RegisterDetails> {
           fit: BoxFit.fill,
         ),
       );
+
+  
 
   Widget schoolText() => Container(
         child: Text("Select School: ",
@@ -181,7 +195,7 @@ class _RegisterStateDetails extends State<RegisterDetails> {
       validator: (val) => val!.isEmpty ? 'Enter School' : null,
       
      
-      onChanged:(value) => setState(()=> this.value = value),
+      onChanged:(value) => setState(()=> this.school = value),
       
     )
     )));
@@ -212,7 +226,7 @@ class _RegisterStateDetails extends State<RegisterDetails> {
       
       icon: const Icon(Icons.arrow_drop_down, color:Colors.black),
       items: gradYear.map(buildMenu).toList(),
-      onChanged:(value) => setState(()=> this.value = value),
+      onChanged:(value) => setState(()=> this.year = value),
     )
     ));
 
@@ -242,7 +256,7 @@ class _RegisterStateDetails extends State<RegisterDetails> {
       
       icon: const Icon(Icons.arrow_drop_down, color:Colors.black),
       items: majors.map(buildMenu).toList(),
-      onChanged:(value) => setState(()=> this.value = value),
+      onChanged:(value) => setState(()=> this.major = value),
     )
     ));
 }
