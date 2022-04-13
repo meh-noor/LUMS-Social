@@ -32,6 +32,8 @@ class _SignInState extends State<SignIn> {
   String email = "";
   String password = "";
   String error = "";
+   bool _isObscure = false;
+
   final _formkey = GlobalKey<FormState>();
 
   @override
@@ -181,12 +183,24 @@ class _SignInState extends State<SignIn> {
           });
         },
         style: const TextStyle(color: Color.fromARGB(255, 2, 2, 2)),
-        decoration: const InputDecoration(
+        obscureText: _isObscure,
+        decoration: InputDecoration(
           border: OutlineInputBorder(),
           hintText: 'Password',
-          suffixIcon: Icon(Icons.lock),
+         suffixIcon: IconButton(
+          icon: Icon(
+            _isObscure ? Icons.visibility : Icons.visibility_off,
+          ),
+          onPressed: () {
+            setState(() {
+              _isObscure = !_isObscure;
+            });
+          },
         ),
-        autofocus: false,
-        obscureText: true,
+
+        ),
+        // autofocus: false,
+        // obscureText: true,
       ));
+      
 }

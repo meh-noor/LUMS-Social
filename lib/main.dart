@@ -27,8 +27,8 @@ class MyApp extends StatelessWidget {
       value: AuthService().user,
       child:  MaterialApp(
         // home: Wrapper(),
-        // home: Splash(),
-        home: RegisterDetails(),
+        home: Splash(),
+        // home: RegisterDetails(),
         // home: forgetPasswordRedirect(myEmail:"fawaz@gmail.com"),
       ),
     );
