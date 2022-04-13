@@ -78,6 +78,8 @@ flutter:
     - images/editImage.png
     - images/newsBG.png
     - images/calender.png
+    - images/EmailOpen.png
+    - images/Tune.png
     # - images/Ellipse12.png
   #   - images/a_dot_ham.jpeg
 

@@ -42,8 +42,10 @@ class _ForgotPasswordStateRedirect extends State<forgetPasswordRedirect> {
           child: AutofillGroup(
             child: Column(
               children: [
+                const SizedBox(height: 130),
+
                 IconWidget(),
-                const SizedBox(height: 10),
+                const SizedBox(height: 40),
                 textone(),
                 const SizedBox(height: 40),
                 texttwo(),
@@ -70,10 +72,10 @@ class _ForgotPasswordStateRedirect extends State<forgetPasswordRedirect> {
   Widget IconWidget() => Container(
         // margin: EdgeInsets.all(50.0),
         child: Image(
-          image: AssetImage('images/finallogo.png'),
+          image: AssetImage('images/EmailOpen.png'),
           // fit: BoxFit.cover,
-          width: 300,
-          height: 250,
+          // width: 500,
+          // height: 250,
         ),
       );
   
