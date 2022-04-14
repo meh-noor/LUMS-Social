@@ -5,12 +5,12 @@ import 'package:lums_social_app2/services/auth.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
 import 'package:lums_social_app2/screens/Admin/addEvent.dart';
 
-class admin extends StatefulWidget {
+class student extends StatefulWidget {
   @override
-  State<admin> createState() => _adminState();
+  State<student> createState() => _studentState();
 }
 
-class _adminState extends State<admin> {
+class _studentState extends State<student> {
   late final ValueNotifier<List<Event>> _selectedEvents;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
@@ -37,11 +37,6 @@ class _adminState extends State<admin> {
             Align(
               alignment: Alignment(-0.72, -0.1),
               child: addedEvents(),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 20.0, right: 15.0, bottom: 10.0, top: 10.0),
-              child: addButton(context),
             ),
             Padding(
               padding: const EdgeInsets.only(
@@ -126,35 +121,6 @@ class _adminState extends State<admin> {
 //             );
 //           }),
 //     );
-
-  Widget addButton(context) => Row(
-        children: [
-          Container(
-              height: 30.0,
-              width: 30.0,
-              child: FloatingActionButton(
-                  elevation: 2,
-                  backgroundColor: Color(0xFF5DCAD1),
-                  child: Icon(Icons.add),
-                  onPressed: () async {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => AddEvent()),
-                    );
-                  })),
-          Padding(
-              padding: EdgeInsets.all(5.0),
-              child: Text(
-                '   Add new event',
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  color: Colors.black,
-                  fontSize: 20,
-                  // padding: const EdgeInsets.all(15.0),
-                ),
-              )),
-        ],
-      );
 
   Widget viewCalender() => Card(
       clipBehavior: Clip.antiAlias,

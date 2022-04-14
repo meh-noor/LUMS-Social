@@ -1,11 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-// import 'package:flutter_tags/flutter_tags.dart';
-// import 'package:lums_social_app2/screens/Admin/hashtags.dart';
-// import 'package:lums_social_app2/screens/Admin/hashtags.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lums_social_app2/screens/Admin/adminDashboard.dart';
+import 'package:lums_social_app2/screens/Admin/editEvent.dart';
 import 'package:lums_social_app2/screens/home/home.dart';
 import 'package:lums_social_app2/services/addToCollection.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
@@ -122,7 +120,7 @@ class _AddEventState extends State<AddEvent> {
               Padding(
                 padding: const EdgeInsets.only(
                     left: 15.0, right: 15.0, bottom: 4.0, top: 8.0),
-                child: AddButton(),
+                child: AddButton(context),
               ),
               const SizedBox(height: 10),
             ]),
@@ -270,7 +268,7 @@ Widget AddImage() => Row(
             )),
       ],
     );
-Widget AddButton() => ElevatedButton(
+Widget AddButton(context) => ElevatedButton(
       style: ElevatedButton.styleFrom(
         primary: Color(0xFF5DCAD1),
         minimumSize: Size.fromHeight(40),
@@ -296,7 +294,11 @@ Widget AddButton() => ElevatedButton(
           print(title);
           print(title!.isNotEmpty);
           addCollection().addEvent(title, organiser, loc, description,
-              start_date, start_time, event_type, "abcdefghij12");
+              start_date, start_time, event_type, uid);
         }
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => admin()),
+        );
       },
     );
