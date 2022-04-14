@@ -1,7 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:lums_social_app2/screens/auth/register.dart';
 import 'package:lums_social_app2/services/auth.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:lums_social_app2/screens/settings/editmainProfile.dart';
+import 'package:provider/provider.dart';
+import 'package:lums_social_app2/models/user.dart';
 
 class EditName extends StatefulWidget {
   // const EditName({Key? key}) : super(key: key);
@@ -14,18 +18,20 @@ class EditName extends StatefulWidget {
 
 class _EditNameState extends State<EditName> {
   late TextEditingController _controller;
+  String? newNameInput = "";
 
   final AuthService _auth = AuthService();
 
   @override
   void initState() {
     //******************* FETCH Name  *********************/
-    _controller = TextEditingController(text: 'Bismah Najeeb');
+    _controller = TextEditingController(text: widget.myOldName);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<MyUser?>(context);
     print("My old name is");
     print(widget.myOldName);
     return Container(
@@ -56,7 +62,7 @@ class _EditNameState extends State<EditName> {
                       child: newName()),
                   Padding(
                       padding: const EdgeInsets.fromLTRB(250, 20, 30, 20),
-                      child: updateButton(context)),
+                      child: updateButton(context, user)),
                 ],
               )))
             ])));
@@ -133,9 +139,14 @@ class _EditNameState extends State<EditName> {
             labelText: "New name",
             border: OutlineInputBorder(),
             contentPadding: EdgeInsets.only(left: 15.0)),
+        onChanged: (val) {
+          setState(() {
+            newNameInput = val;
+          });
+        },
       ));
 
-  Widget updateButton(context) => ElevatedButton(
+  Widget updateButton(context, user) => ElevatedButton(
         style: ElevatedButton.styleFrom(
           primary: const Color(0xFF5DCAD1),
           minimumSize: const Size.fromHeight(45),
@@ -153,12 +164,14 @@ class _EditNameState extends State<EditName> {
           ),
         ),
         onPressed: () async {
-          var async;
-          async;
-          {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const EditProfile()));
+          if (newNameInput != null) {
+            FirebaseFirestore.instance
+                .collection('users')
+                .doc(user?.uid)
+                .update({'name': newNameInput});
           }
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const EditProfile()));
         },
       );
 }

@@ -15,8 +15,8 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<MyUser?>(context);
-    print("reacherrrrrrrr");
-    print(user);
+    // print("reacherrrrrrrr");
+    // print(user);
 
     return Scaffold(
       backgroundColor: Colors.purple,

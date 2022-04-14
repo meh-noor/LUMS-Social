@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lums_social_app2/screens/auth/forget_password.dart';
 import 'package:lums_social_app2/screens/auth/register.dart';
+import 'package:lums_social_app2/screens/wrapper.dart';
 import 'package:lums_social_app2/services/auth.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
 
@@ -63,6 +64,11 @@ class _SignInState extends State<SignIn> {
           if (_formkey.currentState!.validate()) {
             dynamic result =
                 await _auth.signInWithEmailAndPassword(email, password);
+
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Wrapper()),
+            );
             if (result == null) {
               // email error message
               setState(() {

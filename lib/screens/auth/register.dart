@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lums_social_app2/screens/auth/registerUserDetails.dart';
 import 'package:lums_social_app2/screens/auth/sign_in.dart';
+import 'package:lums_social_app2/screens/wrapper.dart';
 import 'package:lums_social_app2/services/auth.dart';
 import 'package:lums_social_app2/widget/next_button.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
@@ -62,27 +63,20 @@ class _RegisterState extends State<Register> {
     );
   }
 
-  bool getIdx()
-  {
+  bool getIdx() {
     var idx = 0;
-    if (email!=null)
-    {
+    if (email != null) {
       for (var i = 0; i < email.length; i++) {
-        if(email[i] == '@')
-        {
+        if (email[i] == '@') {
           idx = i;
         }
       }
-      if(email.substring(idx,email.length) =="@lums.edu.pk")
-      {
-        print((email.substring(idx,email.length)));
+      if (email.substring(idx, email.length) == "@lums.edu.pk") {
+        print((email.substring(idx, email.length)));
         return true;
       }
-      
     }
     return false;
-    
-    
   }
 
 // Widget mySizedBox()
@@ -93,6 +87,11 @@ class _RegisterState extends State<Register> {
         if (_formkey.currentState!.validate()) {
           dynamic result =
               await _auth.registerWithEmailAndPassword(email, password, name);
+
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => RegisterDetails()),
+          );
           // print(email);
           if (result == null) {
             // print(!getIdx());
@@ -101,7 +100,6 @@ class _RegisterState extends State<Register> {
               error = 'Please enter a valid email';
             });
           }
-          
         }
       });
 
@@ -143,11 +141,10 @@ class _RegisterState extends State<Register> {
           });
         },
         decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          hintText: 'Name',
-          suffixText: '*',
-          suffixStyle: TextStyle(color: Colors.red)
-        ),
+            border: OutlineInputBorder(),
+            hintText: 'Name',
+            suffixText: '*',
+            suffixStyle: TextStyle(color: Colors.red)),
         autofocus: false,
         obscureText: false,
       ));
@@ -163,11 +160,10 @@ class _RegisterState extends State<Register> {
           });
         },
         decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          hintText: 'Email',
-          suffixText: '*',
-          suffixStyle: TextStyle(color: Colors.red)
-        ),
+            border: OutlineInputBorder(),
+            hintText: 'Email',
+            suffixText: '*',
+            suffixStyle: TextStyle(color: Colors.red)),
         autofocus: false,
         obscureText: false,
       ));
@@ -184,11 +180,10 @@ class _RegisterState extends State<Register> {
         },
         style: TextStyle(color: Color.fromARGB(255, 2, 2, 2)),
         decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          hintText: 'Enter Password',
-          suffixText: '*',
-          suffixStyle: TextStyle(color: Colors.red)
-        ),
+            border: OutlineInputBorder(),
+            hintText: 'Enter Password',
+            suffixText: '*',
+            suffixStyle: TextStyle(color: Colors.red)),
         autofocus: false,
         obscureText: true,
       ));
@@ -225,12 +220,9 @@ class _RegisterState extends State<Register> {
             ),
             onPressed: () {
               // widget.toggleView();
-           
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => SignIn()));
 
-
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => SignIn()));
             },
             style: TextButton.styleFrom(
               primary: const Color(0xFFFFFFFF),
@@ -241,8 +233,6 @@ class _RegisterState extends State<Register> {
       );
 }
 
-mixin string {
-}
+mixin string {}
 
-class Int {
-}
+class Int {}

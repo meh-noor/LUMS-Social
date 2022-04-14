@@ -2,17 +2,9 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-// import 'package:flutter_tags/flutter_tags.dart';
-<<<<<<< HEAD
-import 'package:lums_social_app2/screens/Admin/hashtags.dart';
-=======
-// import 'package:lums_social_app2/screens/Admin/hashtags.dart';
->>>>>>> 33a0a0d3b14264cf39862aa0a4335f151a981b0b
 import 'package:image_picker/image_picker.dart';
 import 'package:lums_social_app2/services/addToCollection.dart';
-import 'package:lums_social_app2/widget/button_widget.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:image_picker/image_picker.dart';
 
 class upload {
   Future uploadImageToFirebase(BuildContext context) async {

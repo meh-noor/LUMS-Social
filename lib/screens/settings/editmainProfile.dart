@@ -19,6 +19,10 @@ class EditProfile extends StatefulWidget {
 class _EditProfileState extends State<EditProfile> {
   final AuthService _auth = AuthService();
   String name = "";
+  String school = "";
+  String major = "";
+  String year = "";
+  String email = "";
 
   @override
   Widget build(BuildContext context) {
@@ -46,16 +50,16 @@ class _EditProfileState extends State<EditProfile> {
                       child: editName(context, user)),
                   Padding(
                       padding: const EdgeInsets.fromLTRB(40, 0, 0, 35),
-                      child: displayEmail()),
+                      child: displayEmail(user)),
                   Padding(
                       padding: const EdgeInsets.fromLTRB(40, 0, 0, 35),
-                      child: editSchool(context)),
+                      child: editSchool(context, user)),
                   Padding(
                       padding: const EdgeInsets.fromLTRB(40, 0, 0, 35),
-                      child: editMajor(context)),
+                      child: editMajor(context, user)),
                   Padding(
                       padding: const EdgeInsets.fromLTRB(40, 0, 0, 0),
-                      child: editYear(context)),
+                      child: editYear(context, user)),
                 ],
               )))
             ])));
@@ -123,7 +127,7 @@ class _EditProfileState extends State<EditProfile> {
                         return Text('Loading');
                       }
                     },
-                    future: getDataName(user?.uid),
+                    future: getDataName(user?.uid, "name"),
                   ),
                 ],
               ),
@@ -133,14 +137,10 @@ class _EditProfileState extends State<EditProfile> {
               padding: const EdgeInsets.fromLTRB(0, 0, 40, 0),
               child: IconButton(
                 onPressed: () {
-                  var async;
-                  async;
-                  {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => EditName(name)),
-                    );
-                  }
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => EditName(name)),
+                  );
                 },
                 //Navigator.push(context, MaterialPageRoute(builder: (context) => const EditName()),); },
                 icon: const Icon(
@@ -152,7 +152,7 @@ class _EditProfileState extends State<EditProfile> {
         ],
       );
 
-  Widget displayEmail() => Row(
+  Widget displayEmail(user) => Row(
         //mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           const Icon(Icons.email_outlined, size: 50, color: Color(0xFF050A30)),
@@ -162,7 +162,7 @@ class _EditProfileState extends State<EditProfile> {
               padding: const EdgeInsets.only(left: 8, right: 3),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const <Widget>[
+                children: <Widget>[
                   Text(
                     'Email:',
                     style: TextStyle(
@@ -172,15 +172,25 @@ class _EditProfileState extends State<EditProfile> {
                     ),
                   ),
                   // **************************** FETCH EMAIL ***********************
-                  Text(
-                    '23100275@lums.edu.pk',
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      color: Color(0xFFA19F9F),
-                      fontSize: 18,
-                    ),
+                  FutureBuilder(
+                    builder: (context, snapshot) {
+                      if (snapshot.data != null) {
+                        email = snapshot.data.toString();
+                        return Text(
+                          snapshot.data.toString(),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            color: Color(0xFFA19F9F),
+                            fontSize: 18,
+                          ),
+                        );
+                      } else {
+                        return Text('Loading');
+                      }
+                    },
+                    future: getDataName(user?.uid, "email"),
                   ),
                 ],
               ),
@@ -189,7 +199,7 @@ class _EditProfileState extends State<EditProfile> {
         ],
       );
 
-  Widget editSchool(context) => Row(
+  Widget editSchool(context, user) => Row(
         //mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           const Icon(Icons.school_rounded, size: 50, color: Color(0xFF050A30)),
@@ -199,7 +209,7 @@ class _EditProfileState extends State<EditProfile> {
               padding: const EdgeInsets.only(left: 8, right: 3),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const <Widget>[
+                children: <Widget>[
                   Text(
                     'School:',
                     style: TextStyle(
@@ -209,15 +219,25 @@ class _EditProfileState extends State<EditProfile> {
                     ),
                   ),
                   // **************************** FETCH SCHOOL ***********************
-                  Text(
-                    'SSE',
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      color: Color(0xFFA19F9F),
-                      fontSize: 18,
-                    ),
+                  FutureBuilder(
+                    builder: (context, snapshot) {
+                      if (snapshot.data != null) {
+                        school = snapshot.data.toString();
+                        return Text(
+                          snapshot.data.toString(),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            color: Color(0xFFA19F9F),
+                            fontSize: 18,
+                          ),
+                        );
+                      } else {
+                        return Text('Loading');
+                      }
+                    },
+                    future: getDataName(user?.uid, "school"),
                   ),
                 ],
               ),
@@ -227,15 +247,10 @@ class _EditProfileState extends State<EditProfile> {
               padding: const EdgeInsets.fromLTRB(0, 0, 40, 0),
               child: IconButton(
                 onPressed: () {
-                  var async;
-                  async;
-                  {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const EditSchool()),
-                    );
-                  }
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => EditSchool(school)),
+                  );
                 },
                 icon: const Icon(
                   Icons.navigate_next,
@@ -246,7 +261,7 @@ class _EditProfileState extends State<EditProfile> {
         ],
       );
 
-  Widget editMajor(context) => Row(
+  Widget editMajor(context, user) => Row(
         //mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           const Icon(Icons.book, size: 50, color: Color(0xFF050A30)),
@@ -256,7 +271,7 @@ class _EditProfileState extends State<EditProfile> {
               padding: const EdgeInsets.only(left: 8, right: 3),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const <Widget>[
+                children: <Widget>[
                   Text(
                     'Major:',
                     style: TextStyle(
@@ -266,15 +281,25 @@ class _EditProfileState extends State<EditProfile> {
                     ),
                   ),
                   // **************************** FETCH MAJOR ***********************
-                  Text(
-                    'Computer Science',
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      color: Color(0xFFA19F9F),
-                      fontSize: 18,
-                    ),
+                  FutureBuilder(
+                    builder: (context, snapshot) {
+                      if (snapshot.data != null) {
+                        major = snapshot.data.toString();
+                        return Text(
+                          snapshot.data.toString(),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            color: Color(0xFFA19F9F),
+                            fontSize: 18,
+                          ),
+                        );
+                      } else {
+                        return Text('Loading');
+                      }
+                    },
+                    future: getDataName(user?.uid, "major"),
                   ),
                 ],
               ),
@@ -284,15 +309,10 @@ class _EditProfileState extends State<EditProfile> {
               padding: const EdgeInsets.fromLTRB(0, 0, 40, 0),
               child: IconButton(
                 onPressed: () {
-                  var async;
-                  async;
-                  {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const EditMajor()),
-                    );
-                  }
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => EditMajor(major)),
+                  );
                 },
                 icon: const Icon(
                   Icons.navigate_next,
@@ -303,7 +323,7 @@ class _EditProfileState extends State<EditProfile> {
         ],
       );
 
-  Widget editYear(context) => Row(
+  Widget editYear(context, user) => Row(
         //mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           const Icon(Icons.calendar_today, size: 50, color: Color(0xFF050A30)),
@@ -313,7 +333,7 @@ class _EditProfileState extends State<EditProfile> {
               padding: const EdgeInsets.only(left: 8, right: 3),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const <Widget>[
+                children: <Widget>[
                   Text(
                     'Graduating Year:',
                     style: TextStyle(
@@ -323,15 +343,25 @@ class _EditProfileState extends State<EditProfile> {
                     ),
                   ),
                   // **************************** FETCH YEAR ***********************
-                  Text(
-                    '2023',
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      color: Color(0xFFA19F9F),
-                      fontSize: 18,
-                    ),
+                  FutureBuilder(
+                    builder: (context, snapshot) {
+                      if (snapshot.data != null) {
+                        year = snapshot.data.toString();
+                        return Text(
+                          snapshot.data.toString(),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            color: Color(0xFFA19F9F),
+                            fontSize: 18,
+                          ),
+                        );
+                      } else {
+                        return Text('Loading');
+                      }
+                    },
+                    future: getDataName(user?.uid, "year"),
                   ),
                 ],
               ),
@@ -341,14 +371,10 @@ class _EditProfileState extends State<EditProfile> {
               padding: const EdgeInsets.fromLTRB(0, 0, 40, 0),
               child: IconButton(
                 onPressed: () {
-                  var async;
-                  async;
-                  {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const EditYear()),
-                    );
-                  }
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => EditYear(year)),
+                  );
                 },
                 icon: const Icon(
                   Icons.navigate_next,
@@ -359,9 +385,8 @@ class _EditProfileState extends State<EditProfile> {
         ],
       );
 
-  Future<String> getDataName(String? uid) async {
+  Future<String> getDataName(String? uid, String dataType) async {
     // Get docs from collection reference
-    List ret = [];
     DocumentSnapshot<Map<String, dynamic>> mySnapshot;
     mySnapshot =
         await FirebaseFirestore.instance.collection('users').doc(uid).get();
@@ -369,7 +394,7 @@ class _EditProfileState extends State<EditProfile> {
     // print(querySnapshot.get('title'));
     // Get data from docs and convert map to List
     // final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
-    return mySnapshot.data()?['name'];
+    return mySnapshot.data()?[dataType];
 
     // return ret;
   }
