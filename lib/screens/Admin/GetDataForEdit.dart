@@ -60,7 +60,7 @@ class _GetDataForEditState extends State<GetDataForEdit> {
 
 Future<Object> fetchData() async {
   DocumentSnapshot<Map<String, dynamic>> mySnapshot;
-  mySnapshot = await addCollection().getData('abcdefghij12');
+  mySnapshot = await addCollection().getData('abcdefghij123');
   // start_date = mySnapshot.data()?['start_date'];
   title = mySnapshot.data()?['title'];
   description = mySnapshot.data()?['description'];
@@ -70,6 +70,7 @@ Future<Object> fetchData() async {
   start_date = date.toDate();
   start_time = time.toDate();
   organiser = mySnapshot.data()?['Organiser'];
+  event_type = mySnapshot.data()?['event_type'];
   return mySnapshot;
 
   // print(data[0]['title']);

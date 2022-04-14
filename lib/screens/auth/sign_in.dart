@@ -97,11 +97,7 @@ class _SignInState extends State<SignIn> {
       onClicked: () async {
         Navigator.push(
           context,
-<<<<<<< HEAD
-          MaterialPageRoute(builder: (context) => GetDataForEdit()),
-=======
-          MaterialPageRoute(builder: (context) => const EditProfile()),
->>>>>>> a12ed1e8fff8e8fecbc99112cb694d014f8ddfbf
+          MaterialPageRoute(builder: (context) => const GetDataForEdit()),
         );
       });
 

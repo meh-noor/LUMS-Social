@@ -165,7 +165,6 @@ class _EditEventState extends State<EditEvent> {
         ]));
   }
 
-<<<<<<< HEAD
   Widget blueDecor() => Image(
         image: AssetImage('images/editbackground.png'),
         fit: BoxFit.cover,
@@ -173,15 +172,6 @@ class _EditEventState extends State<EditEvent> {
         width: 600,
         alignment: Alignment.topCenter,
       );
-=======
-Widget blueDecor() => Image(
-      image: AssetImage('images/editbackground.png'),
-      fit: BoxFit.cover,
-      height: 250,
-      width: 600,
-      alignment: Alignment.topCenter,
-    );
->>>>>>> a12ed1e8fff8e8fecbc99112cb694d014f8ddfbf
 
   Widget subText() => Text(
         'Please fill in the following details carefully to add your event.',
@@ -297,7 +287,10 @@ Widget blueDecor() => Image(
           FormBuilderFieldOption(
               value: 'Non-Academic', child: Text('Non-Academic')),
         ],
-
+        initialValue: widget.event_type,
+        validator: (val) =>
+            val.toString() == null ? "Please select event type" : null,
+        autovalidateMode: AutovalidateMode.always,
         onChanged: (val) {
           widget.event_type = val.toString();
         },
