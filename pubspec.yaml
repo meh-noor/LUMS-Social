@@ -41,12 +41,23 @@ dependencies:
   provider: ^6.0.2
   table_calendar: ^3.0.5
   flutter_form_builder: ^7.1.1
+<<<<<<< HEAD
   flutter_typeahead: 
   image_picker: ^0.8.5
   # firebase_storage: ^3.0.8
   # firebase_analytics: ^5.0.6
 
 
+=======
+  image_picker: ^0.8.5
+
+
+  # flutter_tags: ^0.4.9+1
+  # flutter_typeahead: 
+  # image_picker: ^0.8.5
+  # firebase_storage: ^3.0.8
+  # firebase_analytics: ^5.0.6
+>>>>>>> 33a0a0d3b14264cf39862aa0a4335f151a981b0b
 
 dev_dependencies:
   flutter_test:

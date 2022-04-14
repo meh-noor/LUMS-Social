@@ -1,9 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lums_social_app2/services/auth.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:lums_social_app2/screens/settings/editNameS.dart';
 import 'package:lums_social_app2/screens/settings/editSchoolS.dart';
+import 'package:lums_social_app2/screens/settings/editMajorS.dart';
+import 'package:lums_social_app2/screens/settings/editYearS.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 import 'package:lums_social_app2/models/user.dart';
 
@@ -21,25 +23,11 @@ class _EditProfileState extends State<EditProfile> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<MyUser?>(context);
-    print(user?.uid);
     return Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage('images/newsBG.png'), fit: BoxFit.cover)),
         child: Scaffold(
-            appBar: AppBar(
-              title: const Text('LUMS Social'),
-              backgroundColor: Colors.black,
-              elevation: 0.0,
-              actions: <Widget>[
-                TextButton.icon(
-                    onPressed: () async {
-                      await _auth.signOut();
-                    },
-                    icon: const Icon(Icons.person),
-                    label: const Text('Logout'))
-              ],
-            ),
             backgroundColor: Colors.transparent,
 
             // body: Align
@@ -64,10 +52,10 @@ class _EditProfileState extends State<EditProfile> {
                       child: editSchool(context)),
                   Padding(
                       padding: const EdgeInsets.fromLTRB(40, 0, 0, 35),
-                      child: editMajor()),
+                      child: editMajor(context)),
                   Padding(
                       padding: const EdgeInsets.fromLTRB(40, 0, 0, 0),
-                      child: editYear()),
+                      child: editYear(context)),
                 ],
               )))
             ])));
@@ -144,11 +132,15 @@ class _EditProfileState extends State<EditProfile> {
           Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 40, 0),
               child: IconButton(
-                onPressed: () async {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => EditName(name)),
-                  );
+                onPressed: () {
+                  var async;
+                  async;
+                  {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => EditName(name)),
+                    );
+                  }
                 },
                 //Navigator.push(context, MaterialPageRoute(builder: (context) => const EditName()),); },
                 icon: const Icon(
@@ -254,7 +246,7 @@ class _EditProfileState extends State<EditProfile> {
         ],
       );
 
-  Widget editMajor() => Row(
+  Widget editMajor(context) => Row(
         //mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           const Icon(Icons.book, size: 50, color: Color(0xFF050A30)),
@@ -291,7 +283,17 @@ class _EditProfileState extends State<EditProfile> {
           Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 40, 0),
               child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  var async;
+                  async;
+                  {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const EditMajor()),
+                    );
+                  }
+                },
                 icon: const Icon(
                   Icons.navigate_next,
                   size: 40,
@@ -301,7 +303,7 @@ class _EditProfileState extends State<EditProfile> {
         ],
       );
 
-  Widget editYear() => Row(
+  Widget editYear(context) => Row(
         //mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           const Icon(Icons.calendar_today, size: 50, color: Color(0xFF050A30)),
@@ -338,7 +340,16 @@ class _EditProfileState extends State<EditProfile> {
           Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 40, 0),
               child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  var async;
+                  async;
+                  {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const EditYear()),
+                    );
+                  }
+                },
                 icon: const Icon(
                   Icons.navigate_next,
                   size: 40,
