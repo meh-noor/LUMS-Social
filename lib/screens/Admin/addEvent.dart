@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 // import 'package:flutter_tags/flutter_tags.dart';
 // import 'package:lums_social_app2/screens/Admin/hashtags.dart';
+// import 'package:lums_social_app2/screens/Admin/hashtags.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lums_social_app2/screens/Admin/adminDashboard.dart';
 import 'package:lums_social_app2/screens/home/home.dart';
@@ -211,7 +212,9 @@ Widget DateField() => FormBuilderDateTimePicker(
         // contentPadding: const EdgeInsets.only(left: 15.0)),
       ),
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      onChanged: (val) => {start_date = val},
+      onChanged: (val) => {
+        if (val == null) {start_date = DateTime.now()} else {start_date = val}
+      },
     );
 
 Widget TimeField() => FormBuilderDateTimePicker(
@@ -231,7 +234,9 @@ Widget TimeField() => FormBuilderDateTimePicker(
         // contentPadding: const EdgeInsets.only(left: 15.0)),
       ),
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      onChanged: (val) => {start_time = val},
+      onChanged: (val) => {
+        if (val == null) {start_time = DateTime.now()} else {start_time = val}
+      },
     );
 
 Widget FilterCategory() => FormBuilderChoiceChip(
@@ -292,9 +297,13 @@ Widget AddButton() => ElevatedButton(
             loc!.isNotEmpty &&
             description!.isNotEmpty &&
             event_type!.isNotEmpty) {
-          print(title);
-          print(title!.isNotEmpty);
-          addCollection().addEvent(title, organiser, loc, description,
+          if (start_time == null) {
+            start_time = DateTime.now();
+          }
+          if (start_date == null) {
+            start_date = DateTime.now();
+          }
+          addCollection().addEventtoDatabase(title, organiser, loc, description,
               start_date, start_time, event_type, "abcdefghij12");
         }
       },

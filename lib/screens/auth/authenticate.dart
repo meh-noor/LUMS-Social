@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lums_social_app2/screens/auth/forget_password.dart';
 import 'package:lums_social_app2/screens/auth/register.dart';
 import 'package:lums_social_app2/screens/auth/sign_in.dart';
-
+import 'forgetPasswordRedirect.dart';
 class Authenticate extends StatefulWidget {
   const Authenticate({Key? key}) : super(key: key);
 
