@@ -1,4 +1,3 @@
-import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:lums_social_app2/services/auth.dart';
@@ -11,7 +10,7 @@ class student extends StatefulWidget {
 }
 
 class _studentState extends State<student> {
-  late final ValueNotifier<List<Event>> _selectedEvents;
+  // late final ValueNotifier<List<Event>> _selectedEvents;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
   // CalendarController _calendarController = CalendarController();
@@ -34,15 +33,19 @@ class _studentState extends State<student> {
               child: greetingRow(),
             ),
             const SizedBox(height: 20),
-            Align(
-              alignment: Alignment(-0.72, -0.1),
-              child: addedEvents(),
-            ),
+
             Padding(
               padding: const EdgeInsets.only(
                   left: 20.0, right: 15.0, bottom: 10.0, top: 10.0),
               child: viewCalender(),
             ),
+            Align(
+                alignment: Alignment.bottomRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      right: 15.0, bottom: 10.0, top: 30.0),
+                  child: viewNews(),
+                )),
             // addedEvents(),
           ],
         ));
@@ -87,40 +90,6 @@ class _studentState extends State<student> {
               )),
         ],
       );
-
-  Widget addedEvents() => Text(
-        'Events you have added',
-        style: TextStyle(
-            fontFamily: 'Poppins',
-            color: Colors.black,
-            fontSize: 21,
-            fontWeight: FontWeight.w500
-            // padding: const EdgeInsets.all(15.0),
-            ),
-      );
-
-// Widget listEvents(context) => Container(
-//       padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
-//       height: MediaQuery.of(context).size.height * 0.35,
-//       child: ListView.builder(
-//           scrollDirection: Axis.horizontal,
-//           itemCount: numbers.length,
-//           itemBuilder: (context, index) {
-//             return Container(
-//               width: MediaQuery.of(context).size.width * 0.6,
-//               child: Card(
-//                 color: Colors.blue,
-//                 child: Container(
-//                   child: Center(
-//                       child: Text(
-//                     numbers[index].toString(),
-//                     style: TextStyle(color: Colors.white, fontSize: 36.0),
-//                   )),
-//                 ),
-//               ),
-//             );
-//           }),
-//     );
 
   Widget viewCalender() => Card(
       clipBehavior: Clip.antiAlias,
@@ -172,4 +141,18 @@ class _studentState extends State<student> {
         // CALENDER BUILDER
         calendarBuilders: CalendarBuilders(),
       ));
+
+  Widget viewNews() => Container(
+      height: 70.0,
+      width: 70.0,
+      child: FloatingActionButton(
+          elevation: 2,
+          backgroundColor: Color(0xFF050A30),
+          child: Icon(Icons.newspaper, size: 40),
+          onPressed: () async {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AddEvent()),
+            );
+          }));
 }

@@ -1,6 +1,7 @@
 // import 'package:flutter/material.dart';
+// import 'package:lums_social_app2/screens/Admin/Event.dart';
 // import 'package:table_calendar/table_calendar.dart';
-// import 'dart:html';
+// // import 'dart:html';
 
 // // import '../utils.dart';
 
@@ -33,10 +34,9 @@
 //     super.dispose();
 //   }
 
-//   List<Event> _getEventsForDay(DateTime day) {
-
+//   List<Event> _getEventsForDay(DateTime date) {
 //     // Implementation example
-//     return kEvents[day] ?? [];
+//     return _selectedEvents[date] ?? [];
 //   }
 
 //   List<Event> _getEventsForRange(DateTime start, DateTime end) {

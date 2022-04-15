@@ -8,6 +8,7 @@ import 'package:lums_social_app2/services/auth.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
 import 'package:lums_social_app2/screens/news/newsButton.dart';
 import 'package:lums_social_app2/screens/Admin/adminDashboard.dart';
+import 'package:lums_social_app2/screens/Admin/GetDataForEdit.dart';
 // import 'package:lums_social_app2/screens/Admin/hashtags.dart';
 // import 'package:lums_social_app2/screens/Admin/hashtags.dart';
 import 'package:lums_social_app2/screens/Admin/addEvent.dart';
@@ -96,7 +97,7 @@ class _SignInState extends State<SignIn> {
       onClicked: () async {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const EditProfile()),
+          MaterialPageRoute(builder: (context) => GetDataForEdit()),
         );
       });
 

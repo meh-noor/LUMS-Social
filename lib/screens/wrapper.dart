@@ -3,6 +3,8 @@ import 'dart:ffi';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lums_social_app2/models/user.dart';
+import 'package:lums_social_app2/screens/Admin/studentDashboard.dart';
+import 'package:lums_social_app2/screens/Admin/viewEvent.dart';
 import 'package:lums_social_app2/screens/auth/authenticate.dart';
 import 'package:lums_social_app2/screens/home/home.dart';
 import 'package:provider/provider.dart';
