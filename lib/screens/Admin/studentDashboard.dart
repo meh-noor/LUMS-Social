@@ -1,24 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:lums_social_app2/services/auth.dart';
+import 'package:lums_social_app2/widget/button_widget.dart';
 import 'package:lums_social_app2/screens/Admin/addEvent.dart';
 
-class admin extends StatefulWidget {
+class student extends StatefulWidget {
   @override
-  State<admin> createState() => _adminState();
+  State<student> createState() => _studentState();
 }
 
-class _adminState extends State<admin> {
+class _studentState extends State<student> {
   // late final ValueNotifier<List<Event>> _selectedEvents;
-  // late Map<DateTime, List<Event>> selectedEvents;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
-  CalendarFormat format = CalendarFormat.month;
-  List numbers = [1, 2, 3, 4, 5];
-
-  // List<Event> _getEventsforDay(DateTime date) {
-  //   return selectedEvents[date] ?? [];
-  // }
-
   // CalendarController _calendarController = CalendarController();
   @override
   Widget build(BuildContext context) {
@@ -39,21 +33,19 @@ class _adminState extends State<admin> {
               child: greetingRow(),
             ),
             const SizedBox(height: 20),
-            Align(
-              alignment: Alignment(-0.72, -0.1),
-              child: addedEvents(),
-            ),
-            listEvents(context),
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 20.0, right: 15.0, bottom: 10.0, top: 10.0),
-              child: addButton(context),
-            ),
+
             Padding(
               padding: const EdgeInsets.only(
                   left: 20.0, right: 15.0, bottom: 10.0, top: 10.0),
               child: viewCalender(),
             ),
+            Align(
+                alignment: Alignment.bottomRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      right: 15.0, bottom: 10.0, top: 30.0),
+                  child: viewNews(),
+                )),
             // addedEvents(),
           ],
         ));
@@ -71,6 +63,13 @@ class _adminState extends State<admin> {
               children: [
             TextSpan(
               text: ' SOCIAL ',
+              style: TextStyle(
+                fontFamily: 'Poppins',
+                color: Color(0xFF5DCAD1),
+                fontSize: 25,
+              ),
+              // child: Align(
+              //   alignment: Alignment(-0.85, -0.85),
             )
           ]));
 
@@ -86,71 +85,6 @@ class _adminState extends State<admin> {
                   fontFamily: 'Poppins',
                   color: Colors.black,
                   fontSize: 25,
-                  // padding: const EdgeInsets.all(15.0),
-                ),
-              )),
-        ],
-      );
-
-  Widget addedEvents() => Text(
-        'Events you have added',
-        style: TextStyle(
-            fontFamily: 'Poppins',
-            color: Colors.black,
-            fontSize: 21,
-            fontWeight: FontWeight.w500
-            // padding: const EdgeInsets.all(15.0),
-            ),
-      );
-
-  Widget listEvents(context) => Container(
-        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
-        // height: MediaQuery.of(context).size.height * 0.35,
-        height: 150,
-        child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: numbers.length,
-            itemBuilder: (context, index) {
-              return Container(
-                // width: MediaQuery.of(context).size.width * 0.6,
-                width: 200,
-                child: Card(
-                  color: Color(0xFF5DCAD1),
-                  child: Container(
-                    child: Center(
-                        child: Text(
-                      numbers[index].toString(),
-                      style: TextStyle(color: Colors.white, fontSize: 20.0),
-                    )),
-                  ),
-                ),
-              );
-            }),
-      );
-
-  Widget addButton(context) => Row(
-        children: [
-          Container(
-              height: 30.0,
-              width: 30.0,
-              child: FloatingActionButton(
-                  elevation: 2,
-                  backgroundColor: Color(0xFF5DCAD1),
-                  child: Icon(Icons.add),
-                  onPressed: () async {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => AddEvent()),
-                    );
-                  })),
-          Padding(
-              padding: EdgeInsets.all(5.0),
-              child: Text(
-                '   Add new event',
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  color: Colors.black,
-                  fontSize: 20,
                   // padding: const EdgeInsets.all(15.0),
                 ),
               )),
@@ -174,16 +108,7 @@ class _adminState extends State<admin> {
             _focusedDay = focusedDay; // update `_focusedDay` here as well
           });
         },
-
-        onFormatChanged: (CalendarFormat _format) {
-          setState(() {
-            format = _format;
-          });
-        },
-
         headerStyle: HeaderStyle(
-            titleCentered: true,
-            formatButtonVisible: false,
             decoration: BoxDecoration(
               color: Color(0xFF5DCAD1),
             ),
@@ -201,7 +126,6 @@ class _adminState extends State<admin> {
             leftChevronIcon: Icon(Icons.chevron_left, color: Colors.white),
             rightChevronIcon: Icon(Icons.chevron_right, color: Colors.white)),
 
-        // eventLoader: _getEventsforDay,
         // CALENDER STYLE EDITOR
         calendarStyle: CalendarStyle(
           selectedDecoration:
@@ -217,4 +141,18 @@ class _adminState extends State<admin> {
         // CALENDER BUILDER
         calendarBuilders: CalendarBuilders(),
       ));
+
+  Widget viewNews() => Container(
+      height: 70.0,
+      width: 70.0,
+      child: FloatingActionButton(
+          elevation: 2,
+          backgroundColor: Color(0xFF050A30),
+          child: Icon(Icons.newspaper, size: 40),
+          onPressed: () async {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AddEvent()),
+            );
+          }));
 }

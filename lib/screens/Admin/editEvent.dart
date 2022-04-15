@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:lums_social_app2/screens/Admin/addEvent.dart';
+import 'GetDataForEdit.dart';
+// import 'package:lums_social_app2/screens/Admin/addEvent.dart';
 import 'package:lums_social_app2/services/addToCollection.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -163,7 +164,7 @@ class _EditEventState extends State<EditEvent> {
         ]));
   }
 
-  Widget blueDecor() => const Image(
+  Widget blueDecor() => Image(
         image: AssetImage('images/editbackground.png'),
         fit: BoxFit.cover,
         height: 250,
@@ -348,6 +349,8 @@ class _EditEventState extends State<EditEvent> {
             );
             // print("Done");
           }
+
+          Navigator.pop(context);
         },
       );
 
