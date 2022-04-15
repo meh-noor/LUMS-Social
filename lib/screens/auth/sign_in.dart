@@ -86,11 +86,12 @@ class _SignInState extends State<SignIn> {
         },
       );
 
-  Widget LogInText() => Center(
+  Widget LogInText() => const Center(
         child: Text("Enter Credentials",
             style: TextStyle(
                 color: Colors.white, fontFamily: 'poppins', fontSize: 25)),
       );
+<<<<<<< HEAD
 
   //       onClicked: () async {
   //         // Navigator.push(
@@ -118,6 +119,17 @@ class _SignInState extends State<SignIn> {
   //         MaterialPageRoute(builder: (context) => const EditProfile()),
   //       );
   //     });
+=======
+  Widget bismahTestButton() => ButtonWidget(
+      //  0xFF5DCAD1
+      text: 'Test Button',
+      onClicked: () async {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => AddEvent()),
+        );
+      });
+>>>>>>> mahnoor
 
   Widget ErrorWidget() => Text(
         error,
@@ -126,7 +138,7 @@ class _SignInState extends State<SignIn> {
 
   Widget IconWidget() => Container(
         // margin: EdgeInsets.all(50.0),
-        child: Image(
+        child: const Image(
           image: AssetImage('images/finallogo.png'),
           // fit: BoxFit.cover,
           width: 300,
