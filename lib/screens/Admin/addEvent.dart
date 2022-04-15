@@ -16,6 +16,12 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/user.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:lums_social_app2/services/addToCollection.dart';
+import 'package:lums_social_app2/widget/button_widget.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+
+String? url;
 
 class upload {
   Future uploadImageToFirebase(BuildContext context) async {
@@ -24,9 +30,19 @@ class upload {
     FirebaseStorage storage = FirebaseStorage.instance;
     Reference ref = storage.ref().child("images/" + DateTime.now().toString());
     UploadTask uploadTask = ref.putFile(File(image!.path));
-    uploadTask.then((res) {
-      res.ref.getDownloadURL();
-    });
+    String imageUrl = await ref.getDownloadURL();
+    print("HERERE");
+    print(imageUrl);
+    // var dowurl = await (await uploadTask.onComplete).ref.getDownloadURL();
+    // url = dowurl.toString();
+
+    // return url;
+    // uploadTask.then((res) {
+    //   var dowurl = ref.getDownloadURL();
+    //   url = dowurl.toString();
+    //   print("hereeeHERE");
+    //   print(url);
+    // });
   }
 }
 
@@ -47,6 +63,7 @@ class AddEvent extends StatefulWidget {
 class _AddEventState extends State<AddEvent> {
   String email = '';
   final imageFile = upload();
+  // DateTime now = DateFormat("yyyy-MM-dd").format(DateTime.now());
 
   // List tags = new List(5);
   final _formKey = GlobalKey<FormBuilderState>();
@@ -61,7 +78,7 @@ class _AddEventState extends State<AddEvent> {
 
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        backgroundColor: Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         body: ListView(children: <Widget>[
           FormBuilder(
               child: SingleChildScrollView(
@@ -132,7 +149,7 @@ class _AddEventState extends State<AddEvent> {
               Padding(
                 padding: const EdgeInsets.only(
                     left: 15.0, right: 15.0, bottom: 4.0, top: 8.0),
-                child: AddButton(user),
+                child: AddButton(user, context),
               ),
               const SizedBox(height: 10),
             ]),
@@ -284,7 +301,7 @@ class _AddEventState extends State<AddEvent> {
               )),
         ],
       );
-  Widget AddButton(user) => ElevatedButton(
+  Widget AddButton(user, context) => ElevatedButton(
         style: ElevatedButton.styleFrom(
           primary: Color(0xFF5DCAD1),
           minimumSize: Size.fromHeight(40),
@@ -313,9 +330,17 @@ class _AddEventState extends State<AddEvent> {
             if (start_date == null) {
               start_date = DateTime.now();
             }
-            addCollection().addEventtoDatabase(title, organiser, loc,
-                description, start_date, start_time, event_type, user?.uid);
+            addCollection().addEventtoDatabase(
+                title,
+                organiser,
+                loc,
+                description,
+                start_date,
+                start_time,
+                event_type,
+                'abcdefghij12');
           }
+          Navigator.pop(context);
         },
       );
 }

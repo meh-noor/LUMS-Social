@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lums_social_app2/screens/Admin/addEvent.dart';
 import 'package:lums_social_app2/screens/auth/forget_password.dart';
 import 'package:lums_social_app2/screens/auth/register.dart';
 import 'package:lums_social_app2/screens/wrapper.dart';
@@ -79,12 +80,20 @@ class _SignInState extends State<SignIn> {
         },
       );
 
-  Widget LogInText() => Center(
+  Widget LogInText() => const Center(
         child: Text("Enter Credentials",
             style: TextStyle(
                 color: Colors.white, fontFamily: 'poppins', fontSize: 25)),
       );
-
+  Widget bismahTestButton() => ButtonWidget(
+      //  0xFF5DCAD1
+      text: 'Test Button',
+      onClicked: () async {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => AddEvent()),
+        );
+      });
   Widget ErrorWidget() => Text(
         error,
         style: const TextStyle(color: Colors.red, fontSize: 14.0),
@@ -92,7 +101,7 @@ class _SignInState extends State<SignIn> {
 
   Widget IconWidget() => Container(
         // margin: EdgeInsets.all(50.0),
-        child: Image(
+        child: const Image(
           image: AssetImage('images/finallogo.png'),
           // fit: BoxFit.cover,
           width: 300,
