@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lums_social_app2/models/user.dart';
 import 'package:provider/provider.dart';
@@ -40,7 +41,7 @@ class _adminState extends State<admin> {
             Padding(
               padding: const EdgeInsets.only(
                   left: 20.0, right: 15.0, bottom: 10.0, top: 10.0),
-              child: greetingRow(),
+              child: greetingRow(user),
             ),
             const SizedBox(height: 20),
             Align(
@@ -84,21 +85,40 @@ class _adminState extends State<admin> {
             )
           ]));
 
-  Widget greetingRow() => Row(
+  Widget greetingRow(user) => Row(
         children: [
           Icon(Icons.account_circle_rounded,
               size: 33, color: Color(0xFF050A30)),
           Padding(
-              padding: EdgeInsets.all(5.0),
-              child: Text(
-                'Hello',
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  color: Colors.black,
-                  fontSize: 25,
-                  // padding: const EdgeInsets.all(15.0),
-                ),
-              )),
+            padding: EdgeInsets.all(5.0),
+            child: FutureBuilder(
+              builder: (context, snapshot) {
+                if (snapshot.data != null) {
+                  return Text(
+                    "Hello " + snapshot.data.toString(),
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      color: Colors.black,
+                      fontSize: 25,
+                      // padding: const EdgeInsets.all(15.0),
+                    ),
+                  );
+                } else {
+                  return Text('Loading');
+                }
+              },
+              future: getDataName(user?.uid, "name"),
+            ),
+            // Text(
+            //   'Hello',
+            //   style: TextStyle(
+            //     fontFamily: 'Poppins',
+            //     color: Colors.black,
+            //     fontSize: 25,
+            //     // padding: const EdgeInsets.all(15.0),
+            //   ),
+            // )
+          ),
         ],
       );
 
@@ -227,4 +247,18 @@ class _adminState extends State<admin> {
         // CALENDER BUILDER
         calendarBuilders: CalendarBuilders(),
       ));
+
+  Future<String> getDataName(String? uid, String dataType) async {
+    // Get docs from collection reference
+    DocumentSnapshot<Map<String, dynamic>> mySnapshot;
+    mySnapshot =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+    // DocumentSnapshot querySnapshot = await eventCollection.doc(uid).get();
+    // print(querySnapshot.get('title'));
+    // Get data from docs and convert map to List
+    // final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
+    return mySnapshot.data()?[dataType];
+
+    // return ret;
+  }
 }
