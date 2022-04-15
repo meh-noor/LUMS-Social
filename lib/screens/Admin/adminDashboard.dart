@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lums_social_app2/models/user.dart';
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:lums_social_app2/screens/Admin/addEvent.dart';
 
@@ -22,9 +24,11 @@ class _adminState extends State<admin> {
   // CalendarController _calendarController = CalendarController();
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<MyUser?>(context);
     return Scaffold(
         backgroundColor: Color.fromARGB(255, 255, 255, 255),
-        body: Column(
+        body: SingleChildScrollView(
+            child: Column(
           children: <Widget>[
             Padding(
                 padding: const EdgeInsets.only(
@@ -56,7 +60,7 @@ class _adminState extends State<admin> {
             ),
             // addedEvents(),
           ],
-        ));
+        )));
   }
 
   Widget mainText() => RichText(
@@ -70,7 +74,13 @@ class _adminState extends State<admin> {
               ),
               children: [
             TextSpan(
-              text: ' SOCIAL ',
+              text: 'SOCIAL',
+              style: TextStyle(
+                // alignment: Alignment(-0.85, -0.85),
+                fontFamily: 'Poppins',
+                color: Color(0xFF5DCAD1),
+                fontSize: 25,
+              ),
             )
           ]));
 
@@ -135,7 +145,7 @@ class _adminState extends State<admin> {
               width: 30.0,
               child: FloatingActionButton(
                   elevation: 2,
-                  backgroundColor: Color(0xFF5DCAD1),
+                  backgroundColor: Color(0xFF050A30),
                   child: Icon(Icons.add),
                   onPressed: () async {
                     Navigator.push(
