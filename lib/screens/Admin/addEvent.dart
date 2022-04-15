@@ -9,7 +9,6 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:image_picker/image_picker.dart';
 // import 'package:lums_social_app2/screens/Admin/adminDashboard.dart';
 // import 'package:lums_social_app2/screens/home/home.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:lums_social_app2/services/addToCollection.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
 import 'package:firebase_storage/firebase_storage.dart';
