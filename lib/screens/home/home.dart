@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lums_social_app2/screens/Admin/addEvent.dart';
 import 'package:lums_social_app2/screens/settings/editmainProfile.dart';
 import 'package:lums_social_app2/models/user.dart';
 import 'package:lums_social_app2/screens/auth/sign_in.dart';
@@ -45,7 +46,7 @@ class Home extends StatelessWidget {
       onClicked: () async {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const EditProfile()),
+          MaterialPageRoute(builder: (context) => AddEvent()),
         );
       });
 }

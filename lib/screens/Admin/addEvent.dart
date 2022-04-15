@@ -9,6 +9,13 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:image_picker/image_picker.dart';
 // import 'package:lums_social_app2/screens/Admin/adminDashboard.dart';
 // import 'package:lums_social_app2/screens/home/home.dart';
+import 'package:lums_social_app2/services/addToCollection.dart';
+import 'package:lums_social_app2/widget/button_widget.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+
+import '../../models/user.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lums_social_app2/services/addToCollection.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
@@ -64,6 +71,11 @@ class _AddEventState extends State<AddEvent> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<MyUser?>(context);
+
+    print(user);
+    print(user?.uid);
+
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
@@ -137,7 +149,7 @@ class _AddEventState extends State<AddEvent> {
               Padding(
                 padding: const EdgeInsets.only(
                     left: 15.0, right: 15.0, bottom: 4.0, top: 8.0),
-                child: AddButton(context),
+                child: AddButton(user, context),
               ),
               const SizedBox(height: 10),
             ]),
@@ -289,7 +301,7 @@ class _AddEventState extends State<AddEvent> {
               )),
         ],
       );
-  Widget AddButton(context) => ElevatedButton(
+  Widget AddButton(user, context) => ElevatedButton(
         style: ElevatedButton.styleFrom(
           primary: Color(0xFF5DCAD1),
           minimumSize: Size.fromHeight(40),
