@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:lums_social_app2/screens/Admin/GetDataForEdit.dart';
+import 'package:lums_social_app2/screens/news/addNews.dart';
+import 'package:lums_social_app2/screens/news/editdeleteNews.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:lums_social_app2/services/auth.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
 import 'package:lums_social_app2/screens/Admin/addEvent.dart';
+
 // import 'package:lums_social_app2/widget/email_field_widget.dart';
 // import 'package:lums_social_app2/widget/password_field_widget.dart';
 
@@ -136,7 +140,7 @@ Widget addButton(context) => Row(
                 onPressed: () async {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => AddEvent()),
+                    MaterialPageRoute(builder: (context) => GetNewsforEdit()),
                   );
                 })),
         Padding(

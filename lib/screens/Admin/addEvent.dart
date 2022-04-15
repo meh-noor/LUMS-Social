@@ -1,16 +1,15 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-// import 'package:flutter_tags/flutter_tags.dart';
-// import 'package:lums_social_app2/screens/Admin/hashtags.dart';
-// import 'package:lums_social_app2/screens/Admin/hashtags.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:lums_social_app2/screens/Admin/adminDashboard.dart';
-import 'package:lums_social_app2/screens/home/home.dart';
+import 'package:lums_social_app2/screens/Admin/addEvent.dart';
 import 'package:lums_social_app2/services/addToCollection.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'adminDashboard.dart';
 
 class upload {
   Future uploadImageToFirebase(BuildContext context) async {
@@ -51,7 +50,7 @@ class _AddEventState extends State<AddEvent> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        backgroundColor: Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         body: ListView(children: <Widget>[
           FormBuilder(
               child: SingleChildScrollView(
@@ -129,182 +128,194 @@ class _AddEventState extends State<AddEvent> {
           ))
         ]));
   }
-}
 
-Widget blueDecor() => Image(
-      image: AssetImage('images/background.png'),
-      fit: BoxFit.cover,
-      height: 250,
-      width: 600,
-      alignment: Alignment.topCenter,
-    );
+  Widget blueDecor() => const Image(
+        image: AssetImage('images/background.png'),
+        fit: BoxFit.cover,
+        height: 250,
+        width: 600,
+        alignment: Alignment.topCenter,
+      );
 
-Widget subText() => Text(
-      'Please fill in the following details carefully to add your event.',
-      style: TextStyle(
-        fontFamily: 'Poppins',
-        color: Colors.black,
-        fontSize: 18,
-        // padding: const EdgeInsets.all(15.0),
-      ),
-    );
+  Widget subText() => const Text(
+        'Please fill in the following details carefully to add your event.',
+        style: TextStyle(
+          fontFamily: 'Poppins',
+          color: Colors.black,
+          fontSize: 18,
+          // padding: const EdgeInsets.all(15.0),
+        ),
+      );
 
-Widget nameField() => FormBuilderTextField(
-      name: 'title',
-      decoration: InputDecoration(
-          hintText: "Enter Event Name",
-          border: OutlineInputBorder(),
-          contentPadding: const EdgeInsets.only(left: 15.0)),
-      validator: (val) => val!.isEmpty ? "Please enter event name" : null,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      onChanged: (val) => {title = val},
-    );
+  Widget nameField() => FormBuilderTextField(
+        name: 'title',
+        decoration: const InputDecoration(
+            hintText: "Enter Event Name",
+            border: OutlineInputBorder(),
+            contentPadding: EdgeInsets.only(left: 15.0)),
+        validator: (val) => val!.isEmpty ? "Please enter event name" : null,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        onChanged: (val) => {title = val},
+      );
 
-Widget OrganiserField() => FormBuilderTextField(
-      name: 'organiser',
-      decoration: InputDecoration(
-          hintText: "Enter Organizer Name",
-          border: OutlineInputBorder(),
-          contentPadding: const EdgeInsets.only(left: 15.0)),
-      validator: (val) => val!.isEmpty ? "Please enter event organiser" : null,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      onChanged: (val) => {organiser = val},
-    );
-Widget LocationField() => FormBuilderTextField(
-      name: 'location',
-      decoration: InputDecoration(
-          hintText: "Enter Location",
-          border: OutlineInputBorder(),
-          contentPadding: const EdgeInsets.only(left: 15.0)),
-      // validator: (val) => val!.isEmpty ? "Please enter event location" : null,
-      validator: (val) => val!.isEmpty ? "Please enter event location" : null,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      onChanged: (val) => {loc = val},
-    );
-Widget DescriptionField() => FormBuilderTextField(
-      name: 'description',
-      maxLines: 6,
-      minLines: 1,
-      decoration: InputDecoration(
-          hintText: "Enter Description",
-          border: OutlineInputBorder(),
-          contentPadding: const EdgeInsets.only(left: 15.0)),
-      validator: (val) =>
-          val!.isEmpty ? "Please enter event description" : null,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      onChanged: (val) => {description = val},
-    );
+  Widget OrganiserField() => FormBuilderTextField(
+        name: 'organiser',
+        decoration: const InputDecoration(
+            hintText: "Enter Organizer Name",
+            border: OutlineInputBorder(),
+            contentPadding: EdgeInsets.only(left: 15.0)),
+        validator: (val) =>
+            val!.isEmpty ? "Please enter event organiser" : null,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        onChanged: (val) => {organiser = val},
+      );
+  Widget LocationField() => FormBuilderTextField(
+        name: 'location',
+        decoration: const InputDecoration(
+            hintText: "Enter Location",
+            border: OutlineInputBorder(),
+            contentPadding: EdgeInsets.only(left: 15.0)),
+        // validator: (val) => val!.isEmpty ? "Please enter event location" : null,
+        validator: (val) => val!.isEmpty ? "Please enter event location" : null,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        onChanged: (val) => {loc = val},
+      );
+  Widget DescriptionField() => FormBuilderTextField(
+        name: 'description',
+        maxLines: 6,
+        minLines: 1,
+        decoration: const InputDecoration(
+            hintText: "Enter Description",
+            border: OutlineInputBorder(),
+            contentPadding: const EdgeInsets.only(left: 15.0)),
+        validator: (val) =>
+            val!.isEmpty ? "Please enter event description" : null,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        onChanged: (val) => {description = val},
+      );
 
-Widget DateField() => FormBuilderDateTimePicker(
-      name: 'date',
-      firstDate: DateTime.now(),
-      initialValue: DateTime.now(),
-      initialDate: DateTime.now(),
-      fieldHintText: "Add Date",
-      inputType: InputType.date,
-      decoration: InputDecoration(
-        labelText: "Select Date",
-        labelStyle: TextStyle(fontSize: 22),
-        border: InputBorder.none,
-        prefixIcon:
-            Icon(Icons.calendar_today, size: 30, color: Color(0xFF050A30)),
+  Widget DateField() => FormBuilderDateTimePicker(
+        name: 'date',
+        firstDate: DateTime.now(),
+        initialValue: DateTime.now(),
+        initialDate: DateTime.now(),
+        fieldHintText: "Add Date",
+        inputType: InputType.date,
+        decoration: const InputDecoration(
+          labelText: "Select Date",
+          labelStyle: TextStyle(fontSize: 22),
+          border: InputBorder.none,
+          prefixIcon:
+              Icon(Icons.calendar_today, size: 30, color: Color(0xFF050A30)),
 
-        // contentPadding: const EdgeInsets.only(left: 15.0)),
-      ),
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      onChanged: (val) => {
-        if (val == null) {start_date = DateTime.now()} else {start_date = val}
-      },
-    );
+          // contentPadding: const EdgeInsets.only(left: 15.0)),
+        ),
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        onChanged: (val) => {
+          if (val == null) {start_date = DateTime.now()} else {start_date = val}
+        },
+      );
 
-Widget TimeField() => FormBuilderDateTimePicker(
-      name: 'time',
-      initialValue: DateTime.now(),
-      initialTime: TimeOfDay(hour: 8, minute: 0),
-      fieldHintText: "Add Date",
-      inputType: InputType.time,
-      initialDate: DateTime.now(),
-      decoration: InputDecoration(
-        labelText: "Select Time",
-        labelStyle: TextStyle(fontSize: 22),
-        border: InputBorder.none,
-        prefixIcon:
-            Icon(Icons.watch_later_rounded, size: 30, color: Color(0xFF050A30)),
+  Widget TimeField() => FormBuilderDateTimePicker(
+        name: 'time',
+        initialValue: DateTime.now(),
+        initialTime: const TimeOfDay(hour: 8, minute: 0),
+        fieldHintText: "Add Date",
+        inputType: InputType.time,
+        initialDate: DateTime.now(),
+        decoration: const InputDecoration(
+          labelText: "Select Time",
+          labelStyle: TextStyle(fontSize: 22),
+          border: InputBorder.none,
+          prefixIcon: Icon(Icons.watch_later_rounded,
+              size: 30, color: Color(0xFF050A30)),
 
-        // contentPadding: const EdgeInsets.only(left: 15.0)),
-      ),
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      onChanged: (val) => {
-        if (val == null) {start_time = DateTime.now()} else {start_time = val}
-      },
-    );
+          // contentPadding: const EdgeInsets.only(left: 15.0)),
+        ),
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        onChanged: (val) => {
+          if (val == null) {start_time = DateTime.now()} else {start_time = val}
+        },
+      );
 
-Widget FilterCategory() => FormBuilderChoiceChip(
-      name: 'choice_chip',
-      padding: EdgeInsets.all(2.0),
-      // runSpacing: 2.0,
-      selectedColor: Color(0xFF5DCAD1),
-      decoration: InputDecoration(
-          labelText: 'Select an option', labelStyle: TextStyle(fontSize: 22)),
-      labelPadding: EdgeInsets.all(2.0),
-      options: [
-        FormBuilderFieldOption(value: 'Academic', child: Text('Academic')),
-        FormBuilderFieldOption(
-            value: 'Non-Academic', child: Text('Non-Academic')),
-      ],
-      onChanged: (val) => {
-        event_type = val.toString()
-        // print(val.toString())
-      },
-    );
+  Widget FilterCategory() => FormBuilderChoiceChip(
+        name: 'choice_chip',
+        padding: EdgeInsets.all(2.0),
+        // runSpacing: 2.0,
+        selectedColor: Color(0xFF5DCAD1),
+        decoration: const InputDecoration(
+            labelText: 'Select an option', labelStyle: TextStyle(fontSize: 22)),
+        labelPadding: EdgeInsets.all(2.0),
+        options: const [
+          FormBuilderFieldOption(value: 'Academic', child: Text('Academic')),
+          FormBuilderFieldOption(
+              value: 'Non-Academic', child: Text('Non-Academic')),
+        ],
+        onChanged: (val) => {
+          event_type = val.toString()
+          // print(val.toString())
+        },
+      );
 //
-Widget AddImage() => Row(
-      children: [
-        Icon(Icons.photo, size: 30, color: Color(0xFF050A30)),
-        Padding(
-            padding: EdgeInsets.all(5.0),
-            child: Text(
-              'Upload Image',
-              style: TextStyle(
-                fontFamily: 'Poppins',
-                color: Colors.black,
-                fontSize: 18,
-                // padding: const EdgeInsets.all(15.0),
-              ),
-            )),
-      ],
-    );
-Widget AddButton() => ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        primary: Color(0xFF5DCAD1),
-        minimumSize: Size.fromHeight(40),
-        shape: new RoundedRectangleBorder(
-          borderRadius: new BorderRadius.circular(5.0),
+  Widget AddImage() => Row(
+        children: const [
+          Icon(Icons.photo, size: 30, color: Color(0xFF050A30)),
+          Padding(
+              padding: EdgeInsets.all(5.0),
+              child: Text(
+                'Upload Image',
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  color: Colors.black,
+                  fontSize: 18,
+                  // padding: const EdgeInsets.all(15.0),
+                ),
+              )),
+        ],
+      );
+  Widget AddButton() => ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          primary: Color(0xFF5DCAD1),
+          minimumSize: Size.fromHeight(40),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5.0),
+          ),
         ),
-      ),
-      child: FittedBox(
-        child: Text(
-          'Add Event',
-          style: TextStyle(
-              fontSize: 20,
-              color: Colors.white,
-              decoration: TextDecoration.underline),
+        child: const FittedBox(
+          child: Text(
+            'Add Event',
+            style: TextStyle(
+                fontSize: 20,
+                color: Colors.white,
+                decoration: TextDecoration.underline),
+          ),
         ),
-      ),
-      onPressed: () async {
-        if (title!.isNotEmpty &&
-            organiser!.isNotEmpty &&
-            loc!.isNotEmpty &&
-            description!.isNotEmpty &&
-            event_type!.isNotEmpty) {
-          if (start_time == null) {
-            start_time = DateTime.now();
+        onPressed: () async {
+          if (title!.isNotEmpty &&
+              organiser!.isNotEmpty &&
+              loc!.isNotEmpty &&
+              description!.isNotEmpty &&
+              event_type!.isNotEmpty) {
+            if (start_time == null) {
+              start_time = DateTime.now();
+            }
+            if (start_date == null) {
+              start_date = DateTime.now();
+            }
+            addCollection().addEventtoDatabase(
+                title,
+                organiser,
+                loc,
+                description,
+                start_date,
+                start_time,
+                event_type,
+                "abcdefghij12");
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => admin()),
+            );
           }
-          if (start_date == null) {
-            start_date = DateTime.now();
-          }
-          addCollection().addEventtoDatabase(title, organiser, loc, description,
-              start_date, start_time, event_type, "abcdefghij12");
-        }
-      },
-    );
+        },
+      );
+}

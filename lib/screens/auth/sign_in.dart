@@ -86,7 +86,7 @@ class _SignInState extends State<SignIn> {
         },
       );
 
-  Widget LogInText() => Center(
+  Widget LogInText() => const Center(
         child: Text("Enter Credentials",
             style: TextStyle(
                 color: Colors.white, fontFamily: 'poppins', fontSize: 25)),
@@ -97,7 +97,7 @@ class _SignInState extends State<SignIn> {
       onClicked: () async {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const GetDataForEdit()),
+          MaterialPageRoute(builder: (context) => AddEvent()),
         );
       });
 
@@ -108,7 +108,7 @@ class _SignInState extends State<SignIn> {
 
   Widget IconWidget() => Container(
         // margin: EdgeInsets.all(50.0),
-        child: Image(
+        child: const Image(
           image: AssetImage('images/finallogo.png'),
           // fit: BoxFit.cover,
           width: 300,

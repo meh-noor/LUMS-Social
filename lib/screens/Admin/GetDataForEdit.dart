@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lums_social_app2/screens/Admin/editEvent.dart';
+import 'package:lums_social_app2/screens/news/editdeleteNews.dart';
 import 'package:provider/provider.dart';
 import 'package:lums_social_app2/models/user.dart';
 import 'package:lums_social_app2/screens/auth/authenticate.dart';
@@ -9,6 +10,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:lums_social_app2/splash.dart';
 
 String? title;
+String? headline;
+String? news_author;
 String? loc;
 String? organiser;
 String? description;
@@ -49,10 +52,62 @@ class _GetDataForEditState extends State<GetDataForEdit> {
                 event_type: event_type);
           } else {
             // return Splash();
-            return Text('Sabar');
+            return Container(
+              // margin: EdgeInsets.all(50.0),
+              child: Image(
+                image: AssetImage('images/finallogo.png'),
+                // fit: BoxFit.cover,
+                width: 450,
+                height: 400,
+              ),
+            );
           }
         }),
         future: fetchData(),
+      );
+    }
+  }
+}
+
+class GetNewsforEdit extends StatefulWidget {
+  const GetNewsforEdit({Key? key}) : super(key: key);
+
+  @override
+  State<GetNewsforEdit> createState() => _GetNewsforEditState();
+}
+
+class _GetNewsforEditState extends State<GetNewsforEdit> {
+  @override
+  Widget build(BuildContext context) {
+    final user = Provider.of<MyUser?>(context);
+
+    // print(user);
+    // // return either Home or Authenticate Widget
+    // bool temp = true;
+    if (uid == null) {
+      return Authenticate();
+    } else {
+      return FutureBuilder(
+        builder: ((context, snapshot) {
+          if (snapshot.data != null) {
+            return EditNews(
+                headline: headline,
+                news_author: news_author,
+                description: description);
+          } else {
+            // return Splash();
+            return Container(
+              // margin: EdgeInsets.all(50.0),
+              child: Image(
+                image: AssetImage('images/finallogo.png'),
+                // fit: BoxFit.cover,
+                width: 450,
+                height: 400,
+              ),
+            );
+          }
+        }),
+        future: GetNews(),
       );
     }
   }
@@ -72,14 +127,19 @@ Future<Object> fetchData() async {
   organiser = mySnapshot.data()?['Organiser'];
   event_type = mySnapshot.data()?['event_type'];
   return mySnapshot;
-
-  // print(data[0]['title']);
-  // if (resultant == null) {
-  //   print("UNable to get");
-  // } else {
-  //   setState(() {
-  //     eventData = resultant;
-  //     // print(eventData[0].title);
-  //   });
-  // }
 }
+
+Future<Object> GetNews() async {
+  DocumentSnapshot<Map<String, dynamic>> mySnapshot;
+  mySnapshot = await addCollection().getNews('abcd1234');
+  headline = mySnapshot.data()?['headline'];
+  description = mySnapshot.data()?['description'];
+  news_author = mySnapshot.data()?['news_author'];
+  return mySnapshot;
+}
+
+
+
+// ***************************************************************************************************************
+
+
