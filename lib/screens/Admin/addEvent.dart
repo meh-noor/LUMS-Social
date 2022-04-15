@@ -1,16 +1,10 @@
 import 'dart:io';
-import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:lums_social_app2/screens/Admin/GetDataForEdit.dart';
-import 'package:lums_social_app2/screens/Admin/adminDashboard.dart';
-import 'package:lums_social_app2/screens/Admin/editEvent.dart';
-import 'package:lums_social_app2/screens/home/home.dart';
 import 'package:lums_social_app2/services/addToCollection.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:image_picker/image_picker.dart';
 
 String? url;
 
@@ -64,7 +58,7 @@ class _AddEventState extends State<AddEvent> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        backgroundColor: Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         body: ListView(children: <Widget>[
           FormBuilder(
               child: SingleChildScrollView(

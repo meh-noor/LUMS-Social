@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:lums_social_app2/screens/Admin/Event.dart';
-import 'package:lums_social_app2/screens/Admin/GetDataForEdit.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:lums_social_app2/services/auth.dart';
-import 'package:lums_social_app2/widget/button_widget.dart';
 import 'package:lums_social_app2/screens/Admin/addEvent.dart';
 
 class admin extends StatefulWidget {
@@ -75,13 +71,6 @@ class _adminState extends State<admin> {
               children: [
             TextSpan(
               text: ' SOCIAL ',
-              style: TextStyle(
-                fontFamily: 'Poppins',
-                color: Color(0xFF5DCAD1),
-                fontSize: 25,
-              ),
-              // child: Align(
-              //   alignment: Alignment(-0.85, -0.85),
             )
           ]));
 

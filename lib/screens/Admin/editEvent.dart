@@ -10,6 +10,7 @@ import 'package:lums_social_app2/services/addToCollection.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'adminDashboard.dart';
 
 class upload {
   Future uploadImageToFirebase(BuildContext context) async {
@@ -171,7 +172,7 @@ class _EditEventState extends State<EditEvent> {
         alignment: Alignment.topCenter,
       );
 
-  Widget subText() => Text(
+  Widget subText() => const Text(
         'Please fill in the following details carefully to add your event.',
         style: TextStyle(
           fontFamily: 'Poppins',
@@ -184,10 +185,10 @@ class _EditEventState extends State<EditEvent> {
   Widget nameField(title) => FormBuilderTextField(
         name: 'title',
         initialValue: widget.title,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
             hintText: "Enter Event Name",
             border: OutlineInputBorder(),
-            contentPadding: const EdgeInsets.only(left: 15.0)),
+            contentPadding: EdgeInsets.only(left: 15.0)),
         validator: (val) => val!.isEmpty ? "Please enter event name" : null,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         onChanged: (val) => {widget.title = val},
@@ -196,10 +197,10 @@ class _EditEventState extends State<EditEvent> {
   Widget OrganiserField(organiser) => FormBuilderTextField(
         name: 'organiser',
         initialValue: widget.organiser,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
             hintText: "Enter Organizer Name",
             border: OutlineInputBorder(),
-            contentPadding: const EdgeInsets.only(left: 15.0)),
+            contentPadding: EdgeInsets.only(left: 15.0)),
         validator: (val) =>
             val!.isEmpty ? "Please enter event organiser" : null,
         autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -208,10 +209,10 @@ class _EditEventState extends State<EditEvent> {
   Widget LocationField(loc) => FormBuilderTextField(
         name: 'location',
         initialValue: widget.loc,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
             hintText: "Enter Location",
             border: OutlineInputBorder(),
-            contentPadding: const EdgeInsets.only(left: 15.0)),
+            contentPadding: EdgeInsets.only(left: 15.0)),
         // validator: (val) => val!.isEmpty ? "Please enter event location" : null,
         validator: (val) => val!.isEmpty ? "Please enter event location" : null,
         autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -222,10 +223,10 @@ class _EditEventState extends State<EditEvent> {
         initialValue: widget.description,
         maxLines: 6,
         minLines: 1,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
             hintText: "Enter Description",
             border: OutlineInputBorder(),
-            contentPadding: const EdgeInsets.only(left: 15.0)),
+            contentPadding: EdgeInsets.only(left: 15.0)),
         validator: (val) =>
             val!.isEmpty ? "Please enter event description" : null,
         autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -239,7 +240,7 @@ class _EditEventState extends State<EditEvent> {
         initialDate: widget.start_date,
         fieldHintText: "Add Date",
         inputType: InputType.date,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           labelText: "Select Date",
           labelStyle: TextStyle(fontSize: 22),
           border: InputBorder.none,
@@ -259,7 +260,7 @@ class _EditEventState extends State<EditEvent> {
         fieldHintText: "Add Date",
         inputType: InputType.time,
         initialDate: DateTime.now(),
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           labelText: "Select Time",
           labelStyle: TextStyle(fontSize: 22),
           border: InputBorder.none,
@@ -277,22 +278,25 @@ class _EditEventState extends State<EditEvent> {
         padding: EdgeInsets.all(2.0),
         // runSpacing: 2.0,
         selectedColor: Color(0xFF5DCAD1),
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
             labelText: 'Select an option', labelStyle: TextStyle(fontSize: 22)),
         labelPadding: EdgeInsets.all(2.0),
-        options: [
+        options: const [
           FormBuilderFieldOption(value: 'Academic', child: Text('Academic')),
           FormBuilderFieldOption(
               value: 'Non-Academic', child: Text('Non-Academic')),
         ],
-
+        initialValue: widget.event_type,
+        validator: (val) =>
+            val.toString() == null ? "Please select event type" : null,
+        autovalidateMode: AutovalidateMode.always,
         onChanged: (val) {
           widget.event_type = val.toString();
         },
       );
 //
   Widget AddImage() => Row(
-        children: [
+        children: const [
           Icon(Icons.photo, size: 30, color: Color(0xFF050A30)),
           Padding(
               padding: EdgeInsets.all(5.0),
@@ -309,13 +313,13 @@ class _EditEventState extends State<EditEvent> {
       );
   Widget EditButton() => ElevatedButton(
         style: ElevatedButton.styleFrom(
-          primary: Color(0xFF5DCAD1),
-          minimumSize: Size.fromHeight(40),
-          shape: new RoundedRectangleBorder(
-            borderRadius: new BorderRadius.circular(5.0),
+          primary: const Color(0xFF5DCAD1),
+          minimumSize: const Size.fromHeight(40),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5.0),
           ),
         ),
-        child: FittedBox(
+        child: const FittedBox(
           child: Text(
             'Update',
             style: TextStyle(
@@ -339,6 +343,10 @@ class _EditEventState extends State<EditEvent> {
                 widget.start_time,
                 widget.event_type,
                 "abcdefghij123");
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => admin()),
+            );
             // print("Done");
           }
 
@@ -349,12 +357,12 @@ class _EditEventState extends State<EditEvent> {
   Widget deleteButton() => ElevatedButton(
         style: ElevatedButton.styleFrom(
           primary: Colors.red,
-          minimumSize: Size.fromHeight(40),
-          shape: new RoundedRectangleBorder(
-            borderRadius: new BorderRadius.circular(5.0),
+          minimumSize: const Size.fromHeight(40),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5.0),
           ),
         ),
-        child: FittedBox(
+        child: const FittedBox(
           child: Text(
             'Delete',
             style: TextStyle(

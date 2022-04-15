@@ -30,16 +30,33 @@ class addCollection {
 
   Future<DocumentSnapshot<Map<String, dynamic>>> getData(String uid) async {
     // Get docs from collection reference
-    List ret = [];
     DocumentSnapshot<Map<String, dynamic>> mySnapshot;
     mySnapshot =
         await FirebaseFirestore.instance.collection('Events').doc(uid).get();
-    // DocumentSnapshot querySnapshot = await eventCollection.doc(uid).get();
-    // print(querySnapshot.get('title'));
-    // Get data from docs and convert map to List
-    // final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
     return mySnapshot;
+  }
 
-    // return ret;
+  Future<DocumentSnapshot<Map<String, dynamic>>> getNews(String uid) async {
+    // Get docs from collection reference
+    DocumentSnapshot<Map<String, dynamic>> mySnapshot;
+    mySnapshot =
+        await FirebaseFirestore.instance.collection('News').doc(uid).get();
+    return mySnapshot;
+  }
+}
+
+class addNewsToCollection {
+  final CollectionReference eventCollection =
+      FirebaseFirestore.instance.collection("News");
+
+  Future<void> addNewsToDatabase(String? headline, String? news_author,
+      String? description, DateTime? start_date, String uid) {
+    print("done");
+    return eventCollection.doc(uid).set({
+      'headline': headline,
+      'news_author': news_author,
+      'description': description,
+      'start_date': start_date,
+    });
   }
 }
