@@ -165,21 +165,19 @@ class _adminState extends State<admin> {
                       color: Color(0xFFF2F1F0),
                       child: Container(
                         child: Column(children: [
-                          Center(
-                              child: Text(
-                            allData[index]['title'],
-                            style:
-                                TextStyle(color: Colors.black, fontSize: 20.0),
-                          )),
-                          Center(
-                              child: Text(
-                            allData[index]['start_date']
-                                .toDate()
-                                .toString()
-                                .substring(0, 10),
-                            style:
-                                TextStyle(color: Colors.black, fontSize: 20.0),
-                          ))
+                          TextButton(
+                              onPressed: () {},
+                              child: Center(
+                                  child: Text(
+                                allData[index]['title'].toString() +
+                                    "\n\n" +
+                                    allData[index]['start_date']
+                                        .toDate()
+                                        .toString()
+                                        .substring(0, 10),
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 20.0),
+                              ))),
                         ]),
                       ),
                     ),
