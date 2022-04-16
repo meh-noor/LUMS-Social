@@ -91,35 +91,6 @@ class _SignInState extends State<SignIn> {
             style: TextStyle(
                 color: Colors.white, fontFamily: 'poppins', fontSize: 25)),
       );
-<<<<<<< HEAD
-
-  //       onClicked: () async {
-  //         // Navigator.push(
-  //         //   context,
-  //         //   MaterialPageRoute(builder: (context) => adminDashboard()),
-  //         // );
-  //         if (_formkey.currentState!.validate()) {
-  //           dynamic result =
-  //               await _auth.signInWithEmailAndPassword(email, password);
-  //           if (result == null) {
-  //             // email error message
-  //             setState(() {
-  //               error = 'Could not sign in with those credentials';
-  //             });
-  //           }
-  //         }
-  //       },
-  //     );
-  // Widget buildButton() => ButtonWidget(
-  //     //  0xFF5DCAD1
-  //     text: 'Test Button',
-  //     onClicked: () async {
-  //       Navigator.push(
-  //         context,
-  //         MaterialPageRoute(builder: (context) => const EditProfile()),
-  //       );
-  //     });
-=======
   Widget bismahTestButton() => ButtonWidget(
       //  0xFF5DCAD1
       text: 'Test Button',
@@ -129,7 +100,6 @@ class _SignInState extends State<SignIn> {
           MaterialPageRoute(builder: (context) => AddEvent()),
         );
       });
->>>>>>> mahnoor
 
   Widget ErrorWidget() => Text(
         error,
