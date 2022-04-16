@@ -3,25 +3,19 @@ import 'package:lums_social_app2/screens/news/addNews.dart';
 import 'package:lums_social_app2/screens/news/noNews.dart';
 import 'package:lums_social_app2/screens/Admin/addEvent.dart';
 import 'package:lums_social_app2/screens/auth/forget_password.dart';
+<<<<<<< HEAD
 import 'package:lums_social_app2/screens/Admin/editEvent.dart';
+=======
+import 'package:lums_social_app2/screens/auth/register.dart';
+import 'package:lums_social_app2/screens/wrapper.dart';
+>>>>>>> 101ad0eaf255dedee516b41df017ad41c3db04a5
 import 'package:lums_social_app2/services/auth.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
-import 'package:lums_social_app2/screens/news/newsButton.dart';
-import 'package:lums_social_app2/screens/Admin/adminDashboard.dart';
-import 'package:lums_social_app2/screens/Admin/GetDataForEdit.dart';
-// import 'package:lums_social_app2/screens/Admin/hashtags.dart';
-// import 'package:lums_social_app2/screens/Admin/hashtags.dart';
-import 'package:lums_social_app2/screens/Admin/addEvent.dart';
-import 'package:lums_social_app2/screens/settings/editmainProfile.dart';
-
-import '../news/editdeleteNews.dart';
-// import 'package:lums_social_app2/widget/email_field_widget.dart';
-// import 'package:lums_social_app2/widget/password_field_widget.dart';
 
 class SignIn extends StatefulWidget {
-  final Function toggleView;
-  final Function toggleView2;
-  const SignIn({required this.toggleView, required this.toggleView2});
+  // final Function toggleView;
+  // final Function toggleView2;
+  // const SignIn({required this.toggleView, required this.toggleView2});
 
   @override
   State<SignIn> createState() => _SignInState();
@@ -33,6 +27,8 @@ class _SignInState extends State<SignIn> {
   String email = "";
   String password = "";
   String error = "";
+  bool _isObscure = false;
+
   final _formkey = GlobalKey<FormState>();
 
   @override
@@ -57,7 +53,10 @@ class _SignInState extends State<SignIn> {
                 const SizedBox(height: 10),
                 buildForgotPassword(),
                 buildButton(),
+<<<<<<< HEAD
                 // bismahTestButton(),
+=======
+>>>>>>> 101ad0eaf255dedee516b41df017ad41c3db04a5
                 const SizedBox(height: 20),
                 ErrorWidget(),
                 const SizedBox(height: 100),
@@ -76,6 +75,11 @@ class _SignInState extends State<SignIn> {
           if (_formkey.currentState!.validate()) {
             dynamic result =
                 await _auth.signInWithEmailAndPassword(email, password);
+
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Wrapper()),
+            );
             if (result == null) {
               // email error message
               setState(() {
@@ -100,7 +104,6 @@ class _SignInState extends State<SignIn> {
           MaterialPageRoute(builder: (context) => AddEvent()),
         );
       });
-
   Widget ErrorWidget() => Text(
         error,
         style: const TextStyle(color: Colors.red, fontSize: 14.0),
@@ -127,7 +130,9 @@ class _SignInState extends State<SignIn> {
               style: TextStyle(decoration: TextDecoration.underline),
             ),
             onPressed: () {
-              widget.toggleView();
+              // widget.toggleView();
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Register()));
             },
             style: TextButton.styleFrom(
               primary: const Color(0xFFFFFFFF),
@@ -145,7 +150,10 @@ class _SignInState extends State<SignIn> {
             style: TextStyle(decoration: TextDecoration.underline),
           ),
           onPressed: () {
-            return widget.toggleView2();
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ForgotPassword()));
+
+            // return widget.toggleView2();
           },
           style: TextButton.styleFrom(
             primary: const Color(0xFFFFFFFF),
@@ -184,12 +192,22 @@ class _SignInState extends State<SignIn> {
           });
         },
         style: const TextStyle(color: Color.fromARGB(255, 2, 2, 2)),
-        decoration: const InputDecoration(
+        obscureText: _isObscure,
+        decoration: InputDecoration(
           border: OutlineInputBorder(),
           hintText: 'Password',
-          suffixIcon: Icon(Icons.lock),
+          suffixIcon: IconButton(
+            icon: Icon(
+              _isObscure ? Icons.visibility : Icons.visibility_off,
+            ),
+            onPressed: () {
+              setState(() {
+                _isObscure = !_isObscure;
+              });
+            },
+          ),
         ),
-        autofocus: false,
-        obscureText: true,
+        // autofocus: false,
+        // obscureText: true,
       ));
 }

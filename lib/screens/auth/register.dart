@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lums_social_app2/screens/auth/registerUserDetails.dart';
+import 'package:lums_social_app2/screens/auth/sign_in.dart';
+import 'package:lums_social_app2/screens/wrapper.dart';
 import 'package:lums_social_app2/services/auth.dart';
 import 'package:lums_social_app2/widget/next_button.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
@@ -6,8 +9,8 @@ import 'package:lums_social_app2/widget/button_widget.dart';
 class Register extends StatefulWidget {
   // const Register({Key? key}) : super(key: key);
 
-  final Function toggleView;
-  Register({required this.toggleView});
+  // final Function toggleView;
+  // Register({required this.toggleView});
   @override
   State<Register> createState() => _RegisterState();
 }
@@ -60,6 +63,22 @@ class _RegisterState extends State<Register> {
     );
   }
 
+  bool getIdx() {
+    var idx = 0;
+    if (email != null) {
+      for (var i = 0; i < email.length; i++) {
+        if (email[i] == '@') {
+          idx = i;
+        }
+      }
+      if (email.substring(idx, email.length) == "@lums.edu.pk") {
+        print((email.substring(idx, email.length)));
+        return true;
+      }
+    }
+    return false;
+  }
+
 // Widget mySizedBox()
   Widget NextButton() => ButtonWidget(
       //  0xFF5DCAD1
@@ -69,7 +88,13 @@ class _RegisterState extends State<Register> {
           dynamic result =
               await _auth.registerWithEmailAndPassword(email, password, name);
 
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => RegisterDetails()),
+          );
+          // print(email);
           if (result == null) {
+            // print(!getIdx());
             // email error message
             setState(() {
               error = 'Please enter a valid email';
@@ -105,23 +130,6 @@ class _RegisterState extends State<Register> {
         // ],
       );
 
-  // Widget NextButton() => Row(
-  //       mainAxisAlignment: MainAxisAlignment.center,
-  //       children: [
-  //         TextButton(
-  //           child: Text(
-  //             'Next',
-  //             style: TextStyle(decoration: TextDecoration.underline),
-  //           ),
-  //           onPressed: () {},
-  //           style: TextButton.styleFrom(
-  //             primary: Color(0xFFFFFFFF),
-  //             // Text Color
-  //           ),
-  //         ),
-  //       ],
-  //     );
-
   Widget nameTextBox() => Container(
       width: 400,
       color: const Color(0xFFFFFFFF),
@@ -133,9 +141,10 @@ class _RegisterState extends State<Register> {
           });
         },
         decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          hintText: 'Name',
-        ),
+            border: OutlineInputBorder(),
+            hintText: 'Name',
+            suffixText: '*',
+            suffixStyle: TextStyle(color: Colors.red)),
         autofocus: false,
         obscureText: false,
       ));
@@ -151,9 +160,10 @@ class _RegisterState extends State<Register> {
           });
         },
         decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          hintText: 'Email',
-        ),
+            border: OutlineInputBorder(),
+            hintText: 'Email',
+            suffixText: '*',
+            suffixStyle: TextStyle(color: Colors.red)),
         autofocus: false,
         obscureText: false,
       ));
@@ -170,9 +180,10 @@ class _RegisterState extends State<Register> {
         },
         style: TextStyle(color: Color.fromARGB(255, 2, 2, 2)),
         decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          hintText: 'Enter Password',
-        ),
+            border: OutlineInputBorder(),
+            hintText: 'Enter Password',
+            suffixText: '*',
+            suffixStyle: TextStyle(color: Colors.red)),
         autofocus: false,
         obscureText: true,
       ));
@@ -208,7 +219,10 @@ class _RegisterState extends State<Register> {
               style: TextStyle(decoration: TextDecoration.underline),
             ),
             onPressed: () {
-              widget.toggleView();
+              // widget.toggleView();
+
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => SignIn()));
             },
             style: TextButton.styleFrom(
               primary: const Color(0xFFFFFFFF),
@@ -218,3 +232,7 @@ class _RegisterState extends State<Register> {
         ],
       );
 }
+
+mixin string {}
+
+class Int {}

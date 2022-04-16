@@ -66,7 +66,7 @@ class AuthService {
               "email": value.user?.email,
               "password": password,
               "name": name,
-              "isAdmin": true,
+              "isAdmin": false,
             })
           });
 

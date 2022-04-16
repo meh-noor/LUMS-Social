@@ -1,9 +1,12 @@
 import 'dart:ffi';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lums_social_app2/models/user.dart';
+import 'package:lums_social_app2/screens/Admin/studentDashboard.dart';
+import 'package:lums_social_app2/screens/Admin/viewEvent.dart';
 import 'package:lums_social_app2/screens/auth/authenticate.dart';
+import 'package:lums_social_app2/screens/auth/registerUserDetails.dart';
+import 'package:lums_social_app2/screens/auth/sign_in.dart';
 import 'package:lums_social_app2/screens/home/home.dart';
 import 'package:provider/provider.dart';
 import 'package:lums_social_app2/screens/Admin/adminDashboard.dart';
@@ -15,12 +18,12 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = Provider.of<MyUser?>(context);
 
-    print('now print use');
+    print('now print user in wrapper');
     print(user);
     // // return either Home or Authenticate Widget
     // bool temp = true;
     if (user == null) {
-      return Authenticate();
+      return SignIn();
     } else {
       return FutureBuilder(
         builder: ((context, snapshot) {
