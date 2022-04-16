@@ -65,14 +65,17 @@ class _RegisterState extends State<Register> {
 
   bool getIdx() {
     var idx = 0;
+
     if (email != null) {
       for (var i = 0; i < email.length; i++) {
         if (email[i] == '@') {
           idx = i;
         }
       }
+      print('ye wala print ke baat horhi haiii');
+      print(email);
+      print((email.substring(idx, email.length)));
       if (email.substring(idx, email.length) == "@lums.edu.pk") {
-        print((email.substring(idx, email.length)));
         return true;
       }
     }
@@ -153,7 +156,9 @@ class _RegisterState extends State<Register> {
       width: 400,
       color: const Color(0xFFFFFFFF),
       child: TextFormField(
-        validator: (val) => val!.isEmpty ? 'Enter an email' : null,
+        validator: (val) =>
+            !getIdx() || val!.isEmpty ? 'Enter a valid email' : null,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         onChanged: (val) {
           setState(() {
             email = val;
@@ -232,7 +237,3 @@ class _RegisterState extends State<Register> {
         ],
       );
 }
-
-mixin string {}
-
-class Int {}

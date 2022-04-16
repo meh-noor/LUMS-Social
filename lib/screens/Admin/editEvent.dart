@@ -32,7 +32,7 @@ class EditEvent extends StatefulWidget {
   DateTime? start_time;
   String? image;
   String? event_type;
-  String uid = 'abcdefghij12';
+  String eventID;
   EditEvent(
       {required this.title,
       required this.loc,
@@ -40,7 +40,8 @@ class EditEvent extends StatefulWidget {
       required this.organiser,
       required this.start_date,
       required this.start_time,
-      required this.event_type});
+      required this.event_type,
+      required this.eventID});
   State<EditEvent> createState() => _EditEventState();
 }
 

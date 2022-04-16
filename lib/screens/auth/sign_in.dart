@@ -185,7 +185,7 @@ class _SignInState extends State<SignIn> {
           });
         },
         style: const TextStyle(color: Color.fromARGB(255, 2, 2, 2)),
-        obscureText: _isObscure,
+        obscureText: !_isObscure,
         decoration: InputDecoration(
           border: OutlineInputBorder(),
           hintText: 'Password',
