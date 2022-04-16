@@ -3,12 +3,9 @@ import 'package:lums_social_app2/screens/news/addNews.dart';
 import 'package:lums_social_app2/screens/news/noNews.dart';
 import 'package:lums_social_app2/screens/Admin/addEvent.dart';
 import 'package:lums_social_app2/screens/auth/forget_password.dart';
-<<<<<<< HEAD
 import 'package:lums_social_app2/screens/Admin/editEvent.dart';
-=======
 import 'package:lums_social_app2/screens/auth/register.dart';
 import 'package:lums_social_app2/screens/wrapper.dart';
->>>>>>> 101ad0eaf255dedee516b41df017ad41c3db04a5
 import 'package:lums_social_app2/services/auth.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
 
@@ -53,10 +50,6 @@ class _SignInState extends State<SignIn> {
                 const SizedBox(height: 10),
                 buildForgotPassword(),
                 buildButton(),
-<<<<<<< HEAD
-                // bismahTestButton(),
-=======
->>>>>>> 101ad0eaf255dedee516b41df017ad41c3db04a5
                 const SizedBox(height: 20),
                 ErrorWidget(),
                 const SizedBox(height: 100),
