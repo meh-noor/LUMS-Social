@@ -1,12 +1,18 @@
 import 'dart:ffi';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lums_social_app2/models/user.dart';
-import 'package:lums_social_app2/screens/auth/authenticate.dart';
-import 'package:lums_social_app2/screens/home/home.dart';
+import 'package:lums_social_app2/screens/Admin/GetDataForEdit.dart';
+import 'package:lums_social_app2/screens/Admin/editEvent.dart';
+// import 'package:lums_social_app2/screens/Admin/studentDashboard.dart';
+import 'package:lums_social_app2/screens/Admin/viewEvent.dart';
+// import 'package:lums_social_app2/screens/auth/authenticate.dart';
+// import 'package:lums_social_app2/screens/auth/registerUserDetails.dart';
+import 'package:lums_social_app2/screens/auth/sign_in.dart';
+// import 'package:lums_social_app2/screens/home/home.dart';
 import 'package:provider/provider.dart';
 import 'package:lums_social_app2/screens/Admin/adminDashboard.dart';
+import 'Admin/viewEvent.dart';
 
 class Wrapper extends StatelessWidget {
   Wrapper({Key? key}) : super(key: key);
@@ -15,19 +21,28 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = Provider.of<MyUser?>(context);
 
-    print('now print use');
+    print('now print user in wrapper');
     print(user);
     // // return either Home or Authenticate Widget
     // bool temp = true;
     if (user == null) {
-      return Authenticate();
+      return SignIn();
     } else {
       return FutureBuilder(
         builder: ((context, snapshot) {
           if (snapshot.data == true) {
             return admin();
+            // return GetDataForEdit();
           } else if (snapshot.data == false) {
-            return Home();
+            return viewEvent(
+              title: 'hello1',
+              loc: 'hello2',
+              description: 'hello3',
+              organiser: 'hello4',
+              start_date: DateTime.now(),
+              start_time: DateTime.now(),
+              event_type: "hello5",
+            );
           } else {
             return splashScreen();
           }

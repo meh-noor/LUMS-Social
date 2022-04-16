@@ -1,15 +1,27 @@
 import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+// import 'package:flutter_tags/flutter_tags.dart';
+// import 'package:lums_social_app2/screens/Admin/hashtags.dart';
+// import 'package:lums_social_app2/screens/Admin/hashtags.dart';
+// import 'package:lums_social_app2/screens/Admin/hashtags.dart';
+// import 'package:lums_social_app2/screens/Admin/hashtags.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:lums_social_app2/screens/Admin/addEvent.dart';
+// import 'package:lums_social_app2/screens/Admin/adminDashboard.dart';
+// import 'package:lums_social_app2/screens/home/home.dart';
 import 'package:lums_social_app2/services/addToCollection.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
-import 'adminDashboard.dart';
+import 'package:provider/provider.dart';
+
+import '../../models/user.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:lums_social_app2/services/addToCollection.dart';
+import 'package:lums_social_app2/widget/button_widget.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+
+String? url;
 
 class upload {
   Future uploadImageToFirebase(BuildContext context) async {
@@ -18,9 +30,19 @@ class upload {
     FirebaseStorage storage = FirebaseStorage.instance;
     Reference ref = storage.ref().child("images/" + DateTime.now().toString());
     UploadTask uploadTask = ref.putFile(File(image!.path));
-    uploadTask.then((res) {
-      res.ref.getDownloadURL();
-    });
+    String imageUrl = await ref.getDownloadURL();
+    print("HERERE");
+    print(imageUrl);
+    // var dowurl = await (await uploadTask.onComplete).ref.getDownloadURL();
+    // url = dowurl.toString();
+
+    // return url;
+    // uploadTask.then((res) {
+    //   var dowurl = ref.getDownloadURL();
+    //   url = dowurl.toString();
+    //   print("hereeeHERE");
+    //   print(url);
+    // });
   }
 }
 
@@ -41,6 +63,7 @@ class AddEvent extends StatefulWidget {
 class _AddEventState extends State<AddEvent> {
   String email = '';
   final imageFile = upload();
+  // DateTime now = DateFormat("yyyy-MM-dd").format(DateTime.now());
 
   // List tags = new List(5);
   final _formKey = GlobalKey<FormBuilderState>();
@@ -48,6 +71,11 @@ class _AddEventState extends State<AddEvent> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<MyUser?>(context);
+
+    print(user);
+    print(user?.uid);
+
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
@@ -121,7 +149,7 @@ class _AddEventState extends State<AddEvent> {
               Padding(
                 padding: const EdgeInsets.only(
                     left: 15.0, right: 15.0, bottom: 4.0, top: 8.0),
-                child: AddButton(),
+                child: AddButton(user, context),
               ),
               const SizedBox(height: 10),
             ]),
@@ -129,7 +157,7 @@ class _AddEventState extends State<AddEvent> {
         ]));
   }
 
-  Widget blueDecor() => const Image(
+  Widget blueDecor() => Image(
         image: AssetImage('images/background.png'),
         fit: BoxFit.cover,
         height: 250,
@@ -137,7 +165,7 @@ class _AddEventState extends State<AddEvent> {
         alignment: Alignment.topCenter,
       );
 
-  Widget subText() => const Text(
+  Widget subText() => Text(
         'Please fill in the following details carefully to add your event.',
         style: TextStyle(
           fontFamily: 'Poppins',
@@ -149,10 +177,10 @@ class _AddEventState extends State<AddEvent> {
 
   Widget nameField() => FormBuilderTextField(
         name: 'title',
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
             hintText: "Enter Event Name",
             border: OutlineInputBorder(),
-            contentPadding: EdgeInsets.only(left: 15.0)),
+            contentPadding: const EdgeInsets.only(left: 15.0)),
         validator: (val) => val!.isEmpty ? "Please enter event name" : null,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         onChanged: (val) => {title = val},
@@ -160,10 +188,10 @@ class _AddEventState extends State<AddEvent> {
 
   Widget OrganiserField() => FormBuilderTextField(
         name: 'organiser',
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
             hintText: "Enter Organizer Name",
             border: OutlineInputBorder(),
-            contentPadding: EdgeInsets.only(left: 15.0)),
+            contentPadding: const EdgeInsets.only(left: 15.0)),
         validator: (val) =>
             val!.isEmpty ? "Please enter event organiser" : null,
         autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -171,10 +199,10 @@ class _AddEventState extends State<AddEvent> {
       );
   Widget LocationField() => FormBuilderTextField(
         name: 'location',
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
             hintText: "Enter Location",
             border: OutlineInputBorder(),
-            contentPadding: EdgeInsets.only(left: 15.0)),
+            contentPadding: const EdgeInsets.only(left: 15.0)),
         // validator: (val) => val!.isEmpty ? "Please enter event location" : null,
         validator: (val) => val!.isEmpty ? "Please enter event location" : null,
         autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -184,7 +212,7 @@ class _AddEventState extends State<AddEvent> {
         name: 'description',
         maxLines: 6,
         minLines: 1,
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
             hintText: "Enter Description",
             border: OutlineInputBorder(),
             contentPadding: const EdgeInsets.only(left: 15.0)),
@@ -201,7 +229,7 @@ class _AddEventState extends State<AddEvent> {
         initialDate: DateTime.now(),
         fieldHintText: "Add Date",
         inputType: InputType.date,
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
           labelText: "Select Date",
           labelStyle: TextStyle(fontSize: 22),
           border: InputBorder.none,
@@ -219,11 +247,11 @@ class _AddEventState extends State<AddEvent> {
   Widget TimeField() => FormBuilderDateTimePicker(
         name: 'time',
         initialValue: DateTime.now(),
-        initialTime: const TimeOfDay(hour: 8, minute: 0),
+        initialTime: TimeOfDay(hour: 8, minute: 0),
         fieldHintText: "Add Date",
         inputType: InputType.time,
         initialDate: DateTime.now(),
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
           labelText: "Select Time",
           labelStyle: TextStyle(fontSize: 22),
           border: InputBorder.none,
@@ -243,10 +271,10 @@ class _AddEventState extends State<AddEvent> {
         padding: EdgeInsets.all(2.0),
         // runSpacing: 2.0,
         selectedColor: Color(0xFF5DCAD1),
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
             labelText: 'Select an option', labelStyle: TextStyle(fontSize: 22)),
         labelPadding: EdgeInsets.all(2.0),
-        options: const [
+        options: [
           FormBuilderFieldOption(value: 'Academic', child: Text('Academic')),
           FormBuilderFieldOption(
               value: 'Non-Academic', child: Text('Non-Academic')),
@@ -258,7 +286,7 @@ class _AddEventState extends State<AddEvent> {
       );
 //
   Widget AddImage() => Row(
-        children: const [
+        children: [
           Icon(Icons.photo, size: 30, color: Color(0xFF050A30)),
           Padding(
               padding: EdgeInsets.all(5.0),
@@ -273,15 +301,15 @@ class _AddEventState extends State<AddEvent> {
               )),
         ],
       );
-  Widget AddButton() => ElevatedButton(
+  Widget AddButton(user, context) => ElevatedButton(
         style: ElevatedButton.styleFrom(
           primary: Color(0xFF5DCAD1),
           minimumSize: Size.fromHeight(40),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5.0),
+          shape: new RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(5.0),
           ),
         ),
-        child: const FittedBox(
+        child: FittedBox(
           child: Text(
             'Add Event',
             style: TextStyle(
@@ -302,19 +330,10 @@ class _AddEventState extends State<AddEvent> {
             if (start_date == null) {
               start_date = DateTime.now();
             }
-            addCollection().addEventtoDatabase(
-                title,
-                organiser,
-                loc,
-                description,
-                start_date,
-                start_time,
-                event_type,
-                "abcdefghij12");
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => admin()),
-            );
+            addCollection().addEventtoDatabase(title, organiser, loc,
+                description, start_date, start_time, event_type, user?.uid);
+
+            Navigator.pop(context);
           }
         },
       );

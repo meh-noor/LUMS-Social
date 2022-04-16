@@ -4,10 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:lums_social_app2/screens/Admin/addEvent.dart';
+import 'GetDataForEdit.dart';
+// import 'package:lums_social_app2/screens/Admin/addEvent.dart';
 import 'package:lums_social_app2/services/addToCollection.dart';
-import 'package:lums_social_app2/widget/button_widget.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:provider/provider.dart';
+
+import '../../models/user.dart';
 import 'package:image_picker/image_picker.dart';
 import 'adminDashboard.dart';
 
@@ -34,7 +37,7 @@ class EditEvent extends StatefulWidget {
   DateTime? start_time;
   String? image;
   String? event_type;
-  String uid = 'abcdefghij12';
+  String eventID;
   EditEvent(
       {required this.title,
       required this.loc,
@@ -42,7 +45,8 @@ class EditEvent extends StatefulWidget {
       required this.organiser,
       required this.start_date,
       required this.start_time,
-      required this.event_type});
+      required this.event_type,
+      required this.eventID});
   State<EditEvent> createState() => _EditEventState();
 }
 
@@ -57,6 +61,7 @@ class _EditEventState extends State<EditEvent> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<MyUser?>(context);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: Color.fromARGB(255, 255, 255, 255),
@@ -148,7 +153,7 @@ class _EditEventState extends State<EditEvent> {
                       child: Padding(
                           padding: const EdgeInsets.only(
                               left: 15.0, right: 15.0, bottom: 15.0, top: 8.0),
-                          child: EditButton())),
+                          child: EditButton(user))),
                   Expanded(
                       child: Padding(
                     padding: const EdgeInsets.only(
@@ -163,7 +168,7 @@ class _EditEventState extends State<EditEvent> {
         ]));
   }
 
-  Widget blueDecor() => const Image(
+  Widget blueDecor() => Image(
         image: AssetImage('images/editbackground.png'),
         fit: BoxFit.cover,
         height: 250,
@@ -310,7 +315,7 @@ class _EditEventState extends State<EditEvent> {
               )),
         ],
       );
-  Widget EditButton() => ElevatedButton(
+  Widget EditButton(user) => ElevatedButton(
         style: ElevatedButton.styleFrom(
           primary: const Color(0xFF5DCAD1),
           minimumSize: const Size.fromHeight(40),
@@ -348,6 +353,8 @@ class _EditEventState extends State<EditEvent> {
             );
             // print("Done");
           }
+
+          Navigator.pop(context);
         },
       );
 
