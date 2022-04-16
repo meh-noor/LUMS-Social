@@ -57,7 +57,7 @@ class _adminState extends State<admin> {
 }
 
 Widget mainText() => RichText(
-        text: TextSpan(
+        text: const TextSpan(
             text: ' LUMS ',
             style: TextStyle(
               // alignment: Alignment(-0.85, -0.85),
@@ -79,7 +79,7 @@ Widget mainText() => RichText(
         ]));
 
 Widget greetingRow() => Row(
-      children: [
+      children: const [
         Icon(Icons.account_circle_rounded, size: 33, color: Color(0xFF050A30)),
         Padding(
             padding: EdgeInsets.all(5.0),
@@ -95,7 +95,7 @@ Widget greetingRow() => Row(
       ],
     );
 
-Widget addedEvents() => Text(
+Widget addedEvents() => const Text(
       'Events you have added',
       style: TextStyle(
           fontFamily: 'Poppins',
@@ -105,29 +105,6 @@ Widget addedEvents() => Text(
           // padding: const EdgeInsets.all(15.0),
           ),
     );
-
-// Widget listEvents(context) => Container(
-//       padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
-//       height: MediaQuery.of(context).size.height * 0.35,
-//       child: ListView.builder(
-//           scrollDirection: Axis.horizontal,
-//           itemCount: numbers.length,
-//           itemBuilder: (context, index) {
-//             return Container(
-//               width: MediaQuery.of(context).size.width * 0.6,
-//               child: Card(
-//                 color: Colors.blue,
-//                 child: Container(
-//                   child: Center(
-//                       child: Text(
-//                     numbers[index].toString(),
-//                     style: TextStyle(color: Colors.white, fontSize: 36.0),
-//                   )),
-//                 ),
-//               ),
-//             );
-//           }),
-//     );
 
 Widget addButton(context) => Row(
       children: [
@@ -140,10 +117,10 @@ Widget addButton(context) => Row(
                 onPressed: () async {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => GetNewsforEdit()),
+                    MaterialPageRoute(builder: (context) => GetDataForEdit()),
                   );
                 })),
-        Padding(
+        const Padding(
             padding: EdgeInsets.all(5.0),
             child: Text(
               'Add new event',
@@ -165,7 +142,7 @@ Widget viewCalender() => Card(
       lastDay: DateTime.utc(2040, 3, 14),
       focusedDay: DateTime.now(),
       calendarFormat: CalendarFormat.month,
-      headerStyle: HeaderStyle(
+      headerStyle: const HeaderStyle(
           decoration: BoxDecoration(
             color: Color(0xFF5DCAD1),
           ),
@@ -179,7 +156,7 @@ Widget viewCalender() => Card(
           rightChevronIcon: Icon(Icons.chevron_right, color: Colors.white)),
 
       // CALENDER STYLE EDITOR
-      calendarStyle: CalendarStyle(
+      calendarStyle: const CalendarStyle(
         todayTextStyle: TextStyle(
           color: Colors.black,
         ),
@@ -188,5 +165,5 @@ Widget viewCalender() => Card(
       ),
 
       // CALENDER BUILDER
-      calendarBuilders: CalendarBuilders(),
+      calendarBuilders: const CalendarBuilders(),
     ));

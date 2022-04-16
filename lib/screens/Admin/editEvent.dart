@@ -368,6 +368,10 @@ class _EditEventState extends State<EditEvent> {
                 decoration: TextDecoration.underline),
           ),
         ),
-        onPressed: () async {},
+        onPressed: () async {
+          DeleteEvent().DeleteEventFromDB('LFSMWDyIj1Xrgj1oVswcq4sOj5h1');
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => admin()));
+        },
       );
 }

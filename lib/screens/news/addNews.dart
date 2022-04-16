@@ -222,7 +222,7 @@ class _AddNewsState extends State<AddNews> {
               news_author!.isNotEmpty &&
               description!.isNotEmpty) {
             addNewsToCollection().addNewsToDatabase(headlines, news_author,
-                description, DateTime.now(), 'abcd1234');
+                description, DateTime.now(), 'abcd12345');
           }
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => admin()));

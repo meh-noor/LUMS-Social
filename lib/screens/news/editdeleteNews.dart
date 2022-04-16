@@ -263,6 +263,10 @@ class _EditNewsState extends State<EditNews> {
                 decoration: TextDecoration.underline),
           ),
         ),
-        onPressed: () async {},
+        onPressed: () async {
+          DeleteNews().deleteNewsFromDB('abcd1234');
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => admin()));
+        },
       );
 }

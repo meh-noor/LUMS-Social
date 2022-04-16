@@ -46,17 +46,35 @@ class addCollection {
 }
 
 class addNewsToCollection {
-  final CollectionReference eventCollection =
+  final CollectionReference newsCollection =
       FirebaseFirestore.instance.collection("News");
 
   Future<void> addNewsToDatabase(String? headline, String? news_author,
       String? description, DateTime? start_date, String uid) {
     print("done");
-    return eventCollection.doc(uid).set({
+    return newsCollection.doc(uid).set({
       'headline': headline,
       'news_author': news_author,
       'description': description,
       'start_date': start_date,
     });
+  }
+}
+
+class DeleteNews {
+  final CollectionReference newsCollection =
+      FirebaseFirestore.instance.collection("News");
+
+  Future<void> deleteNewsFromDB(String uid) {
+    return newsCollection.doc(uid).delete();
+  }
+}
+
+class DeleteEvent {
+  final CollectionReference eventCollection =
+      FirebaseFirestore.instance.collection("Events");
+
+  Future<void> DeleteEventFromDB(String uid) {
+    return eventCollection.doc(uid).delete();
   }
 }
