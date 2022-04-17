@@ -6,6 +6,7 @@ import 'package:lums_social_app2/services/addToCollection.dart';
 import 'package:lums_social_app2/screens/Admin/editEvent.dart';
 import 'package:lums_social_app2/screens/auth/sign_in.dart';
 import 'package:lums_social_app2/screens/news/viewDayEvent.dart';
+import 'package:lums_social_app2/screens/settings/editmainProfile.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:lums_social_app2/services/auth.dart';
@@ -175,23 +176,24 @@ class _studentState extends State<student> {
             ),
             ListTile(
               leading: Icon(
-                Icons.logout,
+                Icons.edit,
                 size: 40,
-                color: Colors.black,
+                color: Colors.black87,
               ),
               title: Text(
-                'Logout',
+                'Edit Profile',
                 style: TextStyle(fontSize: 20),
               ),
               onTap: () async {
                 await _auth.signOut();
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => SignIn()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => EditProfile()));
               },
             ),
             ListTile(
               title: Text('\n'),
             ),
+
             ListTile(
               leading: Icon(
                 Icons.change_circle,
@@ -208,6 +210,26 @@ class _studentState extends State<student> {
                     MaterialPageRoute(builder: (context) => ForgotPassword()));
               },
             ),
+            ListTile(
+              title: Text('\n'),
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.logout,
+                size: 40,
+                color: Colors.black,
+              ),
+              title: Text(
+                'Logout',
+                style: TextStyle(fontSize: 20),
+              ),
+              onTap: () async {
+                await _auth.signOut();
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => SignIn()));
+              },
+            ),
+
             // ListTile(
             //   leading: Icon(Icons.settings),
             //   title: Text('Settings'),
