@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lums_social_app2/models/user.dart';
+import 'package:lums_social_app2/screens/Admin/GetDataForEdit.dart';
 import 'package:lums_social_app2/screens/auth/sign_in.dart';
 import 'package:lums_social_app2/splash.dart';
 import 'package:provider/provider.dart';
@@ -165,7 +166,17 @@ class _adminState extends State<admin> {
                       child: Container(
                         child: Column(children: [
                           TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                String eventID = allData[index]['eventID'];
+                                // print(eventID);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => GetDataForEdit(
+                                            eventID: eventID,
+                                          )),
+                                );
+                              },
                               child: Center(
                                   child: Text(
                                 allData[index]['title'].toString() +

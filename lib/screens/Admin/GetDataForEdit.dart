@@ -19,12 +19,14 @@ DateTime? start_date;
 DateTime? start_time;
 String? image;
 String? event_type;
-String uid = 'abcdefghij123';
+String? uid;
 
 class GetDataForEdit extends StatefulWidget {
-  const GetDataForEdit({Key? key}) : super(key: key);
+  // const GetDataForEdit({Key? key}) : super(key: key);
 
   @override
+  String? eventID;
+  GetDataForEdit({required this.eventID});
   State<GetDataForEdit> createState() => _GetDataForEditState();
 }
 
@@ -32,6 +34,7 @@ class _GetDataForEditState extends State<GetDataForEdit> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<MyUser?>(context);
+    uid = user?.uid;
 
     // print(user);
     // // return either Home or Authenticate Widget
@@ -50,7 +53,7 @@ class _GetDataForEditState extends State<GetDataForEdit> {
               start_date: start_date,
               start_time: start_time,
               event_type: event_type,
-              eventID: 'HELLO',
+              eventID: widget.eventID,
             );
           } else {
             // return Splash();
@@ -65,7 +68,7 @@ class _GetDataForEditState extends State<GetDataForEdit> {
             );
           }
         }),
-        future: fetchData(user),
+        future: fetchData(user, widget.eventID),
       );
     }
   }
@@ -113,7 +116,7 @@ class _GetDataForViewState extends State<GetDataForView> {
             );
           }
         }),
-        future: fetchData(user),
+        future: fetchData(user?.uid, user?.uid), //TODO CHANGE
       );
     }
   }
@@ -172,9 +175,11 @@ Future<Object> GetNews() async {
   return mySnapshot;
 }
 
-Future<bool> fetchData(user) async {
+Future<bool> fetchData(user, eventID) async {
+  print('fetchdatawala');
+  print(eventID);
   DocumentSnapshot<Map<String, dynamic>> mySnapshot;
-  mySnapshot = await getData(user?.uid);
+  mySnapshot = await getDataOfOne(user?.uid, eventID);
   // start_date = mySnapshot.data()?['start_date'];
   title = mySnapshot.data()?['title'];
   description = mySnapshot.data()?['description'];
@@ -188,14 +193,15 @@ Future<bool> fetchData(user) async {
   return true;
 }
 
-Future<DocumentSnapshot<Map<String, dynamic>>> getData(String uid) async {
+Future<DocumentSnapshot<Map<String, dynamic>>> getDataOfOne(
+    String uid, String eventID) async {
   // Get docs from collection reference
   DocumentSnapshot<Map<String, dynamic>> mySnapshot;
   mySnapshot = await FirebaseFirestore.instance
       .collection('adminEvents')
       .doc(uid)
       .collection('Events')
-      .doc()
+      .doc(eventID)
       .get();
   return mySnapshot;
 }

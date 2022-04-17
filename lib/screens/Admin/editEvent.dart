@@ -37,7 +37,7 @@ class EditEvent extends StatefulWidget {
   DateTime? start_time;
   String? image;
   String? event_type;
-  String eventID;
+  String? eventID;
   EditEvent(
       {required this.title,
       required this.loc,
@@ -153,7 +153,7 @@ class _EditEventState extends State<EditEvent> {
                       child: Padding(
                           padding: const EdgeInsets.only(
                               left: 15.0, right: 15.0, bottom: 15.0, top: 8.0),
-                          child: EditButton(user))),
+                          child: updateButton(user))),
                   Expanded(
                       child: Padding(
                     padding: const EdgeInsets.only(
@@ -315,7 +315,7 @@ class _EditEventState extends State<EditEvent> {
               )),
         ],
       );
-  Widget EditButton(user) => ElevatedButton(
+  Widget updateButton(user) => ElevatedButton(
         style: ElevatedButton.styleFrom(
           primary: const Color(0xFF5DCAD1),
           minimumSize: const Size.fromHeight(40),
@@ -333,20 +333,27 @@ class _EditEventState extends State<EditEvent> {
           ),
         ),
         onPressed: () async {
+          print('yaha hoooo');
           if (widget.title!.isNotEmpty &&
               widget.organiser!.isNotEmpty &&
               widget.loc!.isNotEmpty &&
               widget.organiser!.isNotEmpty &&
               widget.event_type != null) {
-            addCollection().addEventtoDatabase(
-                widget.title,
-                widget.organiser,
-                widget.loc,
-                widget.description,
-                widget.start_date,
-                widget.start_time,
-                widget.event_type,
-                "abcdefghij123");
+            FirebaseFirestore.instance
+                .collection("adminEvents")
+                .doc(uid)
+                .collection('Events')
+                .doc(widget.eventID)
+                .update({
+              'title': widget.title,
+              'Organiser': widget.organiser,
+              'location': widget.loc,
+              'description': widget.description,
+              'start_date': widget.start_date,
+              'start_time': widget.start_time,
+              'event_type': widget.event_type,
+              'eventID': widget.eventID,
+            });
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => admin()),
@@ -354,7 +361,7 @@ class _EditEventState extends State<EditEvent> {
             // print("Done");
           }
 
-          Navigator.pop(context);
+          // Navigator.pop(context);
         },
       );
 
