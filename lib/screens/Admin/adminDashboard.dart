@@ -172,12 +172,12 @@ class _adminState extends State<admin> {
         children: <Widget>[
           DrawerHeader(
             child: Text(
-              '     Account Settings',
+              '     \n\n\n     Account Settings',
               
               style: TextStyle(color: Colors.white, fontSize: 25,),
             ),
             decoration: BoxDecoration(
-                color: Color(0xFF050A30),
+                color: Color(0xFF5DCAD1),
                 // image: DecorationImage(
                 //     fit: BoxFit.fill,
                 //     image: Icon()
