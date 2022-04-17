@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lums_social_app2/models/user.dart';
 import 'package:lums_social_app2/screens/Admin/GetDataForEdit.dart';
+import 'package:lums_social_app2/screens/auth/forget_password.dart';
 import 'package:lums_social_app2/screens/auth/sign_in.dart';
 import 'package:lums_social_app2/screens/news/addNews.dart';
 // import 'package:lums_social_app2/screens/news/newsButton.dart';
@@ -53,11 +54,13 @@ class _adminState extends State<admin> {
   Widget build(BuildContext context) {
     final user = Provider.of<MyUser?>(context);
     return Scaffold(
+      drawer: SideMenu(),
         backgroundColor: Color.fromARGB(255, 255, 255, 255),
         body: SingleChildScrollView(
             child: Column(
           children: <Widget>[
             const SizedBox(height: 20),
+            // SideMenu(),
             // SignOut(),
             Padding(
                 padding: const EdgeInsets.only(
@@ -157,10 +160,68 @@ class _adminState extends State<admin> {
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(140, 5, 0, 10),
-              child: SignOut(),
+              // child: SignOut(),
             )
             // SignOut(),
           ]);
+
+  Widget SideMenu() => 
+  Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          DrawerHeader(
+            child: Text(
+              '     \n\n\n     Account Settings',
+              
+              style: TextStyle(color: Colors.white, fontSize: 25,),
+            ),
+            decoration: BoxDecoration(
+                color: Color(0xFF5DCAD1),
+                // image: DecorationImage(
+                //     fit: BoxFit.fill,
+                //     image: Icon()
+                    
+                //     )
+                    ),
+          ),
+          ListTile(
+            leading: Icon(Icons.logout),
+            title: Text('Logout',),
+            
+            onTap: () async {
+        await _auth.signOut();
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => SignIn()));
+      },
+          ),
+          ListTile(
+            leading: Icon(Icons.change_circle),
+            title: Text('Change Password'),
+            onTap: () async {
+        await _auth.signOut();
+              Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ForgotPassword()));
+            },
+          ),
+          // ListTile(
+          //   leading: Icon(Icons.settings),
+          //   title: Text('Settings'),
+          //   // onTap: () => {Navigator.of(context).pop()},
+          // ),
+          // ListTile(
+          //   leading: Icon(Icons.border_color),
+          //   title: Text('Feedback'),
+          //   // onTap: () => {Navigator.of(context).pop()},
+          // ),
+          // ListTile(
+          //   leading: Icon(Icons.exit_to_app),
+          //   title: Text('Logout'),
+          //   // onTap: () => {Navigator.of(context).pop()},
+          // ),
+        ],
+      ),
+    );
 
   Widget greetingRow(user) => Row(
         children: [
@@ -632,13 +693,13 @@ class _adminState extends State<admin> {
     // return ret;
   }
 
-  Widget SignOut() => IconButton(
-      onPressed: () async {
-        await _auth.signOut();
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => SignIn()));
-      },
-      icon: const Icon(Icons.logout_rounded));
+  // Widget SignOut() => IconButton(
+  //     onPressed: () async {
+  //       await _auth.signOut();
+  //       Navigator.push(
+  //           context, MaterialPageRoute(builder: (context) => SignIn()));
+  //     },
+  //     icon: const Icon(Icons.logout_rounded));
 
   Future<bool?> getData(String? uid) async {
     // Get docs from collection reference

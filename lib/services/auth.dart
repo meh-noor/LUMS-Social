@@ -57,6 +57,8 @@ class AuthService {
           email: email, password: password);
 
       User? user1;
+      bool isAdmin = false;
+
       result.then((value) => {
             user1 = value.user,
             FirebaseFirestore.instance
@@ -66,8 +68,20 @@ class AuthService {
               "email": value.user?.email,
               "password": password,
               "name": name,
-              "isAdmin": true,
-            })
+              "isAdmin": false,
+            }),
+            //also upar isAdmin ko false krna hoga TDO
+            //comment the below code when app is deployed
+
+            if (isAdmin)
+              {
+                FirebaseFirestore.instance
+                    .collection('adminIDs')
+                    .doc(value.user?.uid)
+                    .set({
+                  'id': value.user?.uid,
+                })
+              }
           });
 
       return _userFromFirebaseUser(user1);
