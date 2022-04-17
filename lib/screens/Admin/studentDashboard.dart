@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lums_social_app2/screens/Admin/editEvent.dart';
 import 'package:lums_social_app2/screens/auth/sign_in.dart';
+import 'package:lums_social_app2/screens/news/viewDayEvent.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:lums_social_app2/services/auth.dart';
@@ -48,7 +49,7 @@ class _studentState extends State<student> {
   Widget build(BuildContext context) {
     final user = Provider.of<MyUser?>(context);
     return Scaffold(
-      drawer: SideMenu(),
+        drawer: SideMenu(),
         backgroundColor: Color.fromARGB(255, 255, 255, 255),
         body: Column(
           children: <Widget>[
@@ -59,11 +60,10 @@ class _studentState extends State<student> {
                   alignment: Alignment.topLeft,
                   child: mainText(),
                 )),
-                const SizedBox(height: 10),
+            const SizedBox(height: 10),
             Padding(
               padding:
                   const EdgeInsets.only(left: 20.0, right: 15.0, bottom: 10.0),
-                  
               child: greetingRow(user),
             ),
             const SizedBox(height: 10),
@@ -118,63 +118,65 @@ class _studentState extends State<student> {
             // SignOut(),
           ]);
 
-  Widget SideMenu() => 
-  Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          DrawerHeader(
-            child: Text(
-              '     \n\n\n     Account Settings',
-              
-              style: TextStyle(color: Colors.white, fontSize: 25,),
-            ),
-            decoration: BoxDecoration(
+  Widget SideMenu() => Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              child: Text(
+                '     \n\n\n     Account Settings',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 25,
+                ),
+              ),
+              decoration: BoxDecoration(
                 color: Color(0xFF5DCAD1),
                 // image: DecorationImage(
                 //     fit: BoxFit.fill,
                 //     image: Icon()
-                    
+
                 //     )
-                    ),
-          ),
-          ListTile(
-            leading: Icon(Icons.logout),
-            title: Text('Logout',),
-            
-            onTap: () async {
-        await _auth.signOut();
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => SignIn()));
-      },
-          ),
-          ListTile(
-            leading: Icon(Icons.change_circle),
-            title: Text('Change Password'),
-            onTap: () async {
-        await _auth.signOut();
-              Navigator.push(
-            context, MaterialPageRoute(builder: (context) => ForgotPassword()));
-            },
-          ),
-          // ListTile(
-          //   leading: Icon(Icons.settings),
-          //   title: Text('Settings'),
-          //   // onTap: () => {Navigator.of(context).pop()},
-          // ),
-          // ListTile(
-          //   leading: Icon(Icons.border_color),
-          //   title: Text('Feedback'),
-          //   // onTap: () => {Navigator.of(context).pop()},
-          // ),
-          // ListTile(
-          //   leading: Icon(Icons.exit_to_app),
-          //   title: Text('Logout'),
-          //   // onTap: () => {Navigator.of(context).pop()},
-          // ),
-        ],
-      ),
-    );
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: Text(
+                'Logout',
+              ),
+              onTap: () async {
+                await _auth.signOut();
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => SignIn()));
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.change_circle),
+              title: Text('Change Password'),
+              onTap: () async {
+                await _auth.signOut();
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ForgotPassword()));
+              },
+            ),
+            // ListTile(
+            //   leading: Icon(Icons.settings),
+            //   title: Text('Settings'),
+            //   // onTap: () => {Navigator.of(context).pop()},
+            // ),
+            // ListTile(
+            //   leading: Icon(Icons.border_color),
+            //   title: Text('Feedback'),
+            //   // onTap: () => {Navigator.of(context).pop()},
+            // ),
+            // ListTile(
+            //   leading: Icon(Icons.exit_to_app),
+            //   title: Text('Logout'),
+            //   // onTap: () => {Navigator.of(context).pop()},
+            // ),
+          ],
+        ),
+      );
 
   Widget greetingRow(user) => Row(
         children: [
@@ -224,7 +226,7 @@ class _studentState extends State<student> {
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
-                        NewsStudent())); // update `_focusedDay` here as well
+                        DayEvent())); // update `_focusedDay` here as well
           });
         },
         headerStyle: HeaderStyle(
@@ -269,10 +271,10 @@ class _studentState extends State<student> {
           backgroundColor: Color(0xFF050A30),
           child: Icon(Icons.newspaper, size: 40),
           onPressed: () async {
-            getAllAdminsEvents();
+            getAllAdminsEvents(); // tester function
             // Navigator.push(
             //   context,
-            //   MaterialPageRoute(builder: (context) => AddEvent()),
+            //   MaterialPageRoute(builder: (context) => NewsStudent()),
             // );
           }));
 
