@@ -32,17 +32,35 @@ class addCollection {
     });
   }
 
+<<<<<<< HEAD
   Future<DocumentSnapshot<Map<String, dynamic>>> getNews(String newsID) async {
     DocumentSnapshot<Map<String, dynamic>> mySnapshot;
     mySnapshot =
         await FirebaseFirestore.instance.collection('News').doc(newsID).get();
     return mySnapshot;
   }
+=======
+  // Future<DocumentSnapshot<Map<String, dynamic>>> getNews(String newsID) async {
+  //   // Get docs from collection reference
+  //   DocumentSnapshot<Map<String, dynamic>> mySnapshot;
+  //   mySnapshot =
+  //       await FirebaseFirestore.instance.collection('News').doc(newsID).get();
+  //   return mySnapshot;
+  // }
+
+  // String _returnsEventID() {}//TODO
+>>>>>>> 3ad9417b04703d4e7344cc9e0f4338b014093e7b
 }
 
 class addNewsToCollection {
-  addNewsToDatabase(String? headline, String? news_author, String? description,
-      DateTime? start_date, String uid) {
+  addNewsToDatabase(
+    String? headline,
+    String? news_author,
+    String? description,
+    DateTime? start_date,
+    String uid,
+    String? imageURL,
+  ) {
     final CollectionReference eventCollection =
         FirebaseFirestore.instance.collection("adminEvents");
 
@@ -54,6 +72,7 @@ class addNewsToCollection {
       'description': description,
       'start_date': start_date,
       'NewsID': newsID,
+      'imageURL': imageURL,
     });
   }
 }

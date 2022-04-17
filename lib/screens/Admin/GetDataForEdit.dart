@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:lums_social_app2/screens/Admin/editEvent.dart';
 import 'package:lums_social_app2/screens/auth/sign_in.dart';
+// import 'package:lums_social_app2/screens/news/newsButton.dart';
+import 'package:lums_social_app2/screens/news/viewNewsAdmin.dart';
 import 'package:provider/provider.dart';
 import 'package:lums_social_app2/models/user.dart';
 import 'package:lums_social_app2/services/addToCollection.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:lums_social_app2/splash.dart';
-import 'package:lums_social_app2/screens/Admin/viewEvent.dart';
+import 'package:lums_social_app2/screens/Admin/viewEventAdmin.dart';
 import 'package:lums_social_app2/screens/news/editdeleteNews.dart';
 
 String? title;
@@ -174,6 +176,7 @@ class _GetNewsforEditState extends State<GetNewsforEdit> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<MyUser?>(context);
+    uid = user?.uid;
 
     // print(user);
     // // return either Home or Authenticate Widget
@@ -184,11 +187,13 @@ class _GetNewsforEditState extends State<GetNewsforEdit> {
       return FutureBuilder(
         builder: ((context, snapshot) {
           if (snapshot.data != null) {
-            return EditNews(
-                newsID: widget.newsID,
-                headline: headline,
-                news_author: news_author,
-                description: description);
+            return viewNews(
+              newsID: widget.newsID,
+              headline: headline,
+              news_author: news_author,
+              description: description,
+              imageURL: imageURL,
+            );
           } else {
             // return Splash();
             return Container(
@@ -202,18 +207,27 @@ class _GetNewsforEditState extends State<GetNewsforEdit> {
             );
           }
         }),
-        future: GetNews(widget.newsID),
+        future: GetNews(user, widget.newsID),
       );
     }
   }
 }
 
-Future<Object> GetNews(newsID) async {
+Future<Object> GetNews(user, newsID) async {
   DocumentSnapshot<Map<String, dynamic>> mySnapshot;
-  mySnapshot = await addCollection().getNews(newsID);
+  print('START-------------------------');
+  print(user?.uid);
+  print(newsID);
+  print('END-------------------------');
+  mySnapshot = await getNews(user?.uid, newsID);
   headline = mySnapshot.data()?['headline'];
   description = mySnapshot.data()?['description'];
   news_author = mySnapshot.data()?['news_author'];
+  imageURL = mySnapshot.data()?['imageURL'];
+
+  print('checking image url mahnoor ki ghalti 0');
+  print(imageURL);
+
   return mySnapshot;
 }
 
@@ -245,6 +259,19 @@ Future<DocumentSnapshot<Map<String, dynamic>>> getDataOfOne(
       .doc(uid)
       .collection('Events')
       .doc(eventID)
+      .get();
+  return mySnapshot;
+}
+
+Future<DocumentSnapshot<Map<String, dynamic>>> getNews(
+    String uid, String newsID) async {
+  // Get docs from collection reference
+  DocumentSnapshot<Map<String, dynamic>> mySnapshot;
+  mySnapshot = await FirebaseFirestore.instance
+      .collection('adminEvents')
+      .doc(uid)
+      .collection('News')
+      .doc(newsID)
       .get();
   return mySnapshot;
 }

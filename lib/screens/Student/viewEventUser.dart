@@ -43,7 +43,7 @@ class _viewEventState extends State<viewEvent> {
   String getDateFromDateAndTime(String date) {
     DateTime dateTime;
     dateTime = DateTime.parse(date).toLocal();
-    return DateFormat("yyyy-MM-dd").format(dateTime);
+    return DateFormat("dd-MM-yyyy").format(dateTime);
   }
 
   // getTimeFromDateAndTime(widget.start_date);
@@ -118,11 +118,11 @@ class _viewEventState extends State<viewEvent> {
         //   padding: const EdgeInsets.only(left: 15.0, bottom: 5.0, top: 15.0),
         //   child: authorName(),
         // ),
-        Padding(
-          padding: const EdgeInsets.only(
-              left: 15.0, right: 15.0, bottom: 5.0, top: 15.0),
-          child: editButton(),
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.only(
+        //       left: 15.0, right: 15.0, bottom: 5.0, top: 15.0),
+        //   child: editButton(),
+        // ),
       ],
     )));
   }
