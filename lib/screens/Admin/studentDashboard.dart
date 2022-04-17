@@ -58,9 +58,11 @@ class _studentState extends State<student> {
                   alignment: Alignment.topLeft,
                   child: mainText(),
                 )),
+                const SizedBox(height: 10),
             Padding(
               padding:
                   const EdgeInsets.only(left: 20.0, right: 15.0, bottom: 10.0),
+                  
               child: greetingRow(user),
             ),
             const SizedBox(height: 10),
@@ -122,12 +124,12 @@ class _studentState extends State<student> {
         children: <Widget>[
           DrawerHeader(
             child: Text(
-              '     Account Settings',
+              '     \n\n\n     Account Settings',
               
               style: TextStyle(color: Colors.white, fontSize: 25,),
             ),
             decoration: BoxDecoration(
-                color: Color(0xFF050A30),
+                color: Color(0xFF5DCAD1),
                 // image: DecorationImage(
                 //     fit: BoxFit.fill,
                 //     image: Icon()
