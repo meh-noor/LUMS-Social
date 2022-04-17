@@ -158,7 +158,6 @@ class _adminState extends State<admin> {
                   height: 400,
                 ),
               );
-              ;
             }
             return ListView.builder(
                 scrollDirection: Axis.horizontal,
@@ -172,21 +171,19 @@ class _adminState extends State<admin> {
                       child: TextButton(
                         onPressed: () => {},
                         child: Column(children: [
-                          Center(
-                              child: Text(
-                            allData[index]['title'],
-                            style:
-                                TextStyle(color: Colors.black, fontSize: 20.0),
-                          )),
-                          Center(
-                              child: Text(
-                            allData[index]['start_date']
-                                .toDate()
-                                .toString()
-                                .substring(0, 10),
-                            style:
-                                TextStyle(color: Colors.black, fontSize: 20.0),
-                          ))
+                          TextButton(
+                              onPressed: () {},
+                              child: Center(
+                                  child: Text(
+                                allData[index]['title'].toString() +
+                                    "\n\n" +
+                                    allData[index]['start_date']
+                                        .toDate()
+                                        .toString()
+                                        .substring(0, 10),
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 20.0),
+                              ))),
                         ]),
                       ),
                     ),
