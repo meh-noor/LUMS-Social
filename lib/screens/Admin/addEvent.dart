@@ -1,49 +1,29 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-// import 'package:flutter_tags/flutter_tags.dart';
-// import 'package:lums_social_app2/screens/Admin/hashtags.dart';
-// import 'package:lums_social_app2/screens/Admin/hashtags.dart';
-// import 'package:lums_social_app2/screens/Admin/hashtags.dart';
-// import 'package:lums_social_app2/screens/Admin/hashtags.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lums_social_app2/screens/Admin/adminDashboard.dart';
-// import 'package:lums_social_app2/screens/Admin/adminDashboard.dart';
-// import 'package:lums_social_app2/screens/home/home.dart';
 import 'package:lums_social_app2/services/addToCollection.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-
 import '../../models/user.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:lums_social_app2/services/addToCollection.dart';
-import 'package:lums_social_app2/widget/button_widget.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 
 String? url;
 
 class upload {
-  Future uploadImageToFirebase(BuildContext context) async {
+  Future<String?> uploadImageToFirebase(BuildContext context) async {
     final XFile? image =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     FirebaseStorage storage = FirebaseStorage.instance;
     Reference ref = storage.ref().child("images/" + DateTime.now().toString());
     UploadTask uploadTask = ref.putFile(File(image!.path));
-    String imageUrl = await ref.getDownloadURL();
-    print("HERERE");
-    print(imageUrl);
-    // var dowurl = await (await uploadTask.onComplete).ref.getDownloadURL();
-    // url = dowurl.toString();
-
-    // return url;
+    String downloadURL = await (await uploadTask).ref.getDownloadURL();
+    print(downloadURL);
     // uploadTask.then((res) {
-    //   var dowurl = ref.getDownloadURL();
-    //   url = dowurl.toString();
-    //   print("hereeeHERE");
-    //   print(url);
+    //   print(res.ref.getDownloadURL());
     // });
+    return downloadURL;
   }
 }
 
@@ -55,6 +35,7 @@ DateTime? start_date;
 DateTime? start_time;
 String? image;
 String? event_type;
+String? imageURL;
 
 class AddEvent extends StatefulWidget {
   @override
@@ -141,10 +122,11 @@ class _AddEventState extends State<AddEvent> {
                           padding: const EdgeInsets.only(
                               left: 30.0, right: 15.0, bottom: 4.0, top: 8.0),
                           child: ButtonWidget(
-                            text: 'Upload',
-                            onClicked: () =>
-                                imageFile.uploadImageToFirebase(context),
-                          ))),
+                              text: 'Upload',
+                              onClicked: () async => {
+                                    imageURL = await imageFile
+                                        .uploadImageToFirebase(context)
+                                  }))),
                 ],
               ),
               Padding(
@@ -331,8 +313,16 @@ class _AddEventState extends State<AddEvent> {
             if (start_date == null) {
               start_date = DateTime.now();
             }
-            addCollection().addEventtoDatabase(title, organiser, loc,
-                description, start_date, start_time, event_type, user?.uid);
+            addCollection().addEventtoDatabase(
+                title,
+                organiser,
+                loc,
+                description,
+                start_date,
+                start_time,
+                event_type,
+                user?.uid,
+                imageURL);
 
             Navigator.push(
               context,

@@ -1,3 +1,5 @@
+//View Event
+
 import 'package:flutter/material.dart';
 import 'package:lums_social_app2/screens/Admin/GetDataForEdit.dart';
 import 'package:lums_social_app2/services/auth.dart';
@@ -11,9 +13,10 @@ class viewEvent extends StatefulWidget {
   String? description;
   DateTime? start_date;
   DateTime? start_time;
-  String? image;
+  String? imageURL;
   String? event_type;
-  String uid = 'abcdefghij12';
+  String? eventID;
+  // String uid = 'abcdefghij12';
 
   viewEvent(
       {required this.title,
@@ -22,7 +25,9 @@ class viewEvent extends StatefulWidget {
       required this.organiser,
       required this.start_date,
       required this.start_time,
-      required this.event_type});
+      required this.event_type,
+      required this.eventID,
+      required this.imageURL});
 
   @override
   State<viewEvent> createState() => _viewEventState();
@@ -38,7 +43,7 @@ class _viewEventState extends State<viewEvent> {
   String getDateFromDateAndTime(String date) {
     DateTime dateTime;
     dateTime = DateTime.parse(date).toLocal();
-    return DateFormat("yyyy-MM-dd").format(dateTime);
+    return DateFormat("dd-MM-yyyy").format(dateTime);
   }
 
   // getTimeFromDateAndTime(widget.start_date);
@@ -87,11 +92,17 @@ class _viewEventState extends State<viewEvent> {
               child: info(),
             )),
         // Text(widget.description.toString()),
-
         Padding(
-          padding: const EdgeInsets.only(left: 25.0, right: 25.0),
-          child: des(),
-        ),
+            padding: EdgeInsets.only(left: 25),
+            child: Align(
+              alignment: Alignment.bottomLeft,
+              child: des(),
+            )),
+
+        // Padding(
+        //   padding: const EdgeInsets.only(left: 25.0, right: 25.0),
+        //   child: des(),
+        // ),
         Padding(
           padding: const EdgeInsets.only(
               left: 15.0, right: 295.0, bottom: 5.0, top: 15.0),
@@ -107,11 +118,11 @@ class _viewEventState extends State<viewEvent> {
         //   padding: const EdgeInsets.only(left: 15.0, bottom: 5.0, top: 15.0),
         //   child: authorName(),
         // ),
-        Padding(
-          padding: const EdgeInsets.only(
-              left: 15.0, right: 15.0, bottom: 5.0, top: 15.0),
-          child: editButton(),
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.only(
+        //       left: 15.0, right: 15.0, bottom: 5.0, top: 15.0),
+        //   child: editButton(),
+        // ),
       ],
     )));
   }
@@ -141,6 +152,7 @@ class _viewEventState extends State<viewEvent> {
 
   Widget des() => Text(
         widget.description.toString(),
+        textAlign: TextAlign.left,
         style: TextStyle(
             fontSize: 18, color: Color(0xFF050A30), fontFamily: 'Poppins'),
       );
@@ -295,10 +307,11 @@ class _viewEventState extends State<viewEvent> {
           // padding: const EdgeInsets.fromLTRB(25, 0, 0, 20),
           child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
-        child: const Image(
-          image: AssetImage('images/20poster1 1.png'),
-          fit: BoxFit.cover,
-        ),
+        child: Image.network(widget.imageURL.toString()),
+        // child: const Image(
+        //   image: AssetImage('images/20poster1 1.png'),
+        //   fit: BoxFit.cover,
+        // ),
       ));
 
 // ********************************** FETCH NEWS DESC **********************************
@@ -325,7 +338,7 @@ class _viewEventState extends State<viewEvent> {
             context,
             MaterialPageRoute(
                 builder: (context) => GetDataForEdit(
-                      eventID: '1234',
+                      eventID: widget.eventID,
                     )),
           );
         },

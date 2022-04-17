@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:lums_social_app2/screens/Admin/addEvent.dart';
 import 'package:lums_social_app2/screens/auth/forget_password.dart';
 import 'package:lums_social_app2/screens/auth/register.dart';
 import 'package:lums_social_app2/screens/wrapper.dart';
 import 'package:lums_social_app2/services/auth.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
+import 'package:lums_social_app2/screens/news/viewDayEvent.dart';
+
+// import 'package:lums_social_app2/widget/email_field_widget.dart';
+// import 'package:lums_social_app2/widget/password_field_widget.dart';
+// import 'package:lums_social_app2/screens/Admin/hashtags.dart';
 
 class SignIn extends StatefulWidget {
   // final Function toggleView;
@@ -91,7 +95,7 @@ class _SignInState extends State<SignIn> {
       onClicked: () async {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => AddEvent()),
+          MaterialPageRoute(builder: (context) => DayEvent()),
         );
       });
   Widget ErrorWidget() => Text(

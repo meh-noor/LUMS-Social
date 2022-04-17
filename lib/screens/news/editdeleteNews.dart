@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:lums_social_app2/screens/Admin/GetDataForEdit.dart';
 import 'package:lums_social_app2/services/auth.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:intl/intl.dart';
@@ -8,6 +10,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:lums_social_app2/widget/upload_widget.dart';
 import 'package:lums_social_app2/services/addToCollection.dart';
 import 'package:lums_social_app2/screens/Admin/adminDashboard.dart';
+import 'package:provider/provider.dart';
+import 'package:lums_social_app2/models/user.dart';
 
 class upload {
   Future uploadImageToFirebase(BuildContext context) async {
@@ -27,19 +31,26 @@ class EditNews extends StatefulWidget {
   String? headline;
   String? news_author;
   String? description;
+  String? newsID;
+  // String? imageURL,
+
   EditNews(
       {required this.headline,
       required this.news_author,
-      required this.description});
+      required this.description,
+      required this.newsID});
   State<EditNews> createState() => _EditNewsState();
 }
 
 class _EditNewsState extends State<EditNews> {
   final imageFile = upload();
+
   final AuthService _auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<MyUser?>(context);
+
     return Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
@@ -90,7 +101,7 @@ class _EditNewsState extends State<EditNews> {
                     Expanded(
                         child: Padding(
                             padding: const EdgeInsets.fromLTRB(30, 0, 10, 0),
-                            child: deleteButton()))
+                            child: deleteButton(user, widget.newsID)))
                   ])
                 ],
               )))
@@ -235,18 +246,25 @@ class _EditNewsState extends State<EditNews> {
           if (widget.headline!.isNotEmpty &&
               widget.news_author!.isNotEmpty &&
               widget.description!.isNotEmpty) {
-            addNewsToCollection().addNewsToDatabase(
-                widget.headline,
-                widget.news_author,
-                widget.description,
-                DateTime.now(),
-                'abcd1234');
+            FirebaseFirestore.instance
+                .collection("adminEvents")
+                .doc(uid)
+                .collection('News')
+                .doc(widget.newsID)
+                .update({
+              'headline': widget.headline,
+              'news_author': widget.news_author,
+              'description': widget.description,
+              'eventID': widget.newsID
+            });
+            // DateTime.now(),
+            // 'abcd1234');
           }
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => admin()));
         },
       );
-  Widget deleteButton() => ElevatedButton(
+  Widget deleteButton(user, newsID) => ElevatedButton(
         style: ElevatedButton.styleFrom(
           primary: const Color(0xFFE71010),
           minimumSize: const Size.fromHeight(45),
@@ -263,6 +281,10 @@ class _EditNewsState extends State<EditNews> {
                 decoration: TextDecoration.underline),
           ),
         ),
-        onPressed: () async {},
+        onPressed: () async {
+          DeleteNews().deleteNewsFromDB(user?.uid, newsID);
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => admin()));
+        },
       );
 }

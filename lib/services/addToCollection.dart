@@ -7,15 +7,16 @@ class addCollection {
       FirebaseFirestore.instance.collection("adminEvents");
 
   addEventtoDatabase(
-      String? title,
-      String? organiser,
-      String? loc,
-      String? description,
-      DateTime? start_date,
-      DateTime? start_time,
-      // String? image,
-      String? event_type,
-      String uid) {
+    String? title,
+    String? organiser,
+    String? loc,
+    String? description,
+    DateTime? start_date,
+    DateTime? start_time,
+    String? event_type,
+    String uid,
+    String? imageURL,
+  ) {
     // String eventID = uid + DateTime.now().toString();
 
     // FirebaseFirestore.instance.collection('adminEvents').doc(uid).update({
@@ -33,32 +34,60 @@ class addCollection {
       'start_time': start_time,
       'event_type': event_type,
       'eventID': eventID,
+      'imageURL': imageURL,
     });
   }
 
-  Future<DocumentSnapshot<Map<String, dynamic>>> getNews(String uid) async {
-    // Get docs from collection reference
-    DocumentSnapshot<Map<String, dynamic>> mySnapshot;
-    mySnapshot =
-        await FirebaseFirestore.instance.collection('News').doc(uid).get();
-    return mySnapshot;
-  }
+  // Future<DocumentSnapshot<Map<String, dynamic>>> getNews(String newsID) async {
+  //   // Get docs from collection reference
+  //   DocumentSnapshot<Map<String, dynamic>> mySnapshot;
+  //   mySnapshot =
+  //       await FirebaseFirestore.instance.collection('News').doc(newsID).get();
+  //   return mySnapshot;
+  // }
 
   // String _returnsEventID() {}//TODO
 }
 
 class addNewsToCollection {
-  final CollectionReference eventCollection =
-      FirebaseFirestore.instance.collection("News");
+  addNewsToDatabase(
+    String? headline,
+    String? news_author,
+    String? description,
+    DateTime? start_date,
+    String uid,
+    String? imageURL,
+  ) {
+    final CollectionReference eventCollection =
+        FirebaseFirestore.instance.collection("adminEvents");
 
-  Future<void> addNewsToDatabase(String? headline, String? news_author,
-      String? description, DateTime? start_date, String uid) {
-    print("done");
-    return eventCollection.doc(uid).set({
+    String newsID = eventCollection.doc(uid).collection('News').doc().id;
+
+    eventCollection.doc(uid).collection('News').doc(newsID).set({
       'headline': headline,
       'news_author': news_author,
       'description': description,
       'start_date': start_date,
+      'NewsID': newsID,
+      'imageURL': imageURL,
     });
+  }
+}
+
+class DeleteNews {
+  final CollectionReference newsCollection =
+      FirebaseFirestore.instance.collection("adminEvents");
+
+  Future<void> deleteNewsFromDB(String uid, String newsID) {
+    return newsCollection.doc(uid).collection('News').doc(newsID).delete();
+  }
+}
+
+class DeleteEvent {
+  final CollectionReference eventCollection =
+      FirebaseFirestore.instance.collection("Events");
+
+  Future<void> DeleteEventFromDB(String uid) {
+    return eventCollection.doc(uid).delete();
   }
 }

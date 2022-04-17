@@ -6,19 +6,25 @@ import 'package:intl/intl.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:lums_social_app2/widget/button_widget.dart';
 import 'package:lums_social_app2/widget/upload_widget.dart';
 import 'package:lums_social_app2/services/addToCollection.dart';
+import 'package:provider/provider.dart';
+import 'package:lums_social_app2/models/user.dart';
 
 class upload {
-  Future uploadImageToFirebase(BuildContext context) async {
+  Future<String?> uploadImageToFirebase(BuildContext context) async {
     final XFile? image =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     FirebaseStorage storage = FirebaseStorage.instance;
-    Reference ref = storage.ref().child("images/" + DateTime.now().toString());
+    Reference ref = storage.ref().child("news/" + DateTime.now().toString());
     UploadTask uploadTask = ref.putFile(File(image!.path));
-    uploadTask.then((res) {
-      res.ref.getDownloadURL();
-    });
+    String downloadURL = await (await uploadTask).ref.getDownloadURL();
+    // print(downloadURL);
+    // uploadTask.then((res) {
+    //   print(res.ref.getDownloadURL());
+    // });
+    return downloadURL;
   }
 }
 
@@ -26,7 +32,8 @@ String? headlines;
 String? news_author;
 String? description;
 DateTime? start_date = DateTime.now();
-String? image;
+String? imageURL;
+bool imageUploadComplete = false;
 
 class AddNews extends StatefulWidget {
   @override
@@ -34,11 +41,14 @@ class AddNews extends StatefulWidget {
 }
 
 class _AddNewsState extends State<AddNews> {
+  // final imageFile = upload();
   final imageFile = upload();
   final AuthService _auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<MyUser?>(context);
+
     return Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
@@ -66,28 +76,58 @@ class _AddNewsState extends State<AddNews> {
                   dateField(),
                   //space(),
                   //uploadImage(),
-                  Row(children: [
-                    Expanded(
-                        child: Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                            child: uploadImage())),
-                    Expanded(
-                        child: Padding(
-                            padding: const EdgeInsets.fromLTRB(30, 8, 15, 4),
-                            child: UploadWidget(
-                              text: 'upload',
-                              onClicked: () =>
-                                  //************************************  ADD PICTURE in db ************************************ */
-                                  imageFile.uploadImageToFirebase(context),
-                            )))
-                  ]),
+                  Row(
+                    children: [
+                      Expanded(
+                          child: Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 15.0,
+                                  right: 15.0,
+                                  bottom: 4.0,
+                                  top: 8.0),
+                              child: AddImage())),
+                      Expanded(
+                          child: Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 30.0,
+                                  right: 15.0,
+                                  bottom: 4.0,
+                                  top: 8.0),
+                              child: ButtonWidget(
+                                  text: 'Upload',
+                                  onClicked: () async => {
+                                        imageURL = await imageFile
+                                            .uploadImageToFirebase(context),
+                                        print('ye wala'),
+                                        print(imageURL),
+                                        imageUploadComplete = true,
+                                      }))),
+                    ],
+                  ),
                   Padding(
                       padding: const EdgeInsets.fromLTRB(15, 8, 15, 4),
-                      child: finalButton())
+                      child: finalButton(user))
                 ],
               )))
             ])));
   }
+
+  Widget AddImage() => Row(
+        children: [
+          Icon(Icons.photo, size: 30, color: Color(0xFF050A30)),
+          Padding(
+              padding: EdgeInsets.all(5.0),
+              child: Text(
+                'Upload Image',
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  color: Colors.black,
+                  fontSize: 18,
+                  // padding: const EdgeInsets.all(15.0),
+                ),
+              )),
+        ],
+      );
 
   Widget space() =>
       Container(padding: const EdgeInsets.fromLTRB(15, 15, 15, 10));
@@ -122,7 +162,7 @@ class _AddNewsState extends State<AddNews> {
               labelText: "Enter News Headline",
               border: OutlineInputBorder(),
               contentPadding: EdgeInsets.only(left: 15.0)),
-          validator: (val) => val!.isEmpty ? "Please enter event name" : null,
+          validator: (val) => val!.isEmpty ? "Please enter headline" : null,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           onChanged: (val) => {headlines = val}));
 
@@ -136,7 +176,7 @@ class _AddNewsState extends State<AddNews> {
               labelText: "Enter Name of Author",
               border: OutlineInputBorder(),
               contentPadding: EdgeInsets.only(left: 15.0)),
-          validator: (val) => val!.isEmpty ? "Please enter event name" : null,
+          validator: (val) => val!.isEmpty ? "Please enter author name" : null,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           onChanged: (val) => {news_author = val}));
 
@@ -153,7 +193,7 @@ class _AddNewsState extends State<AddNews> {
             contentPadding:
                 EdgeInsets.symmetric(vertical: 50.0, horizontal: 15.0),
           ),
-          validator: (val) => val!.isEmpty ? "Please enter event name" : null,
+          validator: (val) => val!.isEmpty ? "Please enter news story" : null,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           onChanged: (val) => {description = val}));
 
@@ -200,7 +240,7 @@ class _AddNewsState extends State<AddNews> {
         ],
       );
 
-  Widget finalButton() => ElevatedButton(
+  Widget finalButton(user) => ElevatedButton(
         style: ElevatedButton.styleFrom(
           primary: const Color(0xFF5DCAD1),
           minimumSize: const Size.fromHeight(50),
@@ -210,7 +250,7 @@ class _AddNewsState extends State<AddNews> {
         ),
         child: const FittedBox(
           child: Text(
-            'Add Event',
+            'Add News',
             style: TextStyle(
                 fontSize: 20,
                 color: Colors.white,
@@ -220,12 +260,15 @@ class _AddNewsState extends State<AddNews> {
         onPressed: () async {
           if (headlines!.isNotEmpty &&
               news_author!.isNotEmpty &&
-              description!.isNotEmpty) {
+              description!.isNotEmpty &&
+              imageUploadComplete) {
             addNewsToCollection().addNewsToDatabase(headlines, news_author,
-                description, DateTime.now(), 'abcd1234');
+                description, DateTime.now(), user?.uid, imageURL);
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => admin()));
+          } else if (imageUploadComplete != true) {
+            Text('Please wait for the picture to upload');
           }
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => admin()));
         },
       );
 }
