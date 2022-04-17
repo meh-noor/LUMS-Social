@@ -169,7 +169,8 @@ class _adminState extends State<admin> {
                     width: 200,
                     child: Card(
                       color: Color(0xFFF2F1F0),
-                      child: Container(
+                      child: TextButton(
+                        onPressed: () => {},
                         child: Column(children: [
                           Center(
                               child: Text(
@@ -263,7 +264,7 @@ class _adminState extends State<admin> {
             ),
             formatButtonDecoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(20.0)),
-            formatButtonTextStyle: TextStyle(
+            formatButtonTextStyle: const TextStyle(
               color: Color(0xFF050A30),
             ),
             leftChevronIcon: Icon(Icons.chevron_left, color: Colors.white),
@@ -271,7 +272,7 @@ class _adminState extends State<admin> {
 
         // eventLoader: _getEventsforDay,
         // CALENDER STYLE EDITOR
-        calendarStyle: CalendarStyle(
+        calendarStyle: const CalendarStyle(
           selectedDecoration:
               BoxDecoration(color: Color(0xFF5DCAD1), shape: BoxShape.circle),
           todayTextStyle: TextStyle(
