@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lums_social_app2/firebase_options.dart';
 import 'package:lums_social_app2/models/user.dart';
 import 'package:lums_social_app2/screens/Admin/adminDashboard.dart';
 import 'package:lums_social_app2/screens/auth/forgetPasswordRedirect.dart';
@@ -13,7 +14,9 @@ import 'models/user.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.android
+  );
   runApp(const MyApp());
 }
 
