@@ -10,6 +10,7 @@ import 'package:lums_social_app2/screens/Admin/editEvent.dart';
 >>>>>>> 1d1767ae1b7824963a5000cdcdf2c4f1f3e6925b
 import 'package:lums_social_app2/screens/auth/sign_in.dart';
 import 'package:lums_social_app2/screens/news/viewDayEvent.dart';
+import 'package:lums_social_app2/screens/settings/editmainProfile.dart';
 import 'package:provider/provider.dart';
 >>>>>>> 3ad9417b04703d4e7344cc9e0f4338b014093e7b
 import 'package:table_calendar/table_calendar.dart';
@@ -149,19 +150,19 @@ class _studentState extends State<student> {
           ListTile(
             title: Text('\n'),
           ),
-          ListTile(
-            leading: Icon(Icons.logout,size: 40, color: Colors.black,),
-            title: Text('Logout', style: TextStyle(fontSize: 20),),
-            
+           ListTile(
+            leading: Icon(Icons.edit, size: 40, color: Colors.black87,),
+            title: Text('Edit Profile', style: TextStyle(fontSize: 20),),
             onTap: () async {
         await _auth.signOut();
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => SignIn()));
-      },
+              Navigator.push(
+            context, MaterialPageRoute(builder: (context) => EditProfile()));
+            },
           ),
           ListTile(
             title: Text('\n'),
           ),
+         
           ListTile(
             leading: Icon(Icons.change_circle,size: 40, color: Colors.black87,),
             title: Text('Change Password', style: TextStyle(fontSize: 20),),
@@ -171,6 +172,21 @@ class _studentState extends State<student> {
             context, MaterialPageRoute(builder: (context) => ForgotPassword()));
             },
           ),
+          ListTile(
+            title: Text('\n'),
+          ),
+           ListTile(
+            leading: Icon(Icons.logout,size: 40, color: Colors.black,),
+            title: Text('Logout', style: TextStyle(fontSize: 20),),
+            
+            onTap: () async {
+        await _auth.signOut();
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => SignIn()));
+      },
+          ),
+          
+         
           // ListTile(
           //   leading: Icon(Icons.settings),
           //   title: Text('Settings'),
