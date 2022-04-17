@@ -11,6 +11,9 @@ import 'package:lums_social_app2/splash.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:lums_social_app2/screens/Admin/addEvent.dart';
+import 'package:random_color/random_color.dart';
+import 'package:lums_social_app2/screens/news/editdeletenews.dart';
+// import 'package:';
 
 import '../../services/auth.dart';
 
@@ -22,13 +25,28 @@ class admin extends StatefulWidget {
 class _adminState extends State<admin> {
   final AuthService _auth = AuthService();
   List<Map<String, dynamic>> allData = [];
-
-  // late final ValueNotifier<List<Event>> _selectedEvents;
-  // late Map<DateTime, List<Event>> selectedEvents;
+  List<Map<String, dynamic>> newsData = [];
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
   CalendarFormat format = CalendarFormat.month;
-  List numbers = [1, 2, 3, 4, 5];
+
+  final List colors = [
+    const Color(0xffDDFFE7),
+    const Color(0xff98D7C2),
+    const Color(0xffc8e1cc),
+    const Color(0xffe0f0e3),
+    const Color(0xffABC7A2)
+  ];
+
+  final List colorsB = [
+    const Color(0xffa4dded),
+    const Color(0xffa7d8de),
+    const Color(0xffb0e0e6),
+    const Color(0xfface5ee),
+    const Color(0xffc9e5ee),
+  ];
+
+  final _random = Random();
 
   // List<Event> _getEventsforDay(DateTime date) {
   //   return selectedEvents[date] ?? [];
@@ -47,22 +65,40 @@ class _adminState extends State<admin> {
             // SignOut(),
             Padding(
                 padding: const EdgeInsets.only(
-                    left: 15.0, right: 30.0, bottom: 10.0, top: 40.0),
+                    left: 15.0, right: 30.0, bottom: 10.0, top: 15.0),
                 child: Align(
                   alignment: Alignment.topLeft,
                   child: mainText(),
                 )),
             Padding(
               padding: const EdgeInsets.only(
-                  left: 20.0, right: 15.0, bottom: 10.0, top: 10.0),
+                  left: 20.0, right: 15.0, bottom: 10.0, top: 0.0),
               child: greetingRow(user),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             Align(
               alignment: Alignment(-0.72, -0.1),
               child: addedEvents(),
             ),
             listEvents(context, user),
+            Padding(
+                padding: const EdgeInsets.only(
+                    left: 20.0, right: 15.0, bottom: 10.0, top: 0.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    addEventButton(context),
+                    // const SizedBox(width: 50),
+                    addNewsButton(context)
+                  ],
+                )),
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 20.0, right: 15.0, bottom: 10.0, top: 0.0),
+              child: addedNews(),
+            ),
+            listNews(context, user),
             // Row(
             //   children: <Widget>[
             //     Padding(
@@ -80,50 +116,48 @@ class _adminState extends State<admin> {
             //   ],
 
             // ),
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 20.0, right: 15.0, bottom: 10.0, top: 10.0),
-              child: addEventButton(context),
-            ),
 
             // Padding(
             //   padding: const EdgeInsets.only(
             //       left: 20.0, right: 15.0, bottom: 10.0, top: 10.0),
             //   child: editEventButton(context),
             // ),
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 20.0, right: 15.0, bottom: 10.0, top: 10.0),
-              child: viewCalender(),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.only(
+            //       left: 20.0, right: 15.0, bottom: 10.0, top: 10.0),
+            //   child: viewCalender(),
+            // ),
             // addedEvents(),
             // Text(getData(user?.uid).toString()),
           ],
         )));
   }
 
-  Widget mainText() => new RichText(
-        text: new TextSpan(
-          // Note: Styles for TextSpans must be explicitly defined.
-          // Child text spans will inherit styles from parent
-          style: new TextStyle(
-            fontSize: 25.0,
-            color: Colors.black,
-            fontFamily: 'poppins',
-            //  fontWeight: FontWeight.bold,
+  Widget mainText() => Row(children: [
+        RichText(
+          text: new TextSpan(
+            // Note: Styles for TextSpans must be explicitly defined.
+            // Child text spans will inherit styles from parent
+            style: new TextStyle(
+              fontSize: 25.0,
+              color: Colors.black,
+              fontFamily: 'poppins',
+              //  fontWeight: FontWeight.bold,
+            ),
+            children: <TextSpan>[
+              new TextSpan(
+                  text: 'LUMS',
+                  style: new TextStyle(fontWeight: FontWeight.w500)),
+              new TextSpan(text: " "),
+              new TextSpan(
+                  text: 'SOCIAL',
+                  style: new TextStyle(
+                      fontWeight: FontWeight.w500, color: Color(0xFF5DCAD1))),
+            ],
           ),
-          children: <TextSpan>[
-            new TextSpan(
-                text: 'LUMS',
-                style: new TextStyle(fontWeight: FontWeight.w500)),
-            new TextSpan(text: " "),
-            new TextSpan(
-                text: 'SOCIAL',
-                style: new TextStyle(
-                    fontWeight: FontWeight.w500, color: Color(0xFF5DCAD1))),
-          ],
         ),
-      );
+        SignOut(),
+      ]);
 
   Widget greetingRow(user) => Row(
         children: [
@@ -172,6 +206,22 @@ class _adminState extends State<admin> {
             fontWeight: FontWeight.w500
             // padding: const EdgeInsets.all(15.0),
             ),
+      );
+  Widget addedNews() => Row(
+        children: [
+          Icon(Icons.newspaper_rounded, size: 35, color: Color(0xFF0E1337)),
+          const SizedBox(width: 10),
+          Text(
+            'News Bulletin',
+            style: TextStyle(
+                fontFamily: 'Poppins',
+                color: Color(0xFF0E1337),
+                fontSize: 22,
+                fontWeight: FontWeight.w600
+                // padding: const EdgeInsets.all(15.0),
+                ),
+          ),
+        ],
       );
 
   Widget listEvents(context, user) => Container(
@@ -227,7 +277,12 @@ class _adminState extends State<admin> {
 
                       shadowColor: Colors.grey.withOpacity(1),
 
-                      color: Color(0xFFFBF6F0),
+                      // color: Color(0xFFFBF6F0),
+                      color: colors[_random.nextInt(4)],
+                      // color: Colors
+                      //     .primaries[Random().nextInt(Colors.primaries.length)],
+
+                      // color: _randomcolor.randomColor(colorHue: ColorHue.blue),
 
                       child: Container(
                         child: Column(children: [
@@ -260,6 +315,107 @@ class _adminState extends State<admin> {
                                         .substring(0, 10),
                                 style: TextStyle(
                                     color: Colors.black, fontSize: 16.0),
+                                textAlign: TextAlign.center,
+                              ))),
+                        ]),
+                      ),
+                    ),
+                  );
+                });
+          },
+          future: getData(user?.uid),
+        ),
+      );
+
+  Widget listNews(context, user) => Container(
+        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
+        // height: MediaQuery.of(context).size.height,
+        height: 400,
+        child: FutureBuilder(
+          builder: (context, snapshot) {
+            if (snapshot.data == null) {
+              return Container(
+                child: Image(
+                  image: AssetImage('images/finallogo.png'),
+                  // fit: BoxFit.cover,
+                  width: 450,
+                  height: 400,
+                ),
+              );
+            }
+            return ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: newsData.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    // decoration: BoxDecoration(
+                    //   border: Border(
+                    //       left: BorderSide(
+                    //     color: Colors.primaries[
+                    //         Random().nextInt(Colors.primaries.length)],
+                    //     width: 5,
+                    //   )),
+                    // ),
+                    // width: MediaQuery.of(context).size.width * 0.6,
+                    width: 240,
+                    height: 100,
+                    // decoration: BoxDecoration(
+                    //   shape: Border(left: BorderSide(color: Colors.yellow, width: 5)),
+                    // ),
+                    child: Card(
+                      elevation: 5,
+                      // shape: Border(left: BorderSide(color: Colors.primaries[Random().nextInt(Colors.primaries.length)], width: 8)),
+
+                      shape: RoundedRectangleBorder(
+                        // side: BorderSide(color: Colors.yellow, width: 1),
+
+                        borderRadius: BorderRadius.circular(15),
+                        // side: BorderSide(
+                        // //   color: Colors.grey.withOpacity(0.5),
+
+                        // )
+                      ),
+
+                      shadowColor: Colors.grey.withOpacity(1),
+
+                      // color: Color(0xFFFBF6F0),
+                      color: colorsB[_random.nextInt(4)],
+                      // color: Colors
+                      //     .primaries[Random().nextInt(Colors.primaries.length)],
+
+                      // color: _randomcolor.randomColor(colorHue: ColorHue.blue),
+
+                      child: Container(
+                        child: Column(children: [
+                          // Container(
+                          //       // height: 50,
+                          //       // width: 20,
+                          //       color: Colors.yellow,
+                          //       alignment: Alignment.centerLeft,
+                          //     ),
+                          TextButton(
+                              onPressed: () {
+                                String newsID = newsData[index]['newsID'];
+                                // print(eventID);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => GetNewsforEdit(
+                                            newsID: newsID,
+                                          )),
+                                );
+                              },
+                              child: Center(
+                                  child: Text(
+                                newsData[index]['title'].toString() +
+                                    "\n\n" +
+                                    //  allData[index]['location'] + "\n\n" +
+                                    newsData[index]['start_date']
+                                        .toDate()
+                                        .toString()
+                                        .substring(0, 10),
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 16.0),
                                 textAlign: TextAlign.center,
                               ))),
                         ]),
@@ -319,6 +475,37 @@ class _adminState extends State<admin> {
               padding: EdgeInsets.all(5.0),
               child: Text(
                 ' Add event',
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontFamily: 'Poppins',
+                  color: Colors.black,
+                  fontSize: 18,
+                  // padding: const EdgeInsets.all(15.0),
+                ),
+              )),
+        ],
+      );
+
+  Widget addNewsButton(context) => Row(
+        children: [
+          Container(
+              height: 30.0,
+              width: 30.0,
+              child: FloatingActionButton(
+                  elevation: 2,
+                  // backgroundColor: Color(0xFF5DCAD1),
+                  backgroundColor: Colors.black,
+                  child: Icon(Icons.add),
+                  onPressed: () async {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => AddNews()),
+                    );
+                  })),
+          Padding(
+              padding: EdgeInsets.all(5.0),
+              child: Text(
+                ' Add news',
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontFamily: 'Poppins',
@@ -405,16 +592,14 @@ class _adminState extends State<admin> {
     // return ret;
   }
 
-  // Widget SignOut() =>
-
-  // TextButton.icon(
-  // onPressed: () async {
-  //   await _auth.signOut();
-  //   Navigator.push(
-  //       context, MaterialPageRoute(builder: (context) => SignIn()));
-  // },
-  // icon: const Icon(Icons.person),
-  // label: const Text('Logout'));
+  Widget SignOut() => TextButton.icon(
+      onPressed: () async {
+        await _auth.signOut();
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => SignIn()));
+      },
+      icon: const Icon(Icons.person),
+      label: const Text('Logout'));
 
   Future<bool?> getData(String? uid) async {
     // Get docs from collection reference

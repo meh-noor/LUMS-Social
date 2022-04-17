@@ -157,10 +157,15 @@ class _GetDataForViewState extends State<GetDataForView> {
 }
 
 class GetNewsforEdit extends StatefulWidget {
-  const GetNewsforEdit({Key? key}) : super(key: key);
-
   @override
+  String? newsID;
+  GetNewsforEdit({required this.newsID});
   State<GetNewsforEdit> createState() => _GetNewsforEditState();
+
+  // const GetNewsforEdit({Key? key}) : super(key: key);
+
+  // @override
+  // State<GetNewsforEdit> createState() => _GetNewsforEditState();
 }
 
 class _GetNewsforEditState extends State<GetNewsforEdit> {
@@ -178,7 +183,7 @@ class _GetNewsforEditState extends State<GetNewsforEdit> {
         builder: ((context, snapshot) {
           if (snapshot.data != null) {
             return EditNews(
-                newsID: "123456",
+                newsID: widget.newsID,
                 headline: headline,
                 news_author: news_author,
                 description: description);
