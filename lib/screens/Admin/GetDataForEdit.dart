@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:lums_social_app2/screens/Admin/editEvent.dart';
 import 'package:lums_social_app2/screens/auth/sign_in.dart';
-import 'package:lums_social_app2/screens/news/newsButton.dart';
-import 'package:lums_social_app2/screens/news/viewNews.dart';
+// import 'package:lums_social_app2/screens/news/newsButton.dart';
+import 'package:lums_social_app2/screens/news/viewNewsAdmin.dart';
 import 'package:provider/provider.dart';
 import 'package:lums_social_app2/models/user.dart';
 import 'package:lums_social_app2/services/addToCollection.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:lums_social_app2/splash.dart';
-import 'package:lums_social_app2/screens/Admin/viewEvent.dart';
+import 'package:lums_social_app2/screens/Admin/viewEventAdmin.dart';
 import 'package:lums_social_app2/screens/news/editdeleteNews.dart';
 
 String? title;

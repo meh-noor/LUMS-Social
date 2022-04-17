@@ -6,14 +6,14 @@ import 'package:lums_social_app2/screens/Admin/GetDataForEdit.dart';
 import 'package:lums_social_app2/screens/Admin/editEvent.dart';
 import 'package:lums_social_app2/screens/Admin/studentDashboard.dart';
 // import 'package:lums_social_app2/screens/Admin/studentDashboard.dart';
-import 'package:lums_social_app2/screens/Admin/viewEvent.dart';
+import 'package:lums_social_app2/screens/Admin/viewEventAdmin.dart';
 // import 'package:lums_social_app2/screens/auth/authenticate.dart';
 // import 'package:lums_social_app2/screens/auth/registerUserDetails.dart';
 import 'package:lums_social_app2/screens/auth/sign_in.dart';
 // import 'package:lums_social_app2/screens/home/home.dart';
 import 'package:provider/provider.dart';
 import 'package:lums_social_app2/screens/Admin/adminDashboard.dart';
-import 'Admin/viewEvent.dart';
+import 'Admin/viewEventAdmin.dart';
 
 class Wrapper extends StatelessWidget {
   Wrapper({Key? key}) : super(key: key);
