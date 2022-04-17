@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:lums_social_app2/services/auth.dart';
 
@@ -10,11 +12,33 @@ class NewsStudent extends StatefulWidget
 
 class _NewsStudentState extends State<NewsStudent> 
 {
+  
+
   final AuthService _auth = AuthService();
 
   @override
   Widget build(BuildContext context) 
   {
+    final List colors = 
+    [
+      const Color(0xffDDFFE7),
+      const Color(0xff98D7C2),
+      const Color(0xffc8e1cc),
+      const Color(0xffe0f0e3),
+      const Color(0xffABC7A2)
+
+    ];
+
+final List colorsB = 
+[
+   const Color(0xffa4dded),
+   const Color(0xffa7d8de),
+   const Color(0xffb0e0e6),
+   const Color(0xfface5ee),
+   const Color(0xffc9e5ee),
+];
+
+final _random = Random();
     
     return Container(
       decoration: const BoxDecoration
@@ -46,7 +70,8 @@ class _NewsStudentState extends State<NewsStudent>
                   [
                     title(),
                     subtitle(),
-                    box(context),
+                    box(context, _random, colors, colorsB),
+                    box(context, _random, colors, colorsB),
                     //text()
                   ],
               )
@@ -76,7 +101,7 @@ Widget subtitle() => Container
 );
 
 
-Widget box(context) => Container
+Widget box(context, _random, colors, colorsB) => Container
 (
   padding: const EdgeInsets.fromLTRB(0, 100, 0, 0),
 
@@ -96,7 +121,8 @@ Widget box(context) => Container
               offset: Offset(0, 4),
           ),
       ],
-      color: const Color(0xFFFBF6F0),
+      color: colors[_random.nextInt(4)],
+      //color: const Color(0xFFFBF6F0),
   ),
 
 child:Row
@@ -131,7 +157,7 @@ child:Row
                     'Career Services Office',
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle (fontFamily: 'Poppins', color: Color(0xFFA19F9F),fontSize: 14,),
+                    style: TextStyle (fontFamily: 'Poppins', color: Colors.black,fontSize: 14,),
                   ),
               ),
             ],
