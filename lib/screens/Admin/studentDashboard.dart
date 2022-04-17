@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lums_social_app2/services/addToCollection.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:lums_social_app2/services/auth.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
@@ -156,6 +157,7 @@ class _studentState extends State<student> {
           backgroundColor: Color(0xFF050A30),
           child: Icon(Icons.newspaper, size: 40),
           onPressed: () async {
+            print("here");
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => AddEvent()),
