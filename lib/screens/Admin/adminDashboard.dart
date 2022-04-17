@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lums_social_app2/models/user.dart';
@@ -13,8 +12,6 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:lums_social_app2/screens/Admin/addEvent.dart';
 import 'package:random_color/random_color.dart';
 import 'package:lums_social_app2/screens/news/editdeletenews.dart';
-// import 'package:';
-
 import '../../services/auth.dart';
 
 class admin extends StatefulWidget {
@@ -133,31 +130,38 @@ class _adminState extends State<admin> {
         )));
   }
 
-  Widget mainText() => Row(children: [
-        RichText(
-          text: new TextSpan(
-            // Note: Styles for TextSpans must be explicitly defined.
-            // Child text spans will inherit styles from parent
-            style: new TextStyle(
-              fontSize: 25.0,
-              color: Colors.black,
-              fontFamily: 'poppins',
-              //  fontWeight: FontWeight.bold,
+  Widget mainText() => Row(
+          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            RichText(
+              text: new TextSpan(
+                // Note: Styles for TextSpans must be explicitly defined.
+                // Child text spans will inherit styles from parent
+                style: new TextStyle(
+                  fontSize: 25.0,
+                  color: Colors.black,
+                  fontFamily: 'poppins',
+                  //  fontWeight: FontWeight.bold,
+                ),
+                children: <TextSpan>[
+                  new TextSpan(
+                      text: 'LUMS',
+                      style: new TextStyle(fontWeight: FontWeight.w500)),
+                  new TextSpan(text: " "),
+                  new TextSpan(
+                      text: 'SOCIAL',
+                      style: new TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xFF5DCAD1))),
+                ],
+              ),
             ),
-            children: <TextSpan>[
-              new TextSpan(
-                  text: 'LUMS',
-                  style: new TextStyle(fontWeight: FontWeight.w500)),
-              new TextSpan(text: " "),
-              new TextSpan(
-                  text: 'SOCIAL',
-                  style: new TextStyle(
-                      fontWeight: FontWeight.w500, color: Color(0xFF5DCAD1))),
-            ],
-          ),
-        ),
-        SignOut(),
-      ]);
+            Padding(
+              padding: EdgeInsets.fromLTRB(140, 5, 0, 10),
+              child: SignOut(),
+            )
+            // SignOut(),
+          ]);
 
   Widget greetingRow(user) => Row(
         children: [
@@ -262,7 +266,7 @@ class _adminState extends State<admin> {
                     //   shape: Border(left: BorderSide(color: Colors.yellow, width: 5)),
                     // ),
                     child: Card(
-                      elevation: 5,
+                      elevation: 3,
                       // shape: Border(left: BorderSide(color: Colors.primaries[Random().nextInt(Colors.primaries.length)], width: 8)),
 
                       shape: RoundedRectangleBorder(
@@ -285,39 +289,49 @@ class _adminState extends State<admin> {
                       // color: _randomcolor.randomColor(colorHue: ColorHue.blue),
 
                       child: Container(
-                        child: Column(children: [
-                          // Container(
-                          //       // height: 50,
-                          //       // width: 20,
-                          //       color: Colors.yellow,
-                          //       alignment: Alignment.centerLeft,
-                          //     ),
-                          TextButton(
-                              onPressed: () {
-                                String eventID = allData[index]['eventID'];
-                                // print(eventID);
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => GetDataForView(
-                                            eventID: eventID,
-                                          )),
-                                );
-                              },
-                              child: Center(
-                                  child: Text(
-                                allData[index]['title'].toString() +
-                                    "\n\n" +
-                                    //  allData[index]['location'] + "\n\n" +
-                                    allData[index]['start_date']
-                                        .toDate()
-                                        .toString()
-                                        .substring(0, 10),
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 16.0),
-                                textAlign: TextAlign.center,
-                              ))),
-                        ]),
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              // Container(
+                              //       // height: 50,
+                              //       // width: 20,
+                              //       color: Colors.yellow,
+                              //       alignment: Alignment.centerLeft,
+                              //     ),
+                              TextButton(
+                                  onPressed: () {
+                                    String eventID = allData[index]['eventID'];
+                                    // print(eventID);
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => GetDataForView(
+                                                eventID: eventID,
+                                              )),
+                                    );
+                                  },
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        allData[index]['title'].toString(),
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.w700),
+                                      ),
+                                      Text(
+                                        allData[index]['start_date']
+                                            .toDate()
+                                            .toString()
+                                            .substring(0, 10),
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 16.0),
+                                      ),
+                                    ],
+                                  )),
+                            ]),
                       ),
                     ),
                   );
@@ -363,68 +377,97 @@ class _adminState extends State<admin> {
                     //   shape: Border(left: BorderSide(color: Colors.yellow, width: 5)),
                     // ),
                     child: Card(
-                      elevation: 5,
-                      // shape: Border(left: BorderSide(color: Colors.primaries[Random().nextInt(Colors.primaries.length)], width: 8)),
-
+                      elevation: 3,
+                      clipBehavior: Clip.antiAlias,
                       shape: RoundedRectangleBorder(
-                        // side: BorderSide(color: Colors.yellow, width: 1),
-
                         borderRadius: BorderRadius.circular(15),
-                        // side: BorderSide(
-                        // //   color: Colors.grey.withOpacity(0.5),
-
-                        // )
                       ),
-
                       shadowColor: Colors.grey.withOpacity(1),
-
-                      // color: Color(0xFFFBF6F0),
-                      color: colorsB[_random.nextInt(4)],
+                      color: Color(0xFFFBF6F0),
+                      // crossAxisAlignment: CrossAxisAlignment.center
                       // color: Colors
                       //     .primaries[Random().nextInt(Colors.primaries.length)],
 
                       // color: _randomcolor.randomColor(colorHue: ColorHue.blue),
 
-                      child: Container(
-                        child: Column(children: [
-                          // Container(
-                          //       // height: 50,
-                          //       // width: 20,
-                          //       color: Colors.yellow,
-                          //       alignment: Alignment.centerLeft,
-                          //     ),
-                          TextButton(
-                              onPressed: () {
-                                String newsID = newsData[index]['newsID'];
-                                // print(eventID);
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => GetNewsforEdit(
-                                            newsID: newsID,
-                                          )),
-                                );
-                              },
-                              child: Center(
-                                  child: Text(
-                                newsData[index]['title'].toString() +
-                                    "\n\n" +
-                                    //  allData[index]['location'] + "\n\n" +
-                                    newsData[index]['start_date']
-                                        .toDate()
-                                        .toString()
-                                        .substring(0, 10),
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 16.0),
-                                textAlign: TextAlign.center,
-                              ))),
-                        ]),
-                      ),
+                      child: Row(mainAxisAlignment: MainAxisAlignment.start,
+
+                          // crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                              color: colorsB[_random.nextInt(4)],
+                              width: 15,
+                            ),
+                            SizedBox(
+                              width: 10.0,
+                            ),
+                            Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  // Container(
+                                  //       // height: 50,
+                                  //       // width: 20,
+                                  //       color: Colors.yellow,
+                                  //       alignment: Alignment.centerLeft,
+                                  //     ),
+                                  TextButton(
+                                      onPressed: () {
+                                        String newsID =
+                                            newsData[index]['NewsID'];
+                                        // print(newsID);
+                                        // print('ASHUDUHDUASBDUASHdba');
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  GetNewsforEdit(
+                                                    newsID: newsID,
+                                                  )),
+                                        );
+                                      },
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            newsData[index]['headline']
+                                                .toString(),
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 18.0,
+                                                fontFamily: 'poppins',
+                                                fontWeight: FontWeight.w700),
+                                          ),
+                                          Text(
+                                            newsData[index]['news_author']
+                                                .toString(),
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 16.0,
+                                                fontFamily: 'poppins'),
+                                          )
+                                        ],
+                                        // child: Text(
+                                        //   newsData[index]['headline'].toString() +
+                                        //       "\n\n" +
+                                        //       newsData[index]['news_author'].toString(),
+                                        //   // //  allData[index]['location'] + "\n\n" +
+                                        //   // newsData[index]['start_date']
+                                        //   //     .toDate()
+                                        //   //     .toString()
+                                        //   //     .substring(0, 10),
+                                        //   style: TextStyle(
+                                        //       color: Colors.black, fontSize: 16.0),
+                                        // textAlign: TextAlign.center,
+                                      )),
+                                ]),
+                          ]),
                     ),
                   );
                 });
           },
-          future: getData(user?.uid),
+          future: getNews(user?.uid),
         ),
       );
 
@@ -461,6 +504,7 @@ class _adminState extends State<admin> {
               height: 30.0,
               width: 30.0,
               child: FloatingActionButton(
+                  heroTag: 'Hero1',
                   elevation: 2,
                   // backgroundColor: Color(0xFF5DCAD1),
                   backgroundColor: Colors.black,
@@ -493,6 +537,7 @@ class _adminState extends State<admin> {
               width: 30.0,
               child: FloatingActionButton(
                   elevation: 2,
+                  heroTag: 'Hero2',
                   // backgroundColor: Color(0xFF5DCAD1),
                   backgroundColor: Colors.black,
                   child: Icon(Icons.add),
@@ -592,14 +637,13 @@ class _adminState extends State<admin> {
     // return ret;
   }
 
-  Widget SignOut() => TextButton.icon(
+  Widget SignOut() => IconButton(
       onPressed: () async {
         await _auth.signOut();
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => SignIn()));
       },
-      icon: const Icon(Icons.person),
-      label: const Text('Logout'));
+      icon: const Icon(Icons.logout_rounded));
 
   Future<bool?> getData(String? uid) async {
     // Get docs from collection reference
@@ -610,11 +654,28 @@ class _adminState extends State<admin> {
         .collection('Events')
         .get();
 
-    print('mera data');
-    print(uid);
+    // print('mera data');
+    // print(uid);
     allData = mySnapshot.docs.map((doc) => doc.data()).toList();
 
     // print(allData);
+    return true;
+  }
+
+  Future<bool?> getNews(String? uid) async {
+    // Get docs from collection reference
+    QuerySnapshot<Map<String, dynamic>> mySnapshot;
+    mySnapshot = await FirebaseFirestore.instance
+        .collection('adminEvents')
+        .doc(uid)
+        .collection('News')
+        .get();
+
+    // print('mera data');
+    // print(uid);
+    newsData = mySnapshot.docs.map((doc) => doc.data()).toList();
+
+    print(newsData);
     return true;
   }
 }

@@ -43,7 +43,7 @@ class _viewEventState extends State<viewEvent> {
   String getDateFromDateAndTime(String date) {
     DateTime dateTime;
     dateTime = DateTime.parse(date).toLocal();
-    return DateFormat("yyyy-MM-dd").format(dateTime);
+    return DateFormat("dd-MM-yyyy").format(dateTime);
   }
 
   // getTimeFromDateAndTime(widget.start_date);

@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:lums_social_app2/screens/Admin/GetDataForEdit.dart';
 import 'package:lums_social_app2/services/auth.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:intl/intl.dart';
@@ -30,6 +32,8 @@ class EditNews extends StatefulWidget {
   String? news_author;
   String? description;
   String? newsID;
+  // String? imageURL,
+
   EditNews(
       {required this.headline,
       required this.news_author,
@@ -242,12 +246,19 @@ class _EditNewsState extends State<EditNews> {
           if (widget.headline!.isNotEmpty &&
               widget.news_author!.isNotEmpty &&
               widget.description!.isNotEmpty) {
-            addNewsToCollection().addNewsToDatabase(
-                widget.headline,
-                widget.news_author,
-                widget.description,
-                DateTime.now(),
-                'abcd1234');
+            FirebaseFirestore.instance
+                .collection("adminEvents")
+                .doc(uid)
+                .collection('News')
+                .doc(widget.newsID)
+                .update({
+              'headline': widget.headline,
+              'news_author': widget.news_author,
+              'description': widget.description,
+              'eventID': widget.newsID
+            });
+            // DateTime.now(),
+            // 'abcd1234');
           }
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => admin()));
