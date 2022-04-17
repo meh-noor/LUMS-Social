@@ -4,36 +4,38 @@ import 'package:firebase_core/firebase_core.dart';
 
 class addCollection {
   final CollectionReference eventCollection =
-      FirebaseFirestore.instance.collection("Events");
+      FirebaseFirestore.instance.collection("adminEvents");
 
-  Future<void> addEventtoDatabase(
-      String? title,
-      String? organiser,
-      String? loc,
-      String? description,
-      DateTime? start_date,
-      DateTime? start_time,
-      // String? image,
-      String? event_type,
-      String uid) {
-    print("done");
-    return eventCollection.doc(uid).set({
+  addEventtoDatabase(
+    String? title,
+    String? organiser,
+    String? loc,
+    String? description,
+    DateTime? start_date,
+    DateTime? start_time,
+    String? event_type,
+    String uid,
+    String? imageURL,
+  ) {
+    // String eventID = uid + DateTime.now().toString();
+
+    // FirebaseFirestore.instance.collection('adminEvents').doc(uid).update({
+    //   "eventID": eventID,
+    // });
+
+    String eventID = eventCollection.doc(uid).collection('Events').doc().id;
+
+    eventCollection.doc(uid).collection('Events').doc(eventID).set({
       'title': title,
       'Organiser': organiser,
       'location': loc,
       'description': description,
       'start_date': start_date,
       'start_time': start_time,
-      'event_type': event_type
+      'event_type': event_type,
+      'eventID': eventID,
+      'imageURL': imageURL,
     });
-  }
-
-  Future<DocumentSnapshot<Map<String, dynamic>>> getData(String uid) async {
-    // Get docs from collection reference
-    DocumentSnapshot<Map<String, dynamic>> mySnapshot;
-    mySnapshot =
-        await FirebaseFirestore.instance.collection('Events').doc(uid).get();
-    return mySnapshot;
   }
 
   Future<DocumentSnapshot<Map<String, dynamic>>> getNews(String uid) async {
@@ -43,6 +45,8 @@ class addCollection {
         await FirebaseFirestore.instance.collection('News').doc(uid).get();
     return mySnapshot;
   }
+
+  // String _returnsEventID() {}//TODO
 }
 
 class addNewsToCollection {
