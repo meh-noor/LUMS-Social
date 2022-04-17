@@ -70,7 +70,7 @@ class _EditEventState extends State<EditEvent> {
               blueDecor(),
               Padding(
                 padding: const EdgeInsets.only(
-                    left: 15.0, right: 15.0, bottom: 10.0, top: 15.0),
+                    left: 15.0, right: 130.0, bottom: 10.0, top: 15.0),
                 child: subText(),
               ),
               Padding(
@@ -174,8 +174,8 @@ class _EditEventState extends State<EditEvent> {
         alignment: Alignment.topCenter,
       );
 
-  Widget subText() => const Text(
-        'Please fill in the following details carefully to add your event.',
+  Widget subText() => Text(
+        'Please fill in to update details.',
         style: TextStyle(
           fontFamily: 'Poppins',
           color: Colors.black,
@@ -188,6 +188,7 @@ class _EditEventState extends State<EditEvent> {
         name: 'title',
         initialValue: widget.title,
         decoration: const InputDecoration(
+            labelText: "Event Name",
             hintText: "Enter Event Name",
             border: OutlineInputBorder(),
             contentPadding: EdgeInsets.only(left: 15.0)),
@@ -200,6 +201,7 @@ class _EditEventState extends State<EditEvent> {
         name: 'organiser',
         initialValue: widget.organiser,
         decoration: const InputDecoration(
+            labelText: "Organiser Name",
             hintText: "Enter Organizer Name",
             border: OutlineInputBorder(),
             contentPadding: EdgeInsets.only(left: 15.0)),
@@ -208,10 +210,12 @@ class _EditEventState extends State<EditEvent> {
         autovalidateMode: AutovalidateMode.onUserInteraction,
         onChanged: (val) => {widget.organiser = val},
       );
+
   Widget LocationField(loc) => FormBuilderTextField(
         name: 'location',
         initialValue: widget.loc,
         decoration: const InputDecoration(
+            labelText: "Location",
             hintText: "Enter Location",
             border: OutlineInputBorder(),
             contentPadding: EdgeInsets.only(left: 15.0)),
@@ -220,12 +224,14 @@ class _EditEventState extends State<EditEvent> {
         autovalidateMode: AutovalidateMode.onUserInteraction,
         onChanged: (val) => {widget.loc = val},
       );
+
   Widget DescriptionField(description) => FormBuilderTextField(
         name: 'description',
         initialValue: widget.description,
         maxLines: 6,
         minLines: 1,
         decoration: const InputDecoration(
+            labelText: "Description of Event",
             hintText: "Enter Description",
             border: OutlineInputBorder(),
             contentPadding: EdgeInsets.only(left: 15.0)),

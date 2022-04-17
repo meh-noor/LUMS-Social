@@ -17,7 +17,7 @@ String? organiser;
 String? description;
 DateTime? start_date;
 DateTime? start_time;
-String? image;
+String? imageURL;
 String? event_type;
 String? uid;
 
@@ -56,16 +56,34 @@ class _GetDataForEditState extends State<GetDataForEdit> {
               eventID: widget.eventID,
             );
           } else {
-            // return Splash();
-            return Container(
-              // margin: EdgeInsets.all(50.0),
-              child: const Image(
-                image: AssetImage('images/finallogo.png'),
-                // fit: BoxFit.cover,
-                width: 450,
-                height: 400,
-              ),
+            return Scaffold(
+              backgroundColor: const Color(0xFF050A30),
+              body: Center(
+                  child: Form(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(20),
+                  child: AutofillGroup(
+                    child: Column(
+                      children: [
+                        IconWidget(),
+                        const SizedBox(height: 150),
+                        // TextWidget(),
+                        const CircularProgressIndicator()
+                      ],
+                    ),
+                  ),
+                ),
+              )),
             );
+            // return Container(
+            //   // margin: EdgeInsets.all(50.0),
+            //   child: const Image(
+            //     image: AssetImage('images/finallogo.png'),
+            //     // fit: BoxFit.cover,
+            //     width: 450,
+            //     height: 400,
+            //   ),
+            // );
           }
         }),
         future: fetchData(user, widget.eventID),
@@ -75,9 +93,11 @@ class _GetDataForEditState extends State<GetDataForEdit> {
 }
 
 class GetDataForView extends StatefulWidget {
-  const GetDataForView({Key? key}) : super(key: key);
+  // const GetDataForEdit({Key? key}) : super(key: key);
 
   @override
+  String? eventID;
+  GetDataForView({required this.eventID});
   State<GetDataForView> createState() => _GetDataForViewState();
 }
 
@@ -85,6 +105,7 @@ class _GetDataForViewState extends State<GetDataForView> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<MyUser?>(context);
+    uid = user?.uid;
 
     // print(user);
     // // return either Home or Authenticate Widget
@@ -96,27 +117,40 @@ class _GetDataForViewState extends State<GetDataForView> {
         builder: ((context, snapshot) {
           if (snapshot.data != null) {
             return viewEvent(
-                title: title,
-                loc: loc,
-                description: description,
-                organiser: organiser,
-                start_date: start_date,
-                start_time: start_time,
-                event_type: event_type);
+              title: title,
+              loc: loc,
+              description: description,
+              organiser: organiser,
+              start_date: start_date,
+              start_time: start_time,
+              event_type: event_type,
+              eventID: widget.eventID,
+              imageURL: imageURL,
+            );
           } else {
             // return Splash();
-            return Container(
-              // margin: EdgeInsets.all(50.0),
-              child: Image(
-                image: AssetImage('images/finallogo.png'),
-                // fit: BoxFit.cover,
-                width: 450,
-                height: 400,
-              ),
+            return Scaffold(
+              backgroundColor: const Color(0xFF050A30),
+              body: Center(
+                  child: Form(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(20),
+                  child: AutofillGroup(
+                    child: Column(
+                      children: [
+                        IconWidget(),
+                        const SizedBox(height: 150),
+                        // TextWidget(),
+                        const CircularProgressIndicator()
+                      ],
+                    ),
+                  ),
+                ),
+              )),
             );
           }
         }),
-        future: fetchData(user?.uid, user?.uid), //TODO CHANGE
+        future: fetchData(user, widget.eventID),
       );
     }
   }
@@ -146,11 +180,10 @@ class _GetNewsforEditState extends State<GetNewsforEdit> {
         builder: ((context, snapshot) {
           if (snapshot.data != null) {
             return EditNews(
-              headline: headline,
-              news_author: news_author,
-              description: description,
-              newsID: widget.newsID,
-            );
+                newsID: widget.newsID,
+                headline: headline,
+                news_author: news_author,
+                description: description);
           } else {
             // return Splash();
             return Container(
@@ -194,6 +227,7 @@ Future<bool> fetchData(user, eventID) async {
   start_time = time.toDate();
   organiser = mySnapshot.data()?['Organiser'];
   event_type = mySnapshot.data()?['event_type'];
+  imageURL = mySnapshot.data()?['imageURL'];
   return true;
 }
 
@@ -209,6 +243,16 @@ Future<DocumentSnapshot<Map<String, dynamic>>> getDataOfOne(
       .get();
   return mySnapshot;
 }
+
+Widget IconWidget() => Container(
+      // margin: EdgeInsets.all(50.0),
+      child: Image(
+        image: AssetImage('images/finallogo.png'),
+        // fit: BoxFit.cover,
+        width: 450,
+        height: 400,
+      ),
+    );
 
 
 // ***************************************************************************************************************

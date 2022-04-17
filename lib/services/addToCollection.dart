@@ -7,15 +7,16 @@ class addCollection {
       FirebaseFirestore.instance.collection("adminEvents");
 
   addEventtoDatabase(
-      String? title,
-      String? organiser,
-      String? loc,
-      String? description,
-      DateTime? start_date,
-      DateTime? start_time,
-      // String? image,
-      String? event_type,
-      String uid) {
+    String? title,
+    String? organiser,
+    String? loc,
+    String? description,
+    DateTime? start_date,
+    DateTime? start_time,
+    String? event_type,
+    String uid,
+    String? imageURL,
+  ) {
     // String eventID = uid + DateTime.now().toString();
 
     // FirebaseFirestore.instance.collection('adminEvents').doc(uid).update({
@@ -33,6 +34,7 @@ class addCollection {
       'start_time': start_time,
       'event_type': event_type,
       'eventID': eventID,
+      'imageURL': imageURL,
     });
   }
 

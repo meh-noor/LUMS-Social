@@ -102,11 +102,11 @@ class _adminState extends State<admin> {
         )));
   }
 
-  Widget mainText() => RichText(
-        text: TextSpan(
+  Widget mainText() => new RichText(
+        text: new TextSpan(
           // Note: Styles for TextSpans must be explicitly defined.
           // Child text spans will inherit styles from parent
-          style: const TextStyle(
+          style: new TextStyle(
             fontSize: 25.0,
             color: Colors.black,
             fontFamily: 'poppins',
@@ -197,14 +197,14 @@ class _adminState extends State<admin> {
                 itemCount: allData.length,
                 itemBuilder: (context, index) {
                   return Container(
-                    decoration: BoxDecoration(
-                      border: Border(
-                          left: BorderSide(
-                        color: Colors.primaries[
-                            Random().nextInt(Colors.primaries.length)],
-                        width: 5,
-                      )),
-                    ),
+                    // decoration: BoxDecoration(
+                    //   border: Border(
+                    //       left: BorderSide(
+                    //     color: Colors.primaries[
+                    //         Random().nextInt(Colors.primaries.length)],
+                    //     width: 5,
+                    //   )),
+                    // ),
                     // width: MediaQuery.of(context).size.width * 0.6,
                     width: 240,
                     height: 200,
@@ -218,7 +218,7 @@ class _adminState extends State<admin> {
                       shape: RoundedRectangleBorder(
                         // side: BorderSide(color: Colors.yellow, width: 1),
 
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(15),
                         // side: BorderSide(
                         // //   color: Colors.grey.withOpacity(0.5),
 
@@ -227,7 +227,7 @@ class _adminState extends State<admin> {
 
                       shadowColor: Colors.grey.withOpacity(1),
 
-                      color: Colors.white,
+                      color: Color(0xFFFBF6F0),
 
                       child: Container(
                         child: Column(children: [
@@ -244,7 +244,7 @@ class _adminState extends State<admin> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => GetDataForEdit(
+                                      builder: (context) => GetDataForView(
                                             eventID: eventID,
                                           )),
                                 );
@@ -281,7 +281,7 @@ class _adminState extends State<admin> {
                   heroTag: 'hero1',
                   elevation: 2,
                   // backgroundColor: Color(0xFF5DCAD1),
-                  backgroundColor: Colors.black,
+                  backgroundColor: Color(0xFF050A30),
                   child: Icon(Icons.edit),
                   onPressed: () {})),
           Padding(
@@ -291,7 +291,7 @@ class _adminState extends State<admin> {
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontFamily: 'Poppins',
-                  color: Colors.black,
+                  color: Color(0xFF050A30),
                   fontSize: 18,
                   // padding: const EdgeInsets.all(15.0),
                 ),
