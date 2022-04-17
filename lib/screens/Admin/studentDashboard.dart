@@ -147,7 +147,7 @@ class _studentState extends State<student> {
             leading: Icon(Icons.edit, size: 40, color: Colors.black87,),
             title: Text('Edit Profile', style: TextStyle(fontSize: 20),),
             onTap: () async {
-        await _auth.signOut();
+        // await _auth.signOut();
               Navigator.push(
             context, MaterialPageRoute(builder: (context) => EditProfile()));
             },
@@ -180,21 +180,7 @@ class _studentState extends State<student> {
           ),
           
          
-          // ListTile(
-          //   leading: Icon(Icons.settings),
-          //   title: Text('Settings'),
-          //   // onTap: () => {Navigator.of(context).pop()},
-          // ),
-          // ListTile(
-          //   leading: Icon(Icons.border_color),
-          //   title: Text('Feedback'),
-          //   // onTap: () => {Navigator.of(context).pop()},
-          // ),
-          // ListTile(
-          //   leading: Icon(Icons.exit_to_app),
-          //   title: Text('Logout'),
-          //   // onTap: () => {Navigator.of(context).pop()},
-          // ),
+         
         ],
       ),
     );
