@@ -1,10 +1,17 @@
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
+<<<<<<< HEAD
+import 'package:lums_social_app2/services/addToCollection.dart';
+=======
+=======
 import 'package:lums_social_app2/screens/Admin/editEvent.dart';
+>>>>>>> 1d1767ae1b7824963a5000cdcdf2c4f1f3e6925b
 import 'package:lums_social_app2/screens/auth/sign_in.dart';
 import 'package:lums_social_app2/screens/news/viewDayEvent.dart';
 import 'package:provider/provider.dart';
+>>>>>>> 3ad9417b04703d4e7344cc9e0f4338b014093e7b
 import 'package:table_calendar/table_calendar.dart';
 import 'package:lums_social_app2/services/auth.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
@@ -276,11 +283,19 @@ class _studentState extends State<student> {
           backgroundColor: Color(0xFF050A30),
           child: Icon(Icons.newspaper, size: 40),
           onPressed: () async {
+<<<<<<< HEAD
+            print("here");
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => NewsStudent()),
+            );
+=======
             getAllAdminsEvents(); // tester function
             // Navigator.push(
             //   context,
             //   MaterialPageRoute(builder: (context) => NewsStudent()),
             // );
+>>>>>>> 1d1767ae1b7824963a5000cdcdf2c4f1f3e6925b
           }));
 
   Future<String> getDataName(String? uid, String dataType) async {

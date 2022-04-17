@@ -104,7 +104,7 @@ class _DayEventState extends State<DayEvent> {
           builder: (context, snapshot) {
             if (snapshot.data == null) {
               return Container(
-                child: Image(
+                child: const Image(
                   image: AssetImage('images/finallogo.png'),
                   // fit: BoxFit.cover,
                   width: 450,
@@ -151,7 +151,7 @@ class _DayEventState extends State<DayEvent> {
                                     children: [
                                       Text(
                                         allData[index]['title'].toString(),
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 18.0,
                                             fontWeight: FontWeight.w700),
@@ -161,7 +161,7 @@ class _DayEventState extends State<DayEvent> {
                                             .toDate()
                                             .toString()
                                             .substring(0, 10),
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 16.0),
                                       ),
@@ -178,8 +178,6 @@ class _DayEventState extends State<DayEvent> {
       );
 
   Future<bool?> getData(String? uid) async {
-    print('USER IDDDDD');
-    print(uid);
     // Get docs from collection reference
     QuerySnapshot<Map<String, dynamic>> mySnapshot;
     mySnapshot = await FirebaseFirestore.instance
@@ -188,8 +186,6 @@ class _DayEventState extends State<DayEvent> {
         .collection('Events')
         .get();
     allData = mySnapshot.docs.map((doc) => doc.data()).toList();
-    print("HELLOOOOO");
-    print(allData);
     return true;
   }
 }
