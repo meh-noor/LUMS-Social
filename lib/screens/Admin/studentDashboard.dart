@@ -118,70 +118,83 @@ class _studentState extends State<student> {
             // SignOut(),
           ]);
 
-
-  Widget SideMenu() => 
-  Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          DrawerHeader(
-            child: Text(
-              '     \n\nAccount Settings',
-              
-              style: TextStyle(color: Colors.white, fontSize: 30,fontWeight: FontWeight.bold),
-            ),
-            decoration: BoxDecoration(
+  Widget SideMenu() => Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              child: Text(
+                '     \n\nAccount Settings',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold),
+              ),
+              decoration: BoxDecoration(
                 color: Color(0xFF5DCAD1),
                 // image: DecorationImage(
                 //     fit: BoxFit.fill,
                 //     image: Icon()
 
                 //     )
-                    ),
-          ),
-          ListTile(
-            title: Text('\n'),
-          ),
-          ListTile(
-            leading: Icon(Icons.logout,size: 40, color: Colors.black,),
-            title: Text('Logout', style: TextStyle(fontSize: 20),),
-            
-            onTap: () async {
-        await _auth.signOut();
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => SignIn()));
-      },
-          ),
-          ListTile(
-            title: Text('\n'),
-          ),
-          ListTile(
-            leading: Icon(Icons.change_circle,size: 40, color: Colors.black87,),
-            title: Text('Change Password', style: TextStyle(fontSize: 20),),
-            onTap: () async {
-        await _auth.signOut();
-              Navigator.push(
-            context, MaterialPageRoute(builder: (context) => ForgotPassword()));
-            },
-          ),
-          // ListTile(
-          //   leading: Icon(Icons.settings),
-          //   title: Text('Settings'),
-          //   // onTap: () => {Navigator.of(context).pop()},
-          // ),
-          // ListTile(
-          //   leading: Icon(Icons.border_color),
-          //   title: Text('Feedback'),
-          //   // onTap: () => {Navigator.of(context).pop()},
-          // ),
-          // ListTile(
-          //   leading: Icon(Icons.exit_to_app),
-          //   title: Text('Logout'),
-          //   // onTap: () => {Navigator.of(context).pop()},
-          // ),
-        ],
-      ),
-    );
+              ),
+            ),
+            ListTile(
+              title: Text('\n'),
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.logout,
+                size: 40,
+                color: Colors.black,
+              ),
+              title: Text(
+                'Logout',
+                style: TextStyle(fontSize: 20),
+              ),
+              onTap: () async {
+                await _auth.signOut();
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => SignIn()));
+              },
+            ),
+            ListTile(
+              title: Text('\n'),
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.change_circle,
+                size: 40,
+                color: Colors.black87,
+              ),
+              title: Text(
+                'Change Password',
+                style: TextStyle(fontSize: 20),
+              ),
+              onTap: () async {
+                await _auth.signOut();
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ForgotPassword()));
+              },
+            ),
+            // ListTile(
+            //   leading: Icon(Icons.settings),
+            //   title: Text('Settings'),
+            //   // onTap: () => {Navigator.of(context).pop()},
+            // ),
+            // ListTile(
+            //   leading: Icon(Icons.border_color),
+            //   title: Text('Feedback'),
+            //   // onTap: () => {Navigator.of(context).pop()},
+            // ),
+            // ListTile(
+            //   leading: Icon(Icons.exit_to_app),
+            //   title: Text('Logout'),
+            //   // onTap: () => {Navigator.of(context).pop()},
+            // ),
+          ],
+        ),
+      );
 
   Widget greetingRow(user) => Row(
         children: [
@@ -276,11 +289,11 @@ class _studentState extends State<student> {
           backgroundColor: Color(0xFF050A30),
           child: Icon(Icons.newspaper, size: 40),
           onPressed: () async {
-            getAllAdminsEvents(); // tester function
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(builder: (context) => NewsStudent()),
-            // );
+            // getAllAdminsEvents(); // tester function
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => NewsStudent()),
+            );
           }));
 
   Future<String> getDataName(String? uid, String dataType) async {

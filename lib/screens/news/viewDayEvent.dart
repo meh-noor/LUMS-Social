@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:lums_social_app2/models/user.dart';
 import 'package:lums_social_app2/screens/Admin/GetDataForEdit.dart';
+import 'package:lums_social_app2/screens/Admin/viewEventAdmin.dart';
+import 'package:lums_social_app2/screens/Student/viewEventUser.dart';
 import 'package:lums_social_app2/services/auth.dart';
 import 'package:provider/provider.dart';
 
@@ -59,6 +61,9 @@ class _DayEventState extends State<DayEvent> {
                         children: [
                           title(),
                           subtitle(),
+                          const SizedBox(
+                            height: 60,
+                          ),
                           listEvents(context, user)
                         ],
                       ))))
@@ -98,8 +103,8 @@ class _DayEventState extends State<DayEvent> {
       ));
 
   Widget listEvents(context, user) => Container(
-        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
-        height: 150,
+        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
+        height: MediaQuery.of(context).size.height,
         child: FutureBuilder(
           builder: (context, snapshot) {
             if (snapshot.data == null) {
@@ -113,12 +118,12 @@ class _DayEventState extends State<DayEvent> {
               );
             }
             return ListView.builder(
-                scrollDirection: Axis.horizontal,
+                scrollDirection: Axis.vertical,
                 itemCount: allData.length,
                 itemBuilder: (context, index) {
                   return Container(
                     width: 240,
-                    height: 200,
+                    height: 100,
                     child: Card(
                       elevation: 3,
                       shape: RoundedRectangleBorder(
@@ -142,9 +147,25 @@ class _DayEventState extends State<DayEvent> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => GetDataForView(
-                                                eventID: eventID,
-                                              )),
+                                          builder: (context) => viewEventUser(
+                                              title: allData[index]['title'],
+                                              loc: allData[index]['location'],
+                                              description: allData[index]
+                                                  ['description'],
+                                              organiser: allData[index]
+                                                  ['organiser'],
+                                              start_date: allData[index]
+                                                      ['start_date']
+                                                  .toDate(),
+                                              start_time: allData[index]
+                                                      ['start_time']
+                                                  .toDate(),
+                                              event_type: allData[index]
+                                                  ['event_type'],
+                                              eventID: allData[index]
+                                                  ['eventID'],
+                                              imageURL: allData[index]
+                                                  ['imageURL'])),
                                     );
                                   },
                                   child: Column(
@@ -173,23 +194,71 @@ class _DayEventState extends State<DayEvent> {
                   );
                 });
           },
-          future: getData(user?.uid),
+          future: getAllAdminsEvents(),
         ),
       );
 
-  Future<bool?> getData(String? uid) async {
-    print('USER IDDDDD');
-    print(uid);
-    // Get docs from collection reference
-    QuerySnapshot<Map<String, dynamic>> mySnapshot;
-    mySnapshot = await FirebaseFirestore.instance
-        .collection('adminEvents')
-        .doc(uid)
-        .collection('Events')
-        .get();
-    allData = mySnapshot.docs.map((doc) => doc.data()).toList();
-    print("HELLOOOOO");
-    print(allData);
+  // Future<bool?> getData(String? uid) async {
+  //   print('USER IDDDDD');
+  //   print(uid);
+  //   // Get docs from collection reference
+  //   QuerySnapshot<Map<String, dynamic>> mySnapshot;
+  //   mySnapshot = await FirebaseFirestore.instance
+  //       .collection('adminEvents')
+  //       .doc(uid)
+  //       .collection('Events')
+  //       .get();
+  //   allData = mySnapshot.docs.map((doc) => doc.data()).toList();
+  //   print("HELLOOOOO");
+  //   print(allData);
+  //   return true;
+  // }
+
+  Future<List<Map<String, dynamic>>> getAdminIDs() async {
+    // QuerySnapshot<Map<String, dynamic>> mySnap;
+    QuerySnapshot<Map<String, dynamic>> snapshotAdminIDs =
+        await FirebaseFirestore.instance.collection('adminIDs').get();
+
+    List<Map<String, dynamic>> allAdminIDs =
+        snapshotAdminIDs.docs.map((doc) => doc.data()).toList();
+
+    return allAdminIDs;
+  }
+
+  Future<bool?> getAllAdminsEvents() async {
+    List<Map<String, dynamic>> adminIDs = await getAdminIDs();
+    // print(adminIDs);
+    List<List<Map<String, dynamic>>> storeAllData = [];
+
+    for (var i = 0; i < adminIDs.length; i++) {
+      QuerySnapshot<Map<String, dynamic>> snapshotAdminIDs =
+          await FirebaseFirestore.instance
+              .collection('adminEvents')
+              .doc(adminIDs[i]['id'].toString())
+              .collection('Events')
+              .get();
+      List<Map<String, dynamic>> oneAdminsDataList =
+          snapshotAdminIDs.docs.map((doc) => doc.data()).toList();
+
+      storeAllData.add(oneAdminsDataList);
+    }
+
+    List<Map<String, dynamic>> allTheData = [];
+
+    for (var i = 0; i < storeAllData.length; i++) {
+      storeAllData[i].forEach((element) {
+        allTheData.add(element);
+      });
+    }
+
+    // print(storeAllData[][]);
+
+    // List<Map<String, dynamic>> allAdminIDs =
+    //     snapshotAdminIDs.docs.map((doc) => doc.data()).toList();
+
+    allData = allTheData;
+
+    // return storeAllData;
     return true;
   }
 }
