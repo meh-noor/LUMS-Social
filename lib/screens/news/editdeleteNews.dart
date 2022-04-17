@@ -282,9 +282,23 @@ class _EditNewsState extends State<EditNews> {
           ),
         ),
         onPressed: () async {
-          DeleteNews().deleteNewsFromDB(user?.uid, newsID);
+          //   DeleteNews().deleteNewsFromDB(user?.uid, newsID);
+          //   Navigator.push(
+          //       context, MaterialPageRoute(builder: (context) => admin()));
+          // },
+          await FirebaseFirestore.instance
+              .collection('adminEvents')
+              .doc(uid)
+              .collection('News')
+              .doc(widget.newsID) // <-- Doc ID to be deleted.
+              .delete()
+              .then((_) => print('Deleted'))
+              .catchError((error) => print('Delete failed: $error'));
+
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => admin()));
+            context,
+            MaterialPageRoute(builder: (context) => admin()),
+          );
         },
       );
 }
