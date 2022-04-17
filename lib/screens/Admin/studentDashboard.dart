@@ -1,7 +1,9 @@
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:lums_social_app2/screens/Admin/editEvent.dart';
 import 'package:lums_social_app2/screens/auth/sign_in.dart';
+import 'package:lums_social_app2/screens/news/viewDayEvent.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:lums_social_app2/services/auth.dart';
@@ -47,7 +49,7 @@ class _studentState extends State<student> {
   Widget build(BuildContext context) {
     final user = Provider.of<MyUser?>(context);
     return Scaffold(
-      drawer: SideMenu(),
+        drawer: SideMenu(),
         backgroundColor: Color.fromARGB(255, 255, 255, 255),
         body: Column(
           children: <Widget>[
@@ -58,11 +60,10 @@ class _studentState extends State<student> {
                   alignment: Alignment.topLeft,
                   child: mainText(),
                 )),
-                const SizedBox(height: 10),
+            const SizedBox(height: 10),
             Padding(
               padding:
                   const EdgeInsets.only(left: 20.0, right: 15.0, bottom: 10.0),
-                  
               child: greetingRow(user),
             ),
             const SizedBox(height: 10),
@@ -134,7 +135,7 @@ class _studentState extends State<student> {
                 // image: DecorationImage(
                 //     fit: BoxFit.fill,
                 //     image: Icon()
-                    
+
                 //     )
                     ),
           ),
@@ -207,15 +208,6 @@ class _studentState extends State<student> {
               },
               future: getDataName(user?.uid, "name"),
             ),
-            // Text(
-            //   'Hello',
-            //   style: TextStyle(
-            //     fontFamily: 'Poppins',
-            //     color: Colors.black,
-            //     fontSize: 25,
-            //     // padding: const EdgeInsets.all(15.0),
-            //   ),
-            // )
           ),
         ],
       );
@@ -239,7 +231,7 @@ class _studentState extends State<student> {
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
-                        NewsStudent())); // update `_focusedDay` here as well
+                        DayEvent())); // update `_focusedDay` here as well
           });
         },
         headerStyle: HeaderStyle(
@@ -284,10 +276,11 @@ class _studentState extends State<student> {
           backgroundColor: Color(0xFF050A30),
           child: Icon(Icons.newspaper, size: 40),
           onPressed: () async {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => AddEvent()),
-            );
+            getAllAdminsEvents(); // tester function
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => NewsStudent()),
+            // );
           }));
 
   Future<String> getDataName(String? uid, String dataType) async {
@@ -311,4 +304,41 @@ class _studentState extends State<student> {
             context, MaterialPageRoute(builder: (context) => SignIn()));
       },
       icon: const Icon(Icons.logout_rounded));
+
+  Future<List<Map<String, dynamic>>> getAdminIDs() async {
+    // QuerySnapshot<Map<String, dynamic>> mySnap;
+    QuerySnapshot<Map<String, dynamic>> snapshotAdminIDs =
+        await FirebaseFirestore.instance.collection('adminIDs').get();
+
+    List<Map<String, dynamic>> allAdminIDs =
+        snapshotAdminIDs.docs.map((doc) => doc.data()).toList();
+
+    return allAdminIDs;
+  }
+
+  Future<List<List<Map<String, dynamic>>>> getAllAdminsEvents() async {
+    List<Map<String, dynamic>> adminIDs = await getAdminIDs();
+    // print(adminIDs);
+    List<List<Map<String, dynamic>>> storeAllData = [];
+
+    for (var i = 0; i < adminIDs.length; i++) {
+      QuerySnapshot<Map<String, dynamic>> snapshotAdminIDs =
+          await FirebaseFirestore.instance
+              .collection('adminEvents')
+              .doc(adminIDs[i]['id'].toString())
+              .collection('Events')
+              .get();
+      List<Map<String, dynamic>> oneAdminsDataList =
+          snapshotAdminIDs.docs.map((doc) => doc.data()).toList();
+
+      storeAllData.add(oneAdminsDataList);
+    }
+
+    // print(storeAllData[][]);
+
+    // List<Map<String, dynamic>> allAdminIDs =
+    //     snapshotAdminIDs.docs.map((doc) => doc.data()).toList();
+
+    return storeAllData;
+  }
 }
