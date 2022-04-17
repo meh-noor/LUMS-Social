@@ -1,3 +1,5 @@
+//View Event
+
 import 'package:flutter/material.dart';
 import 'package:lums_social_app2/screens/Admin/GetDataForEdit.dart';
 import 'package:lums_social_app2/services/auth.dart';
@@ -13,8 +15,7 @@ class viewEvent extends StatefulWidget {
   DateTime? start_time;
   String? image;
   String? event_type;
-  String? uid;
-  String? eventID;
+  String uid = 'abcdefghij12';
 
   viewEvent(
       {required this.title,
@@ -23,8 +24,7 @@ class viewEvent extends StatefulWidget {
       required this.organiser,
       required this.start_date,
       required this.start_time,
-      required this.event_type,
-      required this.eventID});
+      required this.event_type});
 
   @override
   State<viewEvent> createState() => _viewEventState();
