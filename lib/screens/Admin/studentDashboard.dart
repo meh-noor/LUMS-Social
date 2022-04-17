@@ -1,17 +1,12 @@
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-<<<<<<< HEAD
+import 'package:lums_social_app2/screens/news/viewAllEvents.dart';
 import 'package:lums_social_app2/services/addToCollection.dart';
-=======
-=======
 import 'package:lums_social_app2/screens/Admin/editEvent.dart';
->>>>>>> 1d1767ae1b7824963a5000cdcdf2c4f1f3e6925b
 import 'package:lums_social_app2/screens/auth/sign_in.dart';
 import 'package:lums_social_app2/screens/news/viewDayEvent.dart';
 import 'package:provider/provider.dart';
->>>>>>> 3ad9417b04703d4e7344cc9e0f4338b014093e7b
 import 'package:table_calendar/table_calendar.dart';
 import 'package:lums_social_app2/services/auth.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
@@ -74,10 +69,28 @@ class _studentState extends State<student> {
               child: greetingRow(user),
             ),
             const SizedBox(height: 10),
+            Padding(
+              padding:
+                  const EdgeInsets.only(left: 20.0, right: 15.0, bottom: 10.0),
+              child: allEventsButton(),
+            ),
+            const SizedBox(height: 20),
+            Padding(
+              padding:
+                  const EdgeInsets.only(left: 20.0, right: 140.0, bottom: 10.0),
+              child: quote(),
+            ),
+            // Align(
+            //   alignment: Alignment.center,
+            //   child: Padding(
+            //       padding:
+            //           EdgeInsets.only(left: 60.0, right: 60.0, bottom: 10.0),
+            //       child: quote()),
+            // ),
 
             Padding(
-              padding: const EdgeInsets.only(
-                  left: 20.0, right: 15.0, bottom: 10.0, top: 10.0),
+              padding:
+                  const EdgeInsets.only(left: 20.0, right: 15.0, bottom: 10.0),
               child: viewCalender(),
             ),
             Align(
@@ -91,6 +104,17 @@ class _studentState extends State<student> {
           ],
         ));
   }
+
+  Widget quote() => Text(
+        'Plan your social life!',
+        textAlign: TextAlign.left,
+        style: TextStyle(
+          fontFamily: 'Poppins',
+          color: Colors.black,
+          fontSize: 24,
+          fontWeight: FontWeight.w500,
+        ),
+      );
 
   Widget mainText() => Row(
           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -125,70 +149,83 @@ class _studentState extends State<student> {
             // SignOut(),
           ]);
 
-
-  Widget SideMenu() => 
-  Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          DrawerHeader(
-            child: Text(
-              '     \n\nAccount Settings',
-              
-              style: TextStyle(color: Colors.white, fontSize: 30,fontWeight: FontWeight.bold),
-            ),
-            decoration: BoxDecoration(
+  Widget SideMenu() => Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              child: Text(
+                '     \n\nAccount Settings',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold),
+              ),
+              decoration: BoxDecoration(
                 color: Color(0xFF5DCAD1),
                 // image: DecorationImage(
                 //     fit: BoxFit.fill,
                 //     image: Icon()
 
                 //     )
-                    ),
-          ),
-          ListTile(
-            title: Text('\n'),
-          ),
-          ListTile(
-            leading: Icon(Icons.logout,size: 40, color: Colors.black,),
-            title: Text('Logout', style: TextStyle(fontSize: 20),),
-            
-            onTap: () async {
-        await _auth.signOut();
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => SignIn()));
-      },
-          ),
-          ListTile(
-            title: Text('\n'),
-          ),
-          ListTile(
-            leading: Icon(Icons.change_circle,size: 40, color: Colors.black87,),
-            title: Text('Change Password', style: TextStyle(fontSize: 20),),
-            onTap: () async {
-        await _auth.signOut();
-              Navigator.push(
-            context, MaterialPageRoute(builder: (context) => ForgotPassword()));
-            },
-          ),
-          // ListTile(
-          //   leading: Icon(Icons.settings),
-          //   title: Text('Settings'),
-          //   // onTap: () => {Navigator.of(context).pop()},
-          // ),
-          // ListTile(
-          //   leading: Icon(Icons.border_color),
-          //   title: Text('Feedback'),
-          //   // onTap: () => {Navigator.of(context).pop()},
-          // ),
-          // ListTile(
-          //   leading: Icon(Icons.exit_to_app),
-          //   title: Text('Logout'),
-          //   // onTap: () => {Navigator.of(context).pop()},
-          // ),
-        ],
-      ),
-    );
+              ),
+            ),
+            ListTile(
+              title: Text('\n'),
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.logout,
+                size: 40,
+                color: Colors.black,
+              ),
+              title: Text(
+                'Logout',
+                style: TextStyle(fontSize: 20),
+              ),
+              onTap: () async {
+                await _auth.signOut();
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => SignIn()));
+              },
+            ),
+            ListTile(
+              title: Text('\n'),
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.change_circle,
+                size: 40,
+                color: Colors.black87,
+              ),
+              title: Text(
+                'Change Password',
+                style: TextStyle(fontSize: 20),
+              ),
+              onTap: () async {
+                await _auth.signOut();
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ForgotPassword()));
+              },
+            ),
+            // ListTile(
+            //   leading: Icon(Icons.settings),
+            //   title: Text('Settings'),
+            //   // onTap: () => {Navigator.of(context).pop()},
+            // ),
+            // ListTile(
+            //   leading: Icon(Icons.border_color),
+            //   title: Text('Feedback'),
+            //   // onTap: () => {Navigator.of(context).pop()},
+            // ),
+            // ListTile(
+            //   leading: Icon(Icons.exit_to_app),
+            //   title: Text('Logout'),
+            //   // onTap: () => {Navigator.of(context).pop()},
+            // ),
+          ],
+        ),
+      );
 
   Widget greetingRow(user) => Row(
         children: [
@@ -217,6 +254,31 @@ class _studentState extends State<student> {
             ),
           ),
         ],
+      );
+
+  Widget allEventsButton() => ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          primary: Color(0xFF5DCAD1),
+          minimumSize: const Size.fromHeight(60),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+        ),
+        child: const FittedBox(
+          child: Text(
+            'View All Events',
+            style: TextStyle(
+                fontSize: 20,
+                color: Colors.white,
+                decoration: TextDecoration.underline),
+          ),
+        ),
+        onPressed: () async {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AllEvents()),
+          );
+        },
       );
 
   Widget viewCalender() => Card(
@@ -283,19 +345,11 @@ class _studentState extends State<student> {
           backgroundColor: Color(0xFF050A30),
           child: Icon(Icons.newspaper, size: 40),
           onPressed: () async {
-<<<<<<< HEAD
-            print("here");
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => NewsStudent()),
-            );
-=======
             getAllAdminsEvents(); // tester function
             // Navigator.push(
             //   context,
             //   MaterialPageRoute(builder: (context) => NewsStudent()),
             // );
->>>>>>> 1d1767ae1b7824963a5000cdcdf2c4f1f3e6925b
           }));
 
   Future<String> getDataName(String? uid, String dataType) async {
