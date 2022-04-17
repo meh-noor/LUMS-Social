@@ -325,15 +325,8 @@ class _AddEventState extends State<AddEvent> {
             if (start_date == null) {
               start_date = DateTime.now();
             }
-            addCollection().addEventtoDatabase(
-                title,
-                organiser,
-                loc,
-                description,
-                start_date,
-                start_time,
-                event_type,
-                'abcdefghij12');
+            addCollection().addEventtoDatabase(title, organiser, loc,
+                description, start_date, start_time, event_type, user?.uid);
           }
           Navigator.pop(context);
         },
