@@ -6,18 +6,16 @@ import 'package:lums_social_app2/services/auth.dart';
 
 
 
-class AllEvents extends StatefulWidget 
+class DayEvent extends StatefulWidget 
 {
+  const DayEvent({Key? key}) : super(key: key);
+
   @override
-  State<AllEvents> createState() => _AllEventsState();
+  State<DayEvent> createState() => _DayEventState();
 }
 
-class _AllEventsState extends State<AllEvents> 
+class _DayEventState extends State<DayEvent> 
 {
-  final items = 
-  [ 'Academic', 'Non-Academic'];
-  String? value;
-
   final AuthService _auth = AuthService();
 
   @override
@@ -83,35 +81,6 @@ final _random = Random();
                         Padding
                         (
                           padding: const EdgeInsets.fromLTRB(0, 80, 0, 0),
-                          child:searhBar(),
-                        ),
-                        Padding
-                        (
-                            padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-                            child:SizedBox
-                            (
-                              width:150,
-                            child: DropdownButtonFormField<String> 
-                            (
-                              menuMaxHeight: 150,
-
-                              decoration: const InputDecoration
-                              (labelText: 'Filter',
-                                //border: OutlineInputBorder(),
-                                contentPadding: EdgeInsets.only(left: 15.0)),
-                              //value:value,
-                              isExpanded: true,
-                              isDense: false,
-                              icon: const Icon(Icons.arrow_drop_down, color:Colors.black),
-                              items: items.map(buildMenu).toList(),
-                              //********************* STORE VALUE **********************/
-                              onChanged:(value) => setState(()=> this.value = value),
-                            )
-                            )
-                        ),
-                        Padding
-                        (
-                          padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                           child:box(context, _random, colors, colorsB),
 
                         ),
@@ -147,7 +116,7 @@ Widget title() => Container
 (
     //alignment: Alignment.topCenter,
     padding: const EdgeInsets.fromLTRB(60, 50, 60, 10),
-    child:const Text("View all Events",
+    child:const Text("View Events",
         style: TextStyle(fontSize: 30, color: Color(0xFF0e1337), fontFamily: 'Poppins',  fontWeight: FontWeight.w500),)  
 );
 
@@ -155,31 +124,11 @@ Widget subtitle() => Container
 (
     //alignment: Alignment.topCenter,
     padding: const EdgeInsets.fromLTRB(60, 0, 60, 10),
-    child:const Text("Discover all events now", textAlign: TextAlign.center,
+    child:const Text("Discover events now", textAlign: TextAlign.center,
         style: TextStyle(fontSize: 14, color: Color(0xFF4d4b4b), fontFamily: 'Poppins',  fontWeight: FontWeight.w500),)  
 );
 
-Widget searhBar() =>Container
-(
-  
-  width: double.infinity,
-  height: 40,
-  color: Colors.white,
-  child: const Center
-  (
-    child: TextField
-    (
-      decoration: InputDecoration
-      (
-          hintText: 'Search For...',
-          prefixIcon: Icon(Icons.search),
-          
-          //suffixIcon: Icon(Icons.filter)
-      ),
-      
-    ),
-  ),
-);
+
 
 
 
