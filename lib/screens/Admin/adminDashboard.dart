@@ -28,11 +28,19 @@ class _adminState extends State<admin> {
   CalendarFormat format = CalendarFormat.month;
 
   final List colors = [
-    const Color(0xffb7edfb),
-    const Color(0xffa5e9fa),
-    const Color(0xff8ee4f9),
-    const Color(0xffaef8ec),
-    const Color(0xff9af6e7)
+    const Color(0xffa4dded),
+    const Color(0xffa7d8de),
+    const Color(0xffb0e0e6),
+    const Color(0xfface5ee),
+    const Color(0xffc9e5ee),
+  ];
+
+  final List colorsB = [
+    const Color(0xff00e9d8),
+    const Color(0xff00d3e0),
+    const Color(0xff00bde8),
+    const Color(0xff00a7ef),
+    const Color(0xff0091f7)
   ];
 
   final _random = Random();
@@ -437,7 +445,7 @@ class _adminState extends State<admin> {
                           // crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             Container(
-                              color: colors[_random.nextInt(4)],
+                              color: colorsB[_random.nextInt(4)],
                               width: 15,
                             ),
                             SizedBox(
