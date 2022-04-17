@@ -1,3 +1,5 @@
+//View Event
+
 import 'package:flutter/material.dart';
 import 'package:lums_social_app2/screens/Admin/GetDataForEdit.dart';
 import 'package:lums_social_app2/services/auth.dart';
@@ -41,7 +43,7 @@ class _viewEventState extends State<viewEvent> {
   String getDateFromDateAndTime(String date) {
     DateTime dateTime;
     dateTime = DateTime.parse(date).toLocal();
-    return DateFormat("yyyy-MM-dd").format(dateTime);
+    return DateFormat("dd-MM-yyyy").format(dateTime);
   }
 
   // getTimeFromDateAndTime(widget.start_date);

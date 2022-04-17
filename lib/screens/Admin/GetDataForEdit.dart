@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lums_social_app2/screens/Admin/editEvent.dart';
 import 'package:lums_social_app2/screens/auth/sign_in.dart';
+import 'package:lums_social_app2/screens/news/newsButton.dart';
+import 'package:lums_social_app2/screens/news/viewNews.dart';
 import 'package:provider/provider.dart';
 import 'package:lums_social_app2/models/user.dart';
 import 'package:lums_social_app2/services/addToCollection.dart';
@@ -157,16 +159,24 @@ class _GetDataForViewState extends State<GetDataForView> {
 }
 
 class GetNewsforEdit extends StatefulWidget {
-  const GetNewsforEdit({Key? key}) : super(key: key);
+  // const GetNewsforEdit({Key? key}) : super(key: key);
+  String? newsID;
+  GetNewsforEdit({required this.newsID});
 
   @override
   State<GetNewsforEdit> createState() => _GetNewsforEditState();
+
+  // const GetNewsforEdit({Key? key}) : super(key: key);
+
+  // @override
+  // State<GetNewsforEdit> createState() => _GetNewsforEditState();
 }
 
 class _GetNewsforEditState extends State<GetNewsforEdit> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<MyUser?>(context);
+    uid = user?.uid;
 
     // print(user);
     // // return either Home or Authenticate Widget
@@ -177,11 +187,13 @@ class _GetNewsforEditState extends State<GetNewsforEdit> {
       return FutureBuilder(
         builder: ((context, snapshot) {
           if (snapshot.data != null) {
-            return EditNews(
-                newsID: "123456",
-                headline: headline,
-                news_author: news_author,
-                description: description);
+            return viewNews(
+              newsID: widget.newsID,
+              headline: headline,
+              news_author: news_author,
+              description: description,
+              imageURL: imageURL,
+            );
           } else {
             // return Splash();
             return Container(
@@ -195,18 +207,27 @@ class _GetNewsforEditState extends State<GetNewsforEdit> {
             );
           }
         }),
-        future: GetNews(),
+        future: GetNews(user, widget.newsID),
       );
     }
   }
 }
 
-Future<Object> GetNews() async {
+Future<Object> GetNews(user, newsID) async {
   DocumentSnapshot<Map<String, dynamic>> mySnapshot;
-  mySnapshot = await addCollection().getNews('abcd1234');
+  print('START-------------------------');
+  print(user?.uid);
+  print(newsID);
+  print('END-------------------------');
+  mySnapshot = await getNews(user?.uid, newsID);
   headline = mySnapshot.data()?['headline'];
   description = mySnapshot.data()?['description'];
   news_author = mySnapshot.data()?['news_author'];
+  imageURL = mySnapshot.data()?['imageURL'];
+
+  print('checking image url mahnoor ki ghalti 0');
+  print(imageURL);
+
   return mySnapshot;
 }
 
@@ -238,6 +259,19 @@ Future<DocumentSnapshot<Map<String, dynamic>>> getDataOfOne(
       .doc(uid)
       .collection('Events')
       .doc(eventID)
+      .get();
+  return mySnapshot;
+}
+
+Future<DocumentSnapshot<Map<String, dynamic>>> getNews(
+    String uid, String newsID) async {
+  // Get docs from collection reference
+  DocumentSnapshot<Map<String, dynamic>> mySnapshot;
+  mySnapshot = await FirebaseFirestore.instance
+      .collection('adminEvents')
+      .doc(uid)
+      .collection('News')
+      .doc(newsID)
       .get();
   return mySnapshot;
 }
