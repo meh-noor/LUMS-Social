@@ -5,7 +5,6 @@ import 'package:lums_social_app2/screens/news/viewAllEvents.dart';
 import 'package:lums_social_app2/services/addToCollection.dart';
 import 'package:lums_social_app2/screens/Admin/editEvent.dart';
 import 'package:lums_social_app2/screens/auth/sign_in.dart';
-import 'package:lums_social_app2/screens/news/viewDayEvent.dart';
 import 'package:lums_social_app2/screens/settings/editmainProfile.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -13,6 +12,7 @@ import 'package:lums_social_app2/services/auth.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
 import 'package:lums_social_app2/screens/Admin/addEvent.dart';
 import 'package:lums_social_app2/screens/news/newsStudent.dart';
+// import 'package:lums_social_app2/screens/news/viewDayEvent.dart';
 
 import '../../models/user.dart';
 import '../auth/forget_password.dart';
@@ -31,19 +31,11 @@ class _studentState extends State<student> {
   CalendarFormat format = CalendarFormat.month;
 
   final List colors = [
-    const Color(0xffDDFFE7),
-    const Color(0xff98D7C2),
-    const Color(0xffc8e1cc),
-    const Color(0xffe0f0e3),
-    const Color(0xffABC7A2)
-  ];
-
-  final List colorsB = [
-    const Color(0xffa4dded),
-    const Color(0xffa7d8de),
-    const Color(0xffb0e0e6),
-    const Color(0xfface5ee),
-    const Color(0xffc9e5ee),
+    const Color(0xff00e9d8),
+    const Color(0xff00d3e0),
+    const Color(0xff00bde8),
+    const Color(0xff00a7ef),
+    const Color(0xff0091f7)
   ];
 
   final _random = Random();
@@ -185,7 +177,7 @@ class _studentState extends State<student> {
                 style: TextStyle(fontSize: 20),
               ),
               onTap: () async {
-                await _auth.signOut();
+                // await _auth.signOut();
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => EditProfile()));
               },
@@ -193,7 +185,6 @@ class _studentState extends State<student> {
             ListTile(
               title: Text('\n'),
             ),
-
             ListTile(
               leading: Icon(
                 Icons.change_circle,
@@ -298,7 +289,7 @@ class _studentState extends State<student> {
         onPressed: () async {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => AllEvents()),
+            MaterialPageRoute(builder: (context) => DayEvent()),
           );
         },
       );
@@ -367,11 +358,11 @@ class _studentState extends State<student> {
           backgroundColor: Color(0xFF050A30),
           child: Icon(Icons.newspaper, size: 40),
           onPressed: () async {
-            getAllAdminsEvents(); // tester function
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(builder: (context) => NewsStudent()),
-            // );
+            // getAllAdminsEvents(); // tester function
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => NewsStudent()),
+            );
           }));
 
   Future<String> getDataName(String? uid, String dataType) async {

@@ -6,13 +6,13 @@ import 'package:lums_social_app2/services/auth.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
 import 'package:intl/intl.dart';
 
-class viewNews extends StatefulWidget {
+class viewNewsUser extends StatefulWidget {
   String? headline;
   String? news_author;
   String? description;
   String? newsID;
   String? imageURL;
-  viewNews(
+  viewNewsUser(
       {required this.headline,
       required this.news_author,
       required this.description,
@@ -20,10 +20,10 @@ class viewNews extends StatefulWidget {
       required this.imageURL});
 
   @override
-  State<viewNews> createState() => _viewNewsState();
+  State<viewNewsUser> createState() => _viewNewsUserState();
 }
 
-class _viewNewsState extends State<viewNews> {
+class _viewNewsUserState extends State<viewNewsUser> {
   String getTimeFromDateAndTime(String date) {
     DateTime dateTime;
     dateTime = DateTime.parse(date).toLocal();
@@ -44,7 +44,7 @@ class _viewNewsState extends State<viewNews> {
 
   @override
   Widget build(BuildContext context) {
-    print('isnide viewnews');
+    print('isnide viewnewsUser');
     print(widget.imageURL);
     backgroundColor:
     const Color(0xFFFFFFFF);

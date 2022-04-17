@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:lums_social_app2/screens/auth/forget_password.dart';
 import 'package:lums_social_app2/screens/auth/register.dart';
+import 'package:lums_social_app2/screens/news/viewAllEvents.dart';
 import 'package:lums_social_app2/screens/wrapper.dart';
 import 'package:lums_social_app2/services/auth.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
-import 'package:lums_social_app2/screens/news/viewDayEvent.dart';
+// import 'package:lums_social_app2/screens/news/viewDayEvent.dart';
 
 // import 'package:lums_social_app2/widget/email_field_widget.dart';
 // import 'package:lums_social_app2/widget/password_field_widget.dart';
@@ -89,15 +90,15 @@ class _SignInState extends State<SignIn> {
             style: TextStyle(
                 color: Colors.white, fontFamily: 'poppins', fontSize: 25)),
       );
-  Widget bismahTestButton() => ButtonWidget(
-      //  0xFF5DCAD1
-      text: 'Test Button',
-      onClicked: () async {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => DayEvent()),
-        );
-      });
+  // Widget bismahTestButton() => ButtonWidget(
+  //     //  0xFF5DCAD1
+  //     text: 'Test Button',
+  //     onClicked: () async {
+  //       Navigator.push(
+  //         context,
+  //         MaterialPageRoute(builder: (context) => DayEvent()),
+  //       );
+  //     });
   Widget ErrorWidget() => Text(
         error,
         style: const TextStyle(color: Colors.red, fontSize: 14.0),
