@@ -163,6 +163,11 @@ class GetNewsforEdit extends StatefulWidget {
 
   @override
   State<GetNewsforEdit> createState() => _GetNewsforEditState();
+
+  // const GetNewsforEdit({Key? key}) : super(key: key);
+
+  // @override
+  // State<GetNewsforEdit> createState() => _GetNewsforEditState();
 }
 
 class _GetNewsforEditState extends State<GetNewsforEdit> {
