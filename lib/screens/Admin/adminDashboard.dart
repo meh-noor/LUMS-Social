@@ -172,22 +172,25 @@ class _adminState extends State<admin> {
         children: <Widget>[
           DrawerHeader(
             child: Text(
-              '     \n\n\n     Account Settings',
+              '     \n\nAccount Settings',
               
-              style: TextStyle(color: Colors.white, fontSize: 25,),
+              style: TextStyle(color: Colors.white, fontSize: 30,fontWeight: FontWeight.bold),
             ),
             decoration: BoxDecoration(
                 color: Color(0xFF5DCAD1),
                 // image: DecorationImage(
                 //     fit: BoxFit.fill,
                 //     image: Icon()
-                    
+
                 //     )
                     ),
           ),
           ListTile(
-            leading: Icon(Icons.logout),
-            title: Text('Logout',),
+            title: Text('\n'),
+          ),
+          ListTile(
+            leading: Icon(Icons.logout,size: 40, color: Colors.black,),
+            title: Text('Logout', style: TextStyle(fontSize: 20),),
             
             onTap: () async {
         await _auth.signOut();
@@ -196,8 +199,11 @@ class _adminState extends State<admin> {
       },
           ),
           ListTile(
-            leading: Icon(Icons.change_circle),
-            title: Text('Change Password'),
+            title: Text('\n'),
+          ),
+          ListTile(
+            leading: Icon(Icons.change_circle,size: 40, color: Colors.black87,),
+            title: Text('Change Password', style: TextStyle(fontSize: 20),),
             onTap: () async {
         await _auth.signOut();
               Navigator.push(
@@ -222,6 +228,7 @@ class _adminState extends State<admin> {
         ],
       ),
     );
+
 
   Widget greetingRow(user) => Row(
         children: [
