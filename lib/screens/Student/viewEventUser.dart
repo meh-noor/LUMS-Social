@@ -6,7 +6,7 @@ import 'package:lums_social_app2/services/auth.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
 import 'package:intl/intl.dart';
 
-class viewEvent extends StatefulWidget {
+class viewEventUser extends StatefulWidget {
   String? title;
   String? loc;
   String? organiser;
@@ -18,7 +18,7 @@ class viewEvent extends StatefulWidget {
   String? eventID;
   // String uid = 'abcdefghij12';
 
-  viewEvent(
+  viewEventUser(
       {required this.title,
       required this.loc,
       required this.description,
@@ -30,10 +30,10 @@ class viewEvent extends StatefulWidget {
       required this.imageURL});
 
   @override
-  State<viewEvent> createState() => _viewEventState();
+  State<viewEventUser> createState() => _viewEventUserState();
 }
 
-class _viewEventState extends State<viewEvent> {
+class _viewEventUserState extends State<viewEventUser> {
   String getTimeFromDateAndTime(String date) {
     DateTime dateTime;
     dateTime = DateTime.parse(date).toLocal();

@@ -5,7 +5,6 @@ import 'package:lums_social_app2/screens/news/viewAllEvents.dart';
 import 'package:lums_social_app2/services/addToCollection.dart';
 import 'package:lums_social_app2/screens/Admin/editEvent.dart';
 import 'package:lums_social_app2/screens/auth/sign_in.dart';
-import 'package:lums_social_app2/screens/news/viewDayEvent.dart';
 import 'package:lums_social_app2/screens/settings/editmainProfile.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -13,6 +12,7 @@ import 'package:lums_social_app2/services/auth.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
 import 'package:lums_social_app2/screens/Admin/addEvent.dart';
 import 'package:lums_social_app2/screens/news/newsStudent.dart';
+// import 'package:lums_social_app2/screens/news/viewDayEvent.dart';
 
 import '../../models/user.dart';
 import '../auth/forget_password.dart';
@@ -177,7 +177,7 @@ class _studentState extends State<student> {
                 style: TextStyle(fontSize: 20),
               ),
               onTap: () async {
-                await _auth.signOut();
+                // await _auth.signOut();
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => EditProfile()));
               },
@@ -185,7 +185,6 @@ class _studentState extends State<student> {
             ListTile(
               title: Text('\n'),
             ),
-
             ListTile(
               leading: Icon(
                 Icons.change_circle,
@@ -290,7 +289,7 @@ class _studentState extends State<student> {
         onPressed: () async {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => AllEvents()),
+            MaterialPageRoute(builder: (context) => DayEvent()),
           );
         },
       );
@@ -359,11 +358,11 @@ class _studentState extends State<student> {
           backgroundColor: Color(0xFF050A30),
           child: Icon(Icons.newspaper, size: 40),
           onPressed: () async {
-            getAllAdminsEvents(); // tester function
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(builder: (context) => NewsStudent()),
-            // );
+            // getAllAdminsEvents(); // tester function
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => NewsStudent()),
+            );
           }));
 
   Future<String> getDataName(String? uid, String dataType) async {
