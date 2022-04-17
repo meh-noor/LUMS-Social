@@ -42,6 +42,7 @@ class Wrapper extends StatelessWidget {
               start_date: DateTime.now(),
               start_time: DateTime.now(),
               event_type: "hello5",
+              eventID: '12345',
             );
           } else {
             return splashScreen();

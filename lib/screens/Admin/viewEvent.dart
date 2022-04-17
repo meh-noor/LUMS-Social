@@ -13,7 +13,8 @@ class viewEvent extends StatefulWidget {
   DateTime? start_time;
   String? image;
   String? event_type;
-  String uid = 'abcdefghij12';
+  String? uid;
+  String? eventID;
 
   viewEvent(
       {required this.title,
@@ -22,7 +23,8 @@ class viewEvent extends StatefulWidget {
       required this.organiser,
       required this.start_date,
       required this.start_time,
-      required this.event_type});
+      required this.event_type,
+      required this.eventID});
 
   @override
   State<viewEvent> createState() => _viewEventState();
@@ -324,7 +326,9 @@ class _viewEventState extends State<viewEvent> {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => GetDataForEdit(eventID: 'eventID')),
+                builder: (context) => GetDataForEdit(
+                      eventID: '1234',
+                    )),
           );
         },
         child: const Image(

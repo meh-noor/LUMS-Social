@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:image_picker/image_picker.dart';
@@ -6,6 +7,8 @@ import 'package:lums_social_app2/screens/Admin/addEvent.dart';
 import 'package:lums_social_app2/services/addToCollection.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'adminDashboard.dart';
+import 'package:provider/provider.dart';
+import 'package:lums_social_app2/models/user.dart';
 
 class upload {
   Future uploadImageToFirebase(BuildContext context) async {
@@ -56,6 +59,8 @@ class _EditEventState extends State<EditEvent> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<MyUser?>(context);
+
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
@@ -147,7 +152,7 @@ class _EditEventState extends State<EditEvent> {
                       child: Padding(
                           padding: const EdgeInsets.only(
                               left: 15.0, right: 15.0, bottom: 15.0, top: 8.0),
-                          child: EditButton())),
+                          child: updateButton(user))),
                   Expanded(
                       child: Padding(
                     padding: const EdgeInsets.only(
@@ -309,7 +314,7 @@ class _EditEventState extends State<EditEvent> {
               )),
         ],
       );
-  Widget EditButton() => ElevatedButton(
+  Widget updateButton(user) => ElevatedButton(
         style: ElevatedButton.styleFrom(
           primary: Color(0xFF5DCAD1),
           minimumSize: Size.fromHeight(40),
@@ -327,26 +332,35 @@ class _EditEventState extends State<EditEvent> {
           ),
         ),
         onPressed: () async {
+          print('yaha hoooo');
           if (widget.title!.isNotEmpty &&
               widget.organiser!.isNotEmpty &&
               widget.loc!.isNotEmpty &&
               widget.organiser!.isNotEmpty &&
               widget.event_type != null) {
-            addCollection().addEventtoDatabase(
-                widget.title,
-                widget.organiser,
-                widget.loc,
-                widget.description,
-                widget.start_date,
-                widget.start_time,
-                widget.event_type,
-                "abcdefghij123");
+            FirebaseFirestore.instance
+                .collection("adminEvents")
+                .doc(user?.uid)
+                .collection('Events')
+                .doc(widget.eventID)
+                .update({
+              'title': widget.title,
+              'Organiser': widget.organiser,
+              'location': widget.loc,
+              'description': widget.description,
+              'start_date': widget.start_date,
+              'start_time': widget.start_time,
+              'event_type': widget.event_type,
+              'eventID': widget.eventID,
+            });
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => admin()),
             );
             // print("Done");
           }
+
+          // Navigator.pop(context);
         },
       );
 

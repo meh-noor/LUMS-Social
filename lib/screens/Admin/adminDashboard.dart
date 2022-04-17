@@ -1,8 +1,12 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lums_social_app2/models/user.dart';
+import 'package:lums_social_app2/screens/Admin/GetDataForEdit.dart';
 import 'package:lums_social_app2/screens/auth/sign_in.dart';
 import 'package:lums_social_app2/screens/news/addNews.dart';
+import 'package:lums_social_app2/screens/news/newsButton.dart';
 import 'package:lums_social_app2/splash.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -39,7 +43,8 @@ class _adminState extends State<admin> {
         body: SingleChildScrollView(
             child: Column(
           children: <Widget>[
-            SignOut(),
+            const SizedBox(height: 20),
+            // SignOut(),
             Padding(
                 padding: const EdgeInsets.only(
                     left: 15.0, right: 30.0, bottom: 10.0, top: 40.0),
@@ -58,12 +63,34 @@ class _adminState extends State<admin> {
               child: addedEvents(),
             ),
             listEvents(context, user),
+            // Row(
+            //   children: <Widget>[
+            //     Padding(
+            //   padding: const EdgeInsets.only(
+            //       left: 20.0, right: 15.0, bottom: 10.0, top: 10.0),
+            //   child: addEventButton(context),
+            // ),
+            // Spacer(),
+            //  Padding(padding: EdgeInsets.only(right: 15.0),),
+            //  Padding(
+            //   padding: const EdgeInsets.only(
+            //       left: 20.0, right: 15.0, bottom: 10.0, top: 10.0),
+            //   child: editEventButton(context),
+            // ),
+            //   ],
+
+            // ),
             Padding(
               padding: const EdgeInsets.only(
                   left: 20.0, right: 15.0, bottom: 10.0, top: 10.0),
-              child: addButton(context),
+              child: addEventButton(context),
             ),
 
+            // Padding(
+            //   padding: const EdgeInsets.only(
+            //       left: 20.0, right: 15.0, bottom: 10.0, top: 10.0),
+            //   child: editEventButton(context),
+            // ),
             Padding(
               padding: const EdgeInsets.only(
                   left: 20.0, right: 15.0, bottom: 10.0, top: 10.0),
@@ -76,25 +103,27 @@ class _adminState extends State<admin> {
   }
 
   Widget mainText() => RichText(
-          text: TextSpan(
-              text: ' LUMS ',
-              style: TextStyle(
-                // alignment: Alignment(-0.85, -0.85),
-                fontFamily: 'Poppins',
-                color: Color(0xFF050A30),
-                fontSize: 25,
-              ),
-              children: [
-            TextSpan(
-              text: 'SOCIAL',
-              style: TextStyle(
-                // alignment: Alignment(-0.85, -0.85),
-                fontFamily: 'Poppins',
-                color: Color(0xFF5DCAD1),
-                fontSize: 25,
-              ),
-            )
-          ]));
+        text: TextSpan(
+          // Note: Styles for TextSpans must be explicitly defined.
+          // Child text spans will inherit styles from parent
+          style: const TextStyle(
+            fontSize: 25.0,
+            color: Colors.black,
+            fontFamily: 'poppins',
+            //  fontWeight: FontWeight.bold,
+          ),
+          children: <TextSpan>[
+            new TextSpan(
+                text: 'LUMS',
+                style: new TextStyle(fontWeight: FontWeight.w500)),
+            new TextSpan(text: " "),
+            new TextSpan(
+                text: 'SOCIAL',
+                style: new TextStyle(
+                    fontWeight: FontWeight.w500, color: Color(0xFF5DCAD1))),
+          ],
+        ),
+      );
 
   Widget greetingRow(user) => Row(
         children: [
@@ -106,11 +135,12 @@ class _adminState extends State<admin> {
               builder: (context, snapshot) {
                 if (snapshot.data != null) {
                   return Text(
-                    "Hello " + snapshot.data.toString(),
-                    style: TextStyle(
+                    "Hello " + snapshot.data.toString().toUpperCase() + "!",
+                    style: new TextStyle(
                       fontFamily: 'Poppins',
                       color: Colors.black,
                       fontSize: 25,
+                      fontWeight: FontWeight.w400,
                       // padding: const EdgeInsets.all(15.0),
                     ),
                   );
@@ -148,6 +178,7 @@ class _adminState extends State<admin> {
         padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
         // height: MediaQuery.of(context).size.height * 0.35,
         height: 150,
+        // color: Colors.white,
         child: FutureBuilder(
           builder: (context, snapshot) {
             if (snapshot.data == null) {
@@ -166,29 +197,71 @@ class _adminState extends State<admin> {
                 itemCount: allData.length,
                 itemBuilder: (context, index) {
                   return Container(
+                    decoration: BoxDecoration(
+                      border: Border(
+                          left: BorderSide(
+                        color: Colors.primaries[
+                            Random().nextInt(Colors.primaries.length)],
+                        width: 5,
+                      )),
+                    ),
                     // width: MediaQuery.of(context).size.width * 0.6,
-                    width: 200,
+                    width: 240,
+                    height: 200,
+                    // decoration: BoxDecoration(
+                    //   shape: Border(left: BorderSide(color: Colors.yellow, width: 5)),
+                    // ),
                     child: Card(
-                      color: Color(0xFFF2F1F0),
-                      child: TextButton(
-                        onPressed: () => {},
+                      elevation: 5,
+                      // shape: Border(left: BorderSide(color: Colors.primaries[Random().nextInt(Colors.primaries.length)], width: 8)),
+
+                      shape: RoundedRectangleBorder(
+                        // side: BorderSide(color: Colors.yellow, width: 1),
+
+                        borderRadius: BorderRadius.circular(20),
+                        // side: BorderSide(
+                        // //   color: Colors.grey.withOpacity(0.5),
+
+                        // )
+                      ),
+
+                      shadowColor: Colors.grey.withOpacity(1),
+
+                      color: Colors.white,
+
+                      child: Container(
                         child: Column(children: [
-                          Flexible(
-                            fit: FlexFit.loose,
-                            child: TextButton(
-                                onPressed: () {},
-                                child: Center(
-                                    child: Text(
-                                  allData[index]['title'].toString() +
-                                      "\n\n" +
-                                      allData[index]['start_date']
-                                          .toDate()
-                                          .toString()
-                                          .substring(0, 10),
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 20.0),
-                                ))),
-                          )
+                          // Container(
+                          //       // height: 50,
+                          //       // width: 20,
+                          //       color: Colors.yellow,
+                          //       alignment: Alignment.centerLeft,
+                          //     ),
+                          TextButton(
+                              onPressed: () {
+                                String eventID = allData[index]['eventID'];
+                                // print(eventID);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => GetDataForEdit(
+                                            eventID: eventID,
+                                          )),
+                                );
+                              },
+                              child: Center(
+                                  child: Text(
+                                allData[index]['title'].toString() +
+                                    "\n\n" +
+                                    //  allData[index]['location'] + "\n\n" +
+                                    allData[index]['start_date']
+                                        .toDate()
+                                        .toString()
+                                        .substring(0, 10),
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 16.0),
+                                textAlign: TextAlign.center,
+                              ))),
                         ]),
                       ),
                     ),
@@ -199,7 +272,7 @@ class _adminState extends State<admin> {
         ),
       );
 
-  Widget addButton(context) => Row(
+  Widget editEventButton(context) => Row(
         children: [
           Container(
               height: 30.0,
@@ -207,7 +280,34 @@ class _adminState extends State<admin> {
               child: FloatingActionButton(
                   heroTag: 'hero1',
                   elevation: 2,
-                  backgroundColor: Color(0xFF050A30),
+                  // backgroundColor: Color(0xFF5DCAD1),
+                  backgroundColor: Colors.black,
+                  child: Icon(Icons.edit),
+                  onPressed: () {})),
+          Padding(
+              padding: EdgeInsets.all(5.0),
+              child: Text(
+                ' Edit event',
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontFamily: 'Poppins',
+                  color: Colors.black,
+                  fontSize: 18,
+                  // padding: const EdgeInsets.all(15.0),
+                ),
+              )),
+        ],
+      );
+
+  Widget addEventButton(context) => Row(
+        children: [
+          Container(
+              height: 30.0,
+              width: 30.0,
+              child: FloatingActionButton(
+                  elevation: 2,
+                  // backgroundColor: Color(0xFF5DCAD1),
+                  backgroundColor: Colors.black,
                   child: Icon(Icons.add),
                   onPressed: () async {
                     Navigator.push(
@@ -218,11 +318,12 @@ class _adminState extends State<admin> {
           Padding(
               padding: EdgeInsets.all(5.0),
               child: Text(
-                '   Add new event',
+                ' Add event',
                 style: TextStyle(
+                  fontWeight: FontWeight.w500,
                   fontFamily: 'Poppins',
                   color: Colors.black,
-                  fontSize: 20,
+                  fontSize: 18,
                   // padding: const EdgeInsets.all(15.0),
                 ),
               )),
@@ -304,14 +405,16 @@ class _adminState extends State<admin> {
     // return ret;
   }
 
-  Widget SignOut() => TextButton.icon(
-      onPressed: () async {
-        await _auth.signOut();
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => SignIn()));
-      },
-      icon: const Icon(Icons.person),
-      label: const Text('Logout'));
+  // Widget SignOut() =>
+
+  // TextButton.icon(
+  // onPressed: () async {
+  //   await _auth.signOut();
+  //   Navigator.push(
+  //       context, MaterialPageRoute(builder: (context) => SignIn()));
+  // },
+  // icon: const Icon(Icons.person),
+  // label: const Text('Logout'));
 
   Future<bool?> getData(String? uid) async {
     // Get docs from collection reference

@@ -21,6 +21,7 @@ String? image;
 String? event_type;
 String? uid;
 String? newsID;
+String? eventID;
 
 class GetDataForEdit extends StatefulWidget {
   // const GetDataForEdit({Key? key}) : super(key: key);
@@ -28,6 +29,7 @@ class GetDataForEdit extends StatefulWidget {
   @override
   String? eventID;
   GetDataForEdit({required this.eventID});
+
   State<GetDataForEdit> createState() => _GetDataForEditState();
 }
 
@@ -35,6 +37,7 @@ class _GetDataForEditState extends State<GetDataForEdit> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<MyUser?>(context);
+    uid = user?.uid;
 
     // print(user);
     // // return either Home or Authenticate Widget
@@ -53,7 +56,7 @@ class _GetDataForEditState extends State<GetDataForEdit> {
               start_date: start_date,
               start_time: start_time,
               event_type: event_type,
-              eventID: widget.eventID,
+              eventID: eventID,
             );
           } else {
             // return Splash();
@@ -68,7 +71,7 @@ class _GetDataForEditState extends State<GetDataForEdit> {
             );
           }
         }),
-        future: fetchData(widget.eventID),
+        future: fetchData(user?.uid, eventID),
       );
     }
   }
@@ -96,13 +99,15 @@ class _GetDataForViewState extends State<GetDataForView> {
         builder: ((context, snapshot) {
           if (snapshot.data != null) {
             return viewEvent(
-                title: title,
-                loc: loc,
-                description: description,
-                organiser: organiser,
-                start_date: start_date,
-                start_time: start_time,
-                event_type: event_type);
+              title: title,
+              loc: loc,
+              description: description,
+              organiser: organiser,
+              start_date: start_date,
+              start_time: start_time,
+              event_type: event_type,
+              eventID: eventID,
+            );
           } else {
             // return Splash();
             return Container(
@@ -116,7 +121,7 @@ class _GetDataForViewState extends State<GetDataForView> {
             );
           }
         }),
-        future: fetchData(user),
+        future: fetchData(user?.uid, eventID), //TODO CHANGE
       );
     }
   }
@@ -161,15 +166,15 @@ class _GetNewsforEditState extends State<GetNewsforEdit> {
             );
           }
         }),
-        future: GetNews(),
+        future: GetNews(newsID),
       );
     }
   }
 }
 
-Future<Object> GetNews() async {
+Future<Object> GetNews(newsID) async {
   DocumentSnapshot<Map<String, dynamic>> mySnapshot;
-  mySnapshot = await addCollection().getNews('abcd1234');
+  mySnapshot = await addCollection().getNews(newsID);
   headline = mySnapshot.data()?['headline'];
   description = mySnapshot.data()?['description'];
   news_author = mySnapshot.data()?['news_author'];
@@ -177,9 +182,9 @@ Future<Object> GetNews() async {
   return mySnapshot;
 }
 
-Future<bool> fetchData(user) async {
+Future<bool> fetchData(user, eventID) async {
   DocumentSnapshot<Map<String, dynamic>> mySnapshot;
-  mySnapshot = await getData(user?.uid);
+  mySnapshot = await getDataOfOne(user?.uid, eventID);
   // start_date = mySnapshot.data()?['start_date'];
   title = mySnapshot.data()?['title'];
   description = mySnapshot.data()?['description'];
@@ -190,10 +195,12 @@ Future<bool> fetchData(user) async {
   start_time = time.toDate();
   organiser = mySnapshot.data()?['Organiser'];
   event_type = mySnapshot.data()?['event_type'];
+  eventID = mySnapshot.data()?['eventID'];
   return true;
 }
 
-Future<DocumentSnapshot<Map<String, dynamic>>> getData(String eventID) async {
+Future<DocumentSnapshot<Map<String, dynamic>>> getDataOfOne(
+    String uid, String eventID) async {
   // Get docs from collection reference
   DocumentSnapshot<Map<String, dynamic>> mySnapshot;
   mySnapshot = await FirebaseFirestore.instance
