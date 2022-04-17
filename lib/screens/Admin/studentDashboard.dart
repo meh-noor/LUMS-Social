@@ -117,6 +117,7 @@ class _studentState extends State<student> {
             // SignOut(),
           ]);
 
+
   Widget SideMenu() => 
   Drawer(
       child: ListView(
@@ -124,9 +125,9 @@ class _studentState extends State<student> {
         children: <Widget>[
           DrawerHeader(
             child: Text(
-              '     \n\n\n     Account Settings',
+              '     \n\nAccount Settings',
               
-              style: TextStyle(color: Colors.white, fontSize: 25,),
+              style: TextStyle(color: Colors.white, fontSize: 30,fontWeight: FontWeight.bold),
             ),
             decoration: BoxDecoration(
                 color: Color(0xFF5DCAD1),
@@ -138,8 +139,11 @@ class _studentState extends State<student> {
                     ),
           ),
           ListTile(
-            leading: Icon(Icons.logout),
-            title: Text('Logout',),
+            title: Text('\n'),
+          ),
+          ListTile(
+            leading: Icon(Icons.logout,size: 40, color: Colors.black,),
+            title: Text('Logout', style: TextStyle(fontSize: 20),),
             
             onTap: () async {
         await _auth.signOut();
@@ -148,8 +152,11 @@ class _studentState extends State<student> {
       },
           ),
           ListTile(
-            leading: Icon(Icons.change_circle),
-            title: Text('Change Password'),
+            title: Text('\n'),
+          ),
+          ListTile(
+            leading: Icon(Icons.change_circle,size: 40, color: Colors.black87,),
+            title: Text('Change Password', style: TextStyle(fontSize: 20),),
             onTap: () async {
         await _auth.signOut();
               Navigator.push(
