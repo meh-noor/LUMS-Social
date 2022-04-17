@@ -187,13 +187,11 @@ class _GetNewsforEditState extends State<GetNewsforEdit> {
       return FutureBuilder(
         builder: ((context, snapshot) {
           if (snapshot.data != null) {
-            return viewNews(
-              newsID: widget.newsID,
-              headline: headline,
-              news_author: news_author,
-              description: description,
-              imageURL: imageURL,
-            );
+            return EditNews(
+                headline: headline,
+                news_author: news_author,
+                description: description,
+                newsID: widget.newsID);
           } else {
             // return Splash();
             return Container(
