@@ -3,6 +3,7 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:lums_social_app2/services/auth.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
 import 'package:lums_social_app2/screens/Admin/addEvent.dart';
+import 'package:lums_social_app2/screens/news/newsStudent.dart';
 
 class student extends StatefulWidget {
   @override
@@ -105,7 +106,12 @@ class _studentState extends State<student> {
         onDaySelected: (selectedDay, focusedDay) {
           setState(() {
             _selectedDay = selectedDay;
-            _focusedDay = focusedDay; // update `_focusedDay` here as well
+            _focusedDay = focusedDay;
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        NewsStudent())); // update `_focusedDay` here as well
           });
         },
         headerStyle: HeaderStyle(

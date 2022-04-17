@@ -1,27 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:lums_social_app2/screens/news/addNews.dart';
-import 'package:lums_social_app2/screens/news/noNews.dart';
 import 'package:lums_social_app2/screens/Admin/addEvent.dart';
 import 'package:lums_social_app2/screens/auth/forget_password.dart';
-import 'package:lums_social_app2/screens/Admin/editEvent.dart';
 import 'package:lums_social_app2/screens/auth/register.dart';
 import 'package:lums_social_app2/screens/wrapper.dart';
 import 'package:lums_social_app2/services/auth.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
-<<<<<<< HEAD
-=======
-import 'package:lums_social_app2/screens/news/newsButton.dart';
-import 'package:lums_social_app2/screens/Admin/adminDashboard.dart';
-import 'package:lums_social_app2/screens/Admin/addEvent.dart';
-import 'package:lums_social_app2/screens/settings/editmainProfile.dart';
-import 'package:lums_social_app2/screens/news/newsStudent.dart';
-
-
-import '../news/editdeleteNews.dart';
-// import 'package:lums_social_app2/widget/email_field_widget.dart';
-// import 'package:lums_social_app2/widget/password_field_widget.dart';
-// import 'package:lums_social_app2/screens/Admin/hashtags.dart';
->>>>>>> 64bb81776660164beeb4cab7ed5f1d5fb7afb683
 
 class SignIn extends StatefulWidget {
   // final Function toggleView;
@@ -76,7 +59,6 @@ class _SignInState extends State<SignIn> {
     );
   }
 
-<<<<<<< HEAD
   Widget buildButton() => ButtonWidget(
         text: 'Login',
         onClicked: () async {
@@ -97,67 +79,21 @@ class _SignInState extends State<SignIn> {
           }
         },
       );
-=======
-  // Widget buildButton() => ButtonWidget(
-  //       text: 'Login',
-  //       onClicked: () async {
-  //         if (_formkey.currentState!.validate()) {
-  //           dynamic result =
-  //               await _auth.signInWithEmailAndPassword(email, password);
-  //           if (result == null) {
-  //             // email error message
-  //             setState(() {
-  //               error = 'Could not sign in with those credentials';
-  //             });
-  //           }
-  //         }
-  //       },
-  //     );
->>>>>>> 64bb81776660164beeb4cab7ed5f1d5fb7afb683
 
   Widget LogInText() => const Center(
         child: Text("Enter Credentials",
             style: TextStyle(
                 color: Colors.white, fontFamily: 'poppins', fontSize: 25)),
       );
-<<<<<<< HEAD
   Widget bismahTestButton() => ButtonWidget(
-=======
-
-  //       onClicked: () async {
-  //         // Navigator.push(
-  //         //   context,
-  //         //   MaterialPageRoute(builder: (context) => adminDashboard()),
-  //         // );
-  //         if (_formkey.currentState!.validate()) {
-  //           dynamic result =
-  //               await _auth.signInWithEmailAndPassword(email, password);
-  //           if (result == null) {
-  //             // email error message
-  //             setState(() {
-  //               error = 'Could not sign in with those credentials';
-  //             });
-  //           }
-  //         }
-  //       },
-  //     );
-  Widget buildButton() => ButtonWidget(
->>>>>>> 64bb81776660164beeb4cab7ed5f1d5fb7afb683
       //  0xFF5DCAD1
       text: 'Test Button',
       onClicked: () async {
         Navigator.push(
           context,
-<<<<<<< HEAD
           MaterialPageRoute(builder: (context) => AddEvent()),
         );
       });
-=======
-          MaterialPageRoute(builder: (context) =>  NewsStudent()),
-        );
-      });
-
->>>>>>> 64bb81776660164beeb4cab7ed5f1d5fb7afb683
   Widget ErrorWidget() => Text(
         error,
         style: const TextStyle(color: Colors.red, fontSize: 14.0),
