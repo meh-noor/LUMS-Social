@@ -152,7 +152,6 @@ class _adminState extends State<admin> {
                   height: 400,
                 ),
               );
-              ;
             }
             return ListView.builder(
                 scrollDirection: Axis.horizontal,
