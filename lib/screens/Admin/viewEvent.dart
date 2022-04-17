@@ -323,7 +323,8 @@ class _viewEventState extends State<viewEvent> {
         onTap: () async {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => GetDataForEdit()),
+            MaterialPageRoute(
+                builder: (context) => GetDataForEdit(eventID: 'eventID')),
           );
         },
         child: const Image(

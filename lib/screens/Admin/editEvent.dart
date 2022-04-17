@@ -32,7 +32,7 @@ class EditEvent extends StatefulWidget {
   DateTime? start_time;
   String? image;
   String? event_type;
-  String eventID;
+  String? eventID;
   EditEvent(
       {required this.title,
       required this.loc,

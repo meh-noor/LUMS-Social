@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lums_social_app2/models/user.dart';
 import 'package:lums_social_app2/screens/auth/sign_in.dart';
+import 'package:lums_social_app2/screens/news/addNews.dart';
 import 'package:lums_social_app2/splash.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -62,6 +63,7 @@ class _adminState extends State<admin> {
                   left: 20.0, right: 15.0, bottom: 10.0, top: 10.0),
               child: addButton(context),
             ),
+
             Padding(
               padding: const EdgeInsets.only(
                   left: 20.0, right: 15.0, bottom: 10.0, top: 10.0),
@@ -171,19 +173,22 @@ class _adminState extends State<admin> {
                       child: TextButton(
                         onPressed: () => {},
                         child: Column(children: [
-                          TextButton(
-                              onPressed: () {},
-                              child: Center(
-                                  child: Text(
-                                allData[index]['title'].toString() +
-                                    "\n\n" +
-                                    allData[index]['start_date']
-                                        .toDate()
-                                        .toString()
-                                        .substring(0, 10),
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 20.0),
-                              ))),
+                          Flexible(
+                            fit: FlexFit.loose,
+                            child: TextButton(
+                                onPressed: () {},
+                                child: Center(
+                                    child: Text(
+                                  allData[index]['title'].toString() +
+                                      "\n\n" +
+                                      allData[index]['start_date']
+                                          .toDate()
+                                          .toString()
+                                          .substring(0, 10),
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 20.0),
+                                ))),
+                          )
                         ]),
                       ),
                     ),
@@ -200,6 +205,7 @@ class _adminState extends State<admin> {
               height: 30.0,
               width: 30.0,
               child: FloatingActionButton(
+                  heroTag: 'hero1',
                   elevation: 2,
                   backgroundColor: Color(0xFF050A30),
                   child: Icon(Icons.add),

@@ -8,6 +8,8 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:lums_social_app2/widget/upload_widget.dart';
 import 'package:lums_social_app2/services/addToCollection.dart';
+import 'package:provider/provider.dart';
+import 'package:lums_social_app2/models/user.dart';
 
 class upload {
   Future uploadImageToFirebase(BuildContext context) async {
@@ -39,6 +41,8 @@ class _AddNewsState extends State<AddNews> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<MyUser?>(context);
+
     return Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
@@ -83,7 +87,7 @@ class _AddNewsState extends State<AddNews> {
                   ]),
                   Padding(
                       padding: const EdgeInsets.fromLTRB(15, 8, 15, 4),
-                      child: finalButton())
+                      child: finalButton(user))
                 ],
               )))
             ])));
@@ -122,7 +126,7 @@ class _AddNewsState extends State<AddNews> {
               labelText: "Enter News Headline",
               border: OutlineInputBorder(),
               contentPadding: EdgeInsets.only(left: 15.0)),
-          validator: (val) => val!.isEmpty ? "Please enter event name" : null,
+          validator: (val) => val!.isEmpty ? "Please enter headline" : null,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           onChanged: (val) => {headlines = val}));
 
@@ -136,7 +140,7 @@ class _AddNewsState extends State<AddNews> {
               labelText: "Enter Name of Author",
               border: OutlineInputBorder(),
               contentPadding: EdgeInsets.only(left: 15.0)),
-          validator: (val) => val!.isEmpty ? "Please enter event name" : null,
+          validator: (val) => val!.isEmpty ? "Please enter author name" : null,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           onChanged: (val) => {news_author = val}));
 
@@ -153,7 +157,7 @@ class _AddNewsState extends State<AddNews> {
             contentPadding:
                 EdgeInsets.symmetric(vertical: 50.0, horizontal: 15.0),
           ),
-          validator: (val) => val!.isEmpty ? "Please enter event name" : null,
+          validator: (val) => val!.isEmpty ? "Please enter news story" : null,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           onChanged: (val) => {description = val}));
 
@@ -200,7 +204,7 @@ class _AddNewsState extends State<AddNews> {
         ],
       );
 
-  Widget finalButton() => ElevatedButton(
+  Widget finalButton(user) => ElevatedButton(
         style: ElevatedButton.styleFrom(
           primary: const Color(0xFF5DCAD1),
           minimumSize: const Size.fromHeight(50),
@@ -210,7 +214,7 @@ class _AddNewsState extends State<AddNews> {
         ),
         child: const FittedBox(
           child: Text(
-            'Add Event',
+            'Add News',
             style: TextStyle(
                 fontSize: 20,
                 color: Colors.white,
@@ -221,8 +225,8 @@ class _AddNewsState extends State<AddNews> {
           if (headlines!.isNotEmpty &&
               news_author!.isNotEmpty &&
               description!.isNotEmpty) {
-            addNewsToCollection().addNewsToDatabase(headlines, news_author,
-                description, DateTime.now(), 'abcd12345');
+            addNewsToCollection().addNewsToDatabase(
+                headlines, news_author, description, DateTime.now(), user?.uid);
           }
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => admin()));
