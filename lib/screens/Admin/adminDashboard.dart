@@ -28,19 +28,11 @@ class _adminState extends State<admin> {
   CalendarFormat format = CalendarFormat.month;
 
   final List colors = [
-    const Color(0xffFB6F92).withOpacity(0.7),
-    const Color(0xffB594CA).withOpacity(0.7),
-    const Color(0xff85E281).withOpacity(0.7),
-    const Color(0xffFFFF01).withOpacity(0.7),
-    const Color(0xffABC7A2).withOpacity(0.7)
-  ];
-
-  final List colorsB = [
-    const Color(0xffa4dded),
-    const Color(0xffa7d8de),
-    const Color(0xffb0e0e6),
-    const Color(0xfface5ee),
-    const Color(0xffc9e5ee),
+    const Color(0xffb7edfb),
+    const Color(0xffa5e9fa),
+    const Color(0xff8ee4f9),
+    const Color(0xffaef8ec),
+    const Color(0xff9af6e7)
   ];
 
   final _random = Random();
