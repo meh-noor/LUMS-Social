@@ -1,18 +1,14 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:image_picker/image_picker.dart';
-import 'GetDataForEdit.dart';
-// import 'package:lums_social_app2/screens/Admin/addEvent.dart';
+import 'package:lums_social_app2/screens/Admin/addEvent.dart';
 import 'package:lums_social_app2/services/addToCollection.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:provider/provider.dart';
-
-import '../../models/user.dart';
-import 'package:image_picker/image_picker.dart';
 import 'adminDashboard.dart';
+import 'package:provider/provider.dart';
+import 'package:lums_social_app2/models/user.dart';
 
 class upload {
   Future uploadImageToFirebase(BuildContext context) async {
@@ -20,9 +16,11 @@ class upload {
         await ImagePicker().pickImage(source: ImageSource.gallery);
     FirebaseStorage storage = FirebaseStorage.instance;
     Reference ref = storage.ref().child("images/" + DateTime.now().toString());
+    print("here");
+    print(ref);
     UploadTask uploadTask = ref.putFile(File(image!.path));
     uploadTask.then((res) {
-      res.ref.getDownloadURL();
+      print(res.ref.getDownloadURL());
     });
   }
 }
@@ -62,9 +60,10 @@ class _EditEventState extends State<EditEvent> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<MyUser?>(context);
+
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        backgroundColor: Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         body: ListView(children: <Widget>[
           FormBuilder(
               child: SingleChildScrollView(
@@ -72,7 +71,7 @@ class _EditEventState extends State<EditEvent> {
               blueDecor(),
               Padding(
                 padding: const EdgeInsets.only(
-                    left: 15.0, right: 15.0, bottom: 10.0, top: 15.0),
+                    left: 15.0, right: 130.0, bottom: 10.0, top: 15.0),
                 child: subText(),
               ),
               Padding(
@@ -127,13 +126,13 @@ class _EditEventState extends State<EditEvent> {
                               left: 30.0, right: 15.0, bottom: 4.0, top: 8.0),
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              primary: Color(0xFF5DCAD1),
-                              minimumSize: Size.fromHeight(30),
-                              shape: new RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(5.0),
+                              primary: const Color(0xFF5DCAD1),
+                              minimumSize: const Size.fromHeight(30),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5.0),
                               ),
                             ),
-                            child: FittedBox(
+                            child: const FittedBox(
                               child: Text(
                                 'Upload',
                                 style: TextStyle(
@@ -168,7 +167,7 @@ class _EditEventState extends State<EditEvent> {
         ]));
   }
 
-  Widget blueDecor() => Image(
+  Widget blueDecor() => const Image(
         image: AssetImage('images/editbackground.png'),
         fit: BoxFit.cover,
         height: 250,
@@ -176,8 +175,8 @@ class _EditEventState extends State<EditEvent> {
         alignment: Alignment.topCenter,
       );
 
-  Widget subText() => const Text(
-        'Please fill in the following details carefully to add your event.',
+  Widget subText() => Text(
+        'Please fill in to update details.',
         style: TextStyle(
           fontFamily: 'Poppins',
           color: Colors.black,
@@ -190,6 +189,7 @@ class _EditEventState extends State<EditEvent> {
         name: 'title',
         initialValue: widget.title,
         decoration: const InputDecoration(
+            labelText: "Event Name",
             hintText: "Enter Event Name",
             border: OutlineInputBorder(),
             contentPadding: EdgeInsets.only(left: 15.0)),
@@ -202,6 +202,7 @@ class _EditEventState extends State<EditEvent> {
         name: 'organiser',
         initialValue: widget.organiser,
         decoration: const InputDecoration(
+            labelText: "Organiser Name",
             hintText: "Enter Organizer Name",
             border: OutlineInputBorder(),
             contentPadding: EdgeInsets.only(left: 15.0)),
@@ -210,10 +211,12 @@ class _EditEventState extends State<EditEvent> {
         autovalidateMode: AutovalidateMode.onUserInteraction,
         onChanged: (val) => {widget.organiser = val},
       );
+
   Widget LocationField(loc) => FormBuilderTextField(
         name: 'location',
         initialValue: widget.loc,
         decoration: const InputDecoration(
+            labelText: "Location",
             hintText: "Enter Location",
             border: OutlineInputBorder(),
             contentPadding: EdgeInsets.only(left: 15.0)),
@@ -222,12 +225,14 @@ class _EditEventState extends State<EditEvent> {
         autovalidateMode: AutovalidateMode.onUserInteraction,
         onChanged: (val) => {widget.loc = val},
       );
+
   Widget DescriptionField(description) => FormBuilderTextField(
         name: 'description',
         initialValue: widget.description,
         maxLines: 6,
         minLines: 1,
         decoration: const InputDecoration(
+            labelText: "Description of Event",
             hintText: "Enter Description",
             border: OutlineInputBorder(),
             contentPadding: EdgeInsets.only(left: 15.0)),
@@ -279,12 +284,12 @@ class _EditEventState extends State<EditEvent> {
 
   Widget FilterCategory() => FormBuilderChoiceChip(
         name: 'choice_chip',
-        padding: EdgeInsets.all(2.0),
+        padding: const EdgeInsets.all(2.0),
         // runSpacing: 2.0,
-        selectedColor: Color(0xFF5DCAD1),
+        selectedColor: const Color(0xFF5DCAD1),
         decoration: const InputDecoration(
             labelText: 'Select an option', labelStyle: TextStyle(fontSize: 22)),
-        labelPadding: EdgeInsets.all(2.0),
+        labelPadding: const EdgeInsets.all(2.0),
         options: const [
           FormBuilderFieldOption(value: 'Academic', child: Text('Academic')),
           FormBuilderFieldOption(
@@ -317,13 +322,13 @@ class _EditEventState extends State<EditEvent> {
       );
   Widget updateButton(user) => ElevatedButton(
         style: ElevatedButton.styleFrom(
-          primary: const Color(0xFF5DCAD1),
-          minimumSize: const Size.fromHeight(40),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5.0),
+          primary: Color(0xFF5DCAD1),
+          minimumSize: Size.fromHeight(40),
+          shape: new RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(5.0),
           ),
         ),
-        child: const FittedBox(
+        child: FittedBox(
           child: Text(
             'Update',
             style: TextStyle(
@@ -341,7 +346,7 @@ class _EditEventState extends State<EditEvent> {
               widget.event_type != null) {
             FirebaseFirestore.instance
                 .collection("adminEvents")
-                .doc(uid)
+                .doc(user?.uid)
                 .collection('Events')
                 .doc(widget.eventID)
                 .update({
@@ -368,12 +373,12 @@ class _EditEventState extends State<EditEvent> {
   Widget deleteButton() => ElevatedButton(
         style: ElevatedButton.styleFrom(
           primary: Colors.red,
-          minimumSize: const Size.fromHeight(40),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5.0),
+          minimumSize: Size.fromHeight(40),
+          shape: new RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(5.0),
           ),
         ),
-        child: const FittedBox(
+        child: FittedBox(
           child: Text(
             'Delete',
             style: TextStyle(

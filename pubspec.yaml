@@ -46,8 +46,7 @@ dependencies:
 
   # flutter_typeahead: 
   image_picker: ^0.8.5
-  # firebase_storage: ^3.0.8
-  # firebase_analytics: ^5.0.6
+
 
 
 

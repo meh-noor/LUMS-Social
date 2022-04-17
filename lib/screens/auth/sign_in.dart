@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:lums_social_app2/screens/news/addNews.dart';
+import 'package:lums_social_app2/screens/news/noNews.dart';
 import 'package:lums_social_app2/screens/Admin/addEvent.dart';
 import 'package:lums_social_app2/screens/auth/forget_password.dart';
+import 'package:lums_social_app2/screens/Admin/editEvent.dart';
 import 'package:lums_social_app2/screens/auth/register.dart';
 import 'package:lums_social_app2/screens/wrapper.dart';
 import 'package:lums_social_app2/services/auth.dart';

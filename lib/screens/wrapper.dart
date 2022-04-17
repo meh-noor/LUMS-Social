@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:lums_social_app2/models/user.dart';
 import 'package:lums_social_app2/screens/Admin/GetDataForEdit.dart';
 import 'package:lums_social_app2/screens/Admin/editEvent.dart';
+import 'package:lums_social_app2/screens/Admin/studentDashboard.dart';
 // import 'package:lums_social_app2/screens/Admin/studentDashboard.dart';
 import 'package:lums_social_app2/screens/Admin/viewEvent.dart';
 // import 'package:lums_social_app2/screens/auth/authenticate.dart';
@@ -34,15 +35,7 @@ class Wrapper extends StatelessWidget {
             return admin();
             // return GetDataForEdit();
           } else if (snapshot.data == false) {
-            return viewEvent(
-              title: 'hello1',
-              loc: 'hello2',
-              description: 'hello3',
-              organiser: 'hello4',
-              start_date: DateTime.now(),
-              start_time: DateTime.now(),
-              event_type: "hello5",
-            );
+            return student();
           } else {
             return splashScreen();
           }

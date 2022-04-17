@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:lums_social_app2/models/user.dart';
 import 'package:lums_social_app2/screens/Admin/GetDataForEdit.dart';
 import 'package:lums_social_app2/screens/auth/sign_in.dart';
+import 'package:lums_social_app2/screens/news/addNews.dart';
 import 'package:lums_social_app2/screens/news/newsButton.dart';
 import 'package:lums_social_app2/splash.dart';
 import 'package:provider/provider.dart';
@@ -77,14 +78,14 @@ class _adminState extends State<admin> {
             //   child: editEventButton(context),
             // ),
             //   ],
-              
+
             // ),
             Padding(
               padding: const EdgeInsets.only(
                   left: 20.0, right: 15.0, bottom: 10.0, top: 10.0),
               child: addEventButton(context),
             ),
-            
+
             // Padding(
             //   padding: const EdgeInsets.only(
             //       left: 20.0, right: 15.0, bottom: 10.0, top: 10.0),
@@ -101,24 +102,28 @@ class _adminState extends State<admin> {
         )));
   }
 
-   Widget mainText() => new RichText(
-  text: new TextSpan(
-    // Note: Styles for TextSpans must be explicitly defined.
-    // Child text spans will inherit styles from parent
-    style: new TextStyle(
-      fontSize: 25.0,
-      color: Colors.black,
-       fontFamily: 'poppins',
-      //  fontWeight: FontWeight.bold,
-    ),
-    children: <TextSpan>[
-      new TextSpan(text: 'LUMS',
-    style: new TextStyle(fontWeight: FontWeight.w500)),
-      new TextSpan(text:" "),
-      new TextSpan(text: 'SOCIAL', style: new TextStyle(fontWeight: FontWeight.w500,color: Color(0xFF5DCAD1))),
-    ],
-  ),
- );
+  Widget mainText() => new RichText(
+        text: new TextSpan(
+          // Note: Styles for TextSpans must be explicitly defined.
+          // Child text spans will inherit styles from parent
+          style: new TextStyle(
+            fontSize: 25.0,
+            color: Colors.black,
+            fontFamily: 'poppins',
+            //  fontWeight: FontWeight.bold,
+          ),
+          children: <TextSpan>[
+            new TextSpan(
+                text: 'LUMS',
+                style: new TextStyle(fontWeight: FontWeight.w500)),
+            new TextSpan(text: " "),
+            new TextSpan(
+                text: 'SOCIAL',
+                style: new TextStyle(
+                    fontWeight: FontWeight.w500, color: Color(0xFF5DCAD1))),
+          ],
+        ),
+      );
 
   Widget greetingRow(user) => Row(
         children: [
@@ -192,9 +197,14 @@ class _adminState extends State<admin> {
                 itemCount: allData.length,
                 itemBuilder: (context, index) {
                   return Container(
-                    decoration: BoxDecoration(
-          border: Border(left: BorderSide(color: Colors.primaries[Random().nextInt(Colors.primaries.length)],width: 5,)),
-         ),
+                    // decoration: BoxDecoration(
+                    //   border: Border(
+                    //       left: BorderSide(
+                    //     color: Colors.primaries[
+                    //         Random().nextInt(Colors.primaries.length)],
+                    //     width: 5,
+                    //   )),
+                    // ),
                     // width: MediaQuery.of(context).size.width * 0.6,
                     width: 240,
                     height: 200,
@@ -204,26 +214,22 @@ class _adminState extends State<admin> {
                     child: Card(
                       elevation: 5,
                       // shape: Border(left: BorderSide(color: Colors.primaries[Random().nextInt(Colors.primaries.length)], width: 8)),
-                    
+
                       shape: RoundedRectangleBorder(
                         // side: BorderSide(color: Colors.yellow, width: 1),
-                    
-                    borderRadius: BorderRadius.circular(20),
-                    // side: BorderSide(
-                    // //   color: Colors.grey.withOpacity(0.5),
-                      
-                    // )
-                    
-                    ),
-                    
-                    
-                    
-                    shadowColor: Colors.grey.withOpacity(1),
-                    
-                      color: Colors.white,
-                      
-                      child: 
-                      Container(
+
+                        borderRadius: BorderRadius.circular(15),
+                        // side: BorderSide(
+                        // //   color: Colors.grey.withOpacity(0.5),
+
+                        // )
+                      ),
+
+                      shadowColor: Colors.grey.withOpacity(1),
+
+                      color: Color(0xFFFBF6F0),
+
+                      child: Container(
                         child: Column(children: [
                           // Container(
                           //       // height: 50,
@@ -238,28 +244,24 @@ class _adminState extends State<admin> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => GetDataForEdit(
+                                      builder: (context) => GetDataForView(
                                             eventID: eventID,
                                           )),
                                 );
                               },
                               child: Center(
                                   child: Text(
-                                    
                                 allData[index]['title'].toString() +
-                                    "\n\n"
-                                     + 
+                                    "\n\n" +
                                     //  allData[index]['location'] + "\n\n" +
                                     allData[index]['start_date']
                                         .toDate()
                                         .toString()
                                         .substring(0, 10),
-                                
                                 style: TextStyle(
                                     color: Colors.black, fontSize: 16.0),
-                                    textAlign: TextAlign.center ,
+                                textAlign: TextAlign.center,
                               ))),
-                              
                         ]),
                       ),
                     ),
@@ -276,9 +278,10 @@ class _adminState extends State<admin> {
               height: 30.0,
               width: 30.0,
               child: FloatingActionButton(
+                  heroTag: 'hero1',
                   elevation: 2,
                   // backgroundColor: Color(0xFF5DCAD1),
-                  backgroundColor: Colors.black,
+                  backgroundColor: Color(0xFF050A30),
                   child: Icon(Icons.edit),
                   onPressed: () {})),
           Padding(
@@ -288,7 +291,7 @@ class _adminState extends State<admin> {
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontFamily: 'Poppins',
-                  color: Colors.black,
+                  color: Color(0xFF050A30),
                   fontSize: 18,
                   // padding: const EdgeInsets.all(15.0),
                 ),
@@ -402,16 +405,16 @@ class _adminState extends State<admin> {
     // return ret;
   }
 
-  // Widget SignOut() => 
- 
+  // Widget SignOut() =>
+
   // TextButton.icon(
-      // onPressed: () async {
-      //   await _auth.signOut();
-      //   Navigator.push(
-      //       context, MaterialPageRoute(builder: (context) => SignIn()));
-      // },
-      // icon: const Icon(Icons.person),
-      // label: const Text('Logout'));
+  // onPressed: () async {
+  //   await _auth.signOut();
+  //   Navigator.push(
+  //       context, MaterialPageRoute(builder: (context) => SignIn()));
+  // },
+  // icon: const Icon(Icons.person),
+  // label: const Text('Logout'));
 
   Future<bool?> getData(String? uid) async {
     // Get docs from collection reference
