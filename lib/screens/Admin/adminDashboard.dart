@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lums_social_app2/models/user.dart';
+import 'package:lums_social_app2/screens/Admin/GetDataForEdit.dart';
 import 'package:lums_social_app2/screens/auth/sign_in.dart';
 import 'package:lums_social_app2/screens/news/newsButton.dart';
 import 'package:lums_social_app2/splash.dart';
@@ -61,28 +62,29 @@ class _adminState extends State<admin> {
               child: addedEvents(),
             ),
             listEvents(context, user),
-            Row(
-              children: <Widget>[
-                Padding(
-              padding: const EdgeInsets.only(
-                  left: 20.0, right: 15.0, bottom: 10.0, top: 10.0),
-              child: addEventButton(context),
-            ),
-            Spacer(),
-             Padding(padding: EdgeInsets.only(right: 15.0),),
-             Padding(
-              padding: const EdgeInsets.only(
-                  left: 20.0, right: 15.0, bottom: 10.0, top: 10.0),
-              child: editEventButton(context),
-            ),
-              ],
-              
-            ),
-            // Padding(
+            // Row(
+            //   children: <Widget>[
+            //     Padding(
             //   padding: const EdgeInsets.only(
             //       left: 20.0, right: 15.0, bottom: 10.0, top: 10.0),
             //   child: addEventButton(context),
             // ),
+            // Spacer(),
+            //  Padding(padding: EdgeInsets.only(right: 15.0),),
+            //  Padding(
+            //   padding: const EdgeInsets.only(
+            //       left: 20.0, right: 15.0, bottom: 10.0, top: 10.0),
+            //   child: editEventButton(context),
+            // ),
+            //   ],
+              
+            // ),
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 20.0, right: 15.0, bottom: 10.0, top: 10.0),
+              child: addEventButton(context),
+            ),
+            
             // Padding(
             //   padding: const EdgeInsets.only(
             //       left: 20.0, right: 15.0, bottom: 10.0, top: 10.0),
@@ -184,7 +186,6 @@ class _adminState extends State<admin> {
                   height: 400,
                 ),
               );
-              
             }
             return ListView.builder(
                 scrollDirection: Axis.horizontal,
@@ -232,8 +233,17 @@ class _adminState extends State<admin> {
                           //       alignment: Alignment.centerLeft,
                           //     ),
                           TextButton(
-                              onPressed: () {},
-                              
+                              onPressed: () {
+                                String eventID = allData[index]['eventID'];
+                                // print(eventID);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => GetDataForEdit(
+                                            eventID: eventID,
+                                          )),
+                                );
+                              },
                               child: Center(
                                   child: Text(
                                     

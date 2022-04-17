@@ -22,7 +22,9 @@ class addCollection {
     //   "eventID": eventID,
     // });
 
-    eventCollection.doc(uid).collection('Events').doc().set({
+    String eventID = eventCollection.doc(uid).collection('Events').doc().id;
+
+    eventCollection.doc(uid).collection('Events').doc(eventID).set({
       'title': title,
       'Organiser': organiser,
       'location': loc,
@@ -30,6 +32,7 @@ class addCollection {
       'start_date': start_date,
       'start_time': start_time,
       'event_type': event_type,
+      'eventID': eventID,
     });
   }
 
