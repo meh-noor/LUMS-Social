@@ -61,6 +61,8 @@ dependencies:
 
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.9.2
+
   flutter_test:
     sdk: flutter
 
@@ -75,6 +77,12 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter.
+
+flutter_icons:
+  image_path: "images/appLogo.png"
+  android: true
+  
+
 flutter:
 
   # The following line ensures that the Material Icons font is
@@ -94,9 +102,11 @@ flutter:
     - images/EmailOpen.png
     - images/Tune.png
     - images/UserSettings.png
+    
     # - images/Ellipse12.png
   #   - images/a_dot_ham.jpeg
 
+ 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
