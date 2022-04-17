@@ -10,6 +10,8 @@ import 'package:lums_social_app2/screens/news/newsButton.dart';
 import 'package:lums_social_app2/screens/Admin/adminDashboard.dart';
 import 'package:lums_social_app2/screens/Admin/addEvent.dart';
 import 'package:lums_social_app2/screens/settings/editmainProfile.dart';
+import 'package:lums_social_app2/screens/news/newsStudent.dart';
+
 
 import '../news/editdeleteNews.dart';
 // import 'package:lums_social_app2/widget/email_field_widget.dart';
@@ -67,21 +69,21 @@ class _SignInState extends State<SignIn> {
     );
   }
 
-  Widget buildButton() => ButtonWidget(
-        text: 'Login',
-        onClicked: () async {
-          if (_formkey.currentState!.validate()) {
-            dynamic result =
-                await _auth.signInWithEmailAndPassword(email, password);
-            if (result == null) {
-              // email error message
-              setState(() {
-                error = 'Could not sign in with those credentials';
-              });
-            }
-          }
-        },
-      );
+  // Widget buildButton() => ButtonWidget(
+  //       text: 'Login',
+  //       onClicked: () async {
+  //         if (_formkey.currentState!.validate()) {
+  //           dynamic result =
+  //               await _auth.signInWithEmailAndPassword(email, password);
+  //           if (result == null) {
+  //             // email error message
+  //             setState(() {
+  //               error = 'Could not sign in with those credentials';
+  //             });
+  //           }
+  //         }
+  //       },
+  //     );
 
   Widget LogInText() => Center(
         child: Text("Enter Credentials",
@@ -106,15 +108,15 @@ class _SignInState extends State<SignIn> {
   //         }
   //       },
   //     );
-  // Widget buildButton() => ButtonWidget(
-  //     //  0xFF5DCAD1
-  //     text: 'Test Button',
-  //     onClicked: () async {
-  //       Navigator.push(
-  //         context,
-  //         MaterialPageRoute(builder: (context) => const EditProfile()),
-  //       );
-  //     });
+  Widget buildButton() => ButtonWidget(
+      //  0xFF5DCAD1
+      text: 'Test Button',
+      onClicked: () async {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) =>  NewsStudent()),
+        );
+      });
 
   Widget ErrorWidget() => Text(
         error,
