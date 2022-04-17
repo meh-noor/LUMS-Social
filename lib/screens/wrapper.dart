@@ -35,19 +35,7 @@ class Wrapper extends StatelessWidget {
             return admin();
             // return GetDataForEdit();
           } else if (snapshot.data == false) {
-<<<<<<< HEAD
-            return viewEvent(
-              title: 'hello1',
-              loc: 'hello2',
-              description: 'hello3',
-              organiser: 'hello4',
-              start_date: DateTime.now(),
-              start_time: DateTime.now(),
-              event_type: "hello5",
-            );
-=======
             return student();
->>>>>>> 60bc776212ec40b8780fcb0c2ee329caec666735
           } else {
             return splashScreen();
           }
