@@ -177,6 +177,7 @@ class _GetNewsforEditState extends State<GetNewsforEdit> {
         builder: ((context, snapshot) {
           if (snapshot.data != null) {
             return EditNews(
+                newsID: "123456",
                 headline: headline,
                 news_author: news_author,
                 description: description);

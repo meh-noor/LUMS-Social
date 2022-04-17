@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:lums_social_app2/models/user.dart';
 import 'package:lums_social_app2/screens/Admin/GetDataForEdit.dart';
 import 'package:lums_social_app2/screens/auth/sign_in.dart';
+import 'package:lums_social_app2/screens/news/addNews.dart';
 import 'package:lums_social_app2/screens/news/newsButton.dart';
 import 'package:lums_social_app2/splash.dart';
 import 'package:provider/provider.dart';
@@ -277,6 +278,7 @@ class _adminState extends State<admin> {
               height: 30.0,
               width: 30.0,
               child: FloatingActionButton(
+                  heroTag: 'hero1',
                   elevation: 2,
                   // backgroundColor: Color(0xFF5DCAD1),
                   backgroundColor: Color(0xFF050A30),
