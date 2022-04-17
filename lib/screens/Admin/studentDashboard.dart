@@ -2,8 +2,12 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import 'package:lums_social_app2/services/addToCollection.dart';
 =======
+=======
+import 'package:lums_social_app2/screens/Admin/editEvent.dart';
+>>>>>>> 1d1767ae1b7824963a5000cdcdf2c4f1f3e6925b
 import 'package:lums_social_app2/screens/auth/sign_in.dart';
 import 'package:lums_social_app2/screens/news/viewDayEvent.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +19,7 @@ import 'package:lums_social_app2/screens/Admin/addEvent.dart';
 import 'package:lums_social_app2/screens/news/newsStudent.dart';
 
 import '../../models/user.dart';
+import '../auth/forget_password.dart';
 
 class student extends StatefulWidget {
   @override
@@ -51,6 +56,7 @@ class _studentState extends State<student> {
   Widget build(BuildContext context) {
     final user = Provider.of<MyUser?>(context);
     return Scaffold(
+        drawer: SideMenu(),
         backgroundColor: Color.fromARGB(255, 255, 255, 255),
         body: Column(
           children: <Widget>[
@@ -61,6 +67,7 @@ class _studentState extends State<student> {
                   alignment: Alignment.topLeft,
                   child: mainText(),
                 )),
+            const SizedBox(height: 10),
             Padding(
               padding:
                   const EdgeInsets.only(left: 20.0, right: 15.0, bottom: 10.0),
@@ -111,12 +118,77 @@ class _studentState extends State<student> {
                 ],
               ),
             ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(140, 5, 0, 10),
-              child: SignOut(),
-            )
+            // Padding(
+            //   padding: EdgeInsets.fromLTRB(140, 5, 0, 10),
+            //   // child: SignOut(),
+            // )
             // SignOut(),
           ]);
+
+
+  Widget SideMenu() => 
+  Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          DrawerHeader(
+            child: Text(
+              '     \n\nAccount Settings',
+              
+              style: TextStyle(color: Colors.white, fontSize: 30,fontWeight: FontWeight.bold),
+            ),
+            decoration: BoxDecoration(
+                color: Color(0xFF5DCAD1),
+                // image: DecorationImage(
+                //     fit: BoxFit.fill,
+                //     image: Icon()
+
+                //     )
+                    ),
+          ),
+          ListTile(
+            title: Text('\n'),
+          ),
+          ListTile(
+            leading: Icon(Icons.logout,size: 40, color: Colors.black,),
+            title: Text('Logout', style: TextStyle(fontSize: 20),),
+            
+            onTap: () async {
+        await _auth.signOut();
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => SignIn()));
+      },
+          ),
+          ListTile(
+            title: Text('\n'),
+          ),
+          ListTile(
+            leading: Icon(Icons.change_circle,size: 40, color: Colors.black87,),
+            title: Text('Change Password', style: TextStyle(fontSize: 20),),
+            onTap: () async {
+        await _auth.signOut();
+              Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ForgotPassword()));
+            },
+          ),
+          // ListTile(
+          //   leading: Icon(Icons.settings),
+          //   title: Text('Settings'),
+          //   // onTap: () => {Navigator.of(context).pop()},
+          // ),
+          // ListTile(
+          //   leading: Icon(Icons.border_color),
+          //   title: Text('Feedback'),
+          //   // onTap: () => {Navigator.of(context).pop()},
+          // ),
+          // ListTile(
+          //   leading: Icon(Icons.exit_to_app),
+          //   title: Text('Logout'),
+          //   // onTap: () => {Navigator.of(context).pop()},
+          // ),
+        ],
+      ),
+    );
 
   Widget greetingRow(user) => Row(
         children: [
@@ -143,15 +215,6 @@ class _studentState extends State<student> {
               },
               future: getDataName(user?.uid, "name"),
             ),
-            // Text(
-            //   'Hello',
-            //   style: TextStyle(
-            //     fontFamily: 'Poppins',
-            //     color: Colors.black,
-            //     fontSize: 25,
-            //     // padding: const EdgeInsets.all(15.0),
-            //   ),
-            // )
           ),
         ],
       );
@@ -220,11 +283,19 @@ class _studentState extends State<student> {
           backgroundColor: Color(0xFF050A30),
           child: Icon(Icons.newspaper, size: 40),
           onPressed: () async {
+<<<<<<< HEAD
             print("here");
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => NewsStudent()),
             );
+=======
+            getAllAdminsEvents(); // tester function
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => NewsStudent()),
+            // );
+>>>>>>> 1d1767ae1b7824963a5000cdcdf2c4f1f3e6925b
           }));
 
   Future<String> getDataName(String? uid, String dataType) async {
@@ -248,4 +319,41 @@ class _studentState extends State<student> {
             context, MaterialPageRoute(builder: (context) => SignIn()));
       },
       icon: const Icon(Icons.logout_rounded));
+
+  Future<List<Map<String, dynamic>>> getAdminIDs() async {
+    // QuerySnapshot<Map<String, dynamic>> mySnap;
+    QuerySnapshot<Map<String, dynamic>> snapshotAdminIDs =
+        await FirebaseFirestore.instance.collection('adminIDs').get();
+
+    List<Map<String, dynamic>> allAdminIDs =
+        snapshotAdminIDs.docs.map((doc) => doc.data()).toList();
+
+    return allAdminIDs;
+  }
+
+  Future<List<List<Map<String, dynamic>>>> getAllAdminsEvents() async {
+    List<Map<String, dynamic>> adminIDs = await getAdminIDs();
+    // print(adminIDs);
+    List<List<Map<String, dynamic>>> storeAllData = [];
+
+    for (var i = 0; i < adminIDs.length; i++) {
+      QuerySnapshot<Map<String, dynamic>> snapshotAdminIDs =
+          await FirebaseFirestore.instance
+              .collection('adminEvents')
+              .doc(adminIDs[i]['id'].toString())
+              .collection('Events')
+              .get();
+      List<Map<String, dynamic>> oneAdminsDataList =
+          snapshotAdminIDs.docs.map((doc) => doc.data()).toList();
+
+      storeAllData.add(oneAdminsDataList);
+    }
+
+    // print(storeAllData[][]);
+
+    // List<Map<String, dynamic>> allAdminIDs =
+    //     snapshotAdminIDs.docs.map((doc) => doc.data()).toList();
+
+    return storeAllData;
+  }
 }

@@ -174,9 +174,13 @@ class _viewNewsState extends State<viewNews> {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => GetDataForEdit(
-                      eventID: widget.newsID,
+<<<<<<< HEAD
+                builder: (context) => GetNewsforEdit(
+                      newsID: widget.newsID,
                     )),
+=======
+                builder: (context) => GetNewsforEdit(newsID: widget.newsID)),
+>>>>>>> 723262c4eccda4244e6ba807295a0e6d9580d88f
           );
         },
         child: const Image(
