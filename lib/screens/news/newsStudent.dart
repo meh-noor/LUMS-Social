@@ -16,19 +16,18 @@ class _NewsStudentState extends State<NewsStudent> {
   List<Map<String, dynamic>> allData = [];
   final AuthService _auth = AuthService();
   final List colors = [
-    const Color(0xffDDFFE7),
-    const Color(0xff98D7C2),
-    const Color(0xffc8e1cc),
-    const Color(0xffe0f0e3),
-    const Color(0xffABC7A2)
+    const Color(0xff00e9d8),
+    const Color(0xff00d3e0),
+    const Color(0xff00bde8),
+    const Color(0xff00a7ef),
+    const Color(0xff0091f7)
   ];
-
   final List colorsB = [
-    const Color(0xffa4dded),
-    const Color(0xffa7d8de),
-    const Color(0xffb0e0e6),
-    const Color(0xfface5ee),
-    const Color(0xffc9e5ee),
+    const Color(0xff00e9d8),
+    const Color(0xff00d3e0),
+    const Color(0xff00bde8),
+    const Color(0xff00a7ef),
+    const Color(0xff0091f7)
   ];
 
   final _random = Random();

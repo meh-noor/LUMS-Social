@@ -20,11 +20,11 @@ class _DayEventState extends State<DayEvent> {
   final AuthService _auth = AuthService();
   List<Map<String, dynamic>> allData = [];
   final List colors = [
-    const Color(0xffFB6F92).withOpacity(0.7),
-    const Color(0xffB594CA).withOpacity(0.7),
-    const Color(0xff85E281).withOpacity(0.7),
-    const Color(0xffFFFF01).withOpacity(0.7),
-    const Color(0xffABC7A2).withOpacity(0.7)
+    const Color(0xff00e9d8),
+    const Color(0xff00d3e0),
+    const Color(0xff00bde8),
+    const Color(0xff00a7ef),
+    const Color(0xff0091f7)
   ];
 
   final List colorsB = [
@@ -243,16 +243,6 @@ class _DayEventState extends State<DayEvent> {
     allData = allTheData;
 
     // return storeAllData;
-    Future<bool?> getData(String? uid) async {
-      // Get docs from collection reference
-      QuerySnapshot<Map<String, dynamic>> mySnapshot;
-      mySnapshot = await FirebaseFirestore.instance
-          .collection('adminEvents')
-          .doc(uid)
-          .collection('Events')
-          .get();
-      allData = mySnapshot.docs.map((doc) => doc.data()).toList();
-      return true;
-    }
+    return true;
   }
 }
