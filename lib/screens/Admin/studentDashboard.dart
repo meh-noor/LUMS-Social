@@ -1,9 +1,10 @@
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:lums_social_app2/screens/news/viewAllEvents.dart';
+import 'package:lums_social_app2/services/addToCollection.dart';
 import 'package:lums_social_app2/screens/Admin/editEvent.dart';
 import 'package:lums_social_app2/screens/auth/sign_in.dart';
-import 'package:lums_social_app2/screens/news/viewDayEvent.dart';
 import 'package:lums_social_app2/screens/settings/editmainProfile.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -11,6 +12,7 @@ import 'package:lums_social_app2/services/auth.dart';
 import 'package:lums_social_app2/widget/button_widget.dart';
 import 'package:lums_social_app2/screens/Admin/addEvent.dart';
 import 'package:lums_social_app2/screens/news/newsStudent.dart';
+// import 'package:lums_social_app2/screens/news/viewDayEvent.dart';
 
 import '../../models/user.dart';
 import '../auth/forget_password.dart';
@@ -68,10 +70,28 @@ class _studentState extends State<student> {
               child: greetingRow(user),
             ),
             const SizedBox(height: 10),
+            Padding(
+              padding:
+                  const EdgeInsets.only(left: 20.0, right: 15.0, bottom: 10.0),
+              child: allEventsButton(),
+            ),
+            const SizedBox(height: 20),
+            Padding(
+              padding:
+                  const EdgeInsets.only(left: 20.0, right: 140.0, bottom: 10.0),
+              child: quote(),
+            ),
+            // Align(
+            //   alignment: Alignment.center,
+            //   child: Padding(
+            //       padding:
+            //           EdgeInsets.only(left: 60.0, right: 60.0, bottom: 10.0),
+            //       child: quote()),
+            // ),
 
             Padding(
-              padding: const EdgeInsets.only(
-                  left: 20.0, right: 15.0, bottom: 10.0, top: 10.0),
+              padding:
+                  const EdgeInsets.only(left: 20.0, right: 15.0, bottom: 10.0),
               child: viewCalender(),
             ),
             Align(
@@ -85,6 +105,17 @@ class _studentState extends State<student> {
           ],
         ));
   }
+
+  Widget quote() => Text(
+        'Plan your social life!',
+        textAlign: TextAlign.left,
+        style: TextStyle(
+          fontFamily: 'Poppins',
+          color: Colors.black,
+          fontSize: 24,
+          fontWeight: FontWeight.w500,
+        ),
+      );
 
   Widget mainText() => Row(
           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -197,6 +228,22 @@ class _studentState extends State<student> {
                     context, MaterialPageRoute(builder: (context) => SignIn()));
               },
             ),
+
+            // ListTile(
+            //   leading: Icon(Icons.settings),
+            //   title: Text('Settings'),
+            //   // onTap: () => {Navigator.of(context).pop()},
+            // ),
+            // ListTile(
+            //   leading: Icon(Icons.border_color),
+            //   title: Text('Feedback'),
+            //   // onTap: () => {Navigator.of(context).pop()},
+            // ),
+            // ListTile(
+            //   leading: Icon(Icons.exit_to_app),
+            //   title: Text('Logout'),
+            //   // onTap: () => {Navigator.of(context).pop()},
+            // ),
           ],
         ),
       );
@@ -228,6 +275,31 @@ class _studentState extends State<student> {
             ),
           ),
         ],
+      );
+
+  Widget allEventsButton() => ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          primary: Color(0xFF5DCAD1),
+          minimumSize: const Size.fromHeight(60),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+        ),
+        child: const FittedBox(
+          child: Text(
+            'View All Events',
+            style: TextStyle(
+                fontSize: 20,
+                color: Colors.white,
+                decoration: TextDecoration.underline),
+          ),
+        ),
+        onPressed: () async {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => DayEvent()),
+          );
+        },
       );
 
   Widget viewCalender() => Card(

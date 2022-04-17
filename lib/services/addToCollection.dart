@@ -17,12 +17,6 @@ class addCollection {
     String uid,
     String? imageURL,
   ) {
-    // String eventID = uid + DateTime.now().toString();
-
-    // FirebaseFirestore.instance.collection('adminEvents').doc(uid).update({
-    //   "eventID": eventID,
-    // });
-
     String eventID = eventCollection.doc(uid).collection('Events').doc().id;
 
     eventCollection.doc(uid).collection('Events').doc(eventID).set({
@@ -38,15 +32,12 @@ class addCollection {
     });
   }
 
-  // Future<DocumentSnapshot<Map<String, dynamic>>> getNews(String newsID) async {
-  //   // Get docs from collection reference
-  //   DocumentSnapshot<Map<String, dynamic>> mySnapshot;
-  //   mySnapshot =
-  //       await FirebaseFirestore.instance.collection('News').doc(newsID).get();
-  //   return mySnapshot;
-  // }
-
-  // String _returnsEventID() {}//TODO
+  Future<DocumentSnapshot<Map<String, dynamic>>> getNews(String newsID) async {
+    DocumentSnapshot<Map<String, dynamic>> mySnapshot;
+    mySnapshot =
+        await FirebaseFirestore.instance.collection('News').doc(newsID).get();
+    return mySnapshot;
+  }
 }
 
 class addNewsToCollection {

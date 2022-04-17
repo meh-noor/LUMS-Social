@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:lums_social_app2/models/user.dart';
 import 'package:lums_social_app2/screens/Admin/GetDataForEdit.dart';
+import 'package:lums_social_app2/screens/Admin/viewEventAdmin.dart';
+import 'package:lums_social_app2/screens/Student/viewEventUser.dart';
 import 'package:lums_social_app2/services/auth.dart';
 import 'package:provider/provider.dart';
 
@@ -107,7 +109,7 @@ class _DayEventState extends State<DayEvent> {
           builder: (context, snapshot) {
             if (snapshot.data == null) {
               return Container(
-                child: Image(
+                child: const Image(
                   image: AssetImage('images/finallogo.png'),
                   // fit: BoxFit.cover,
                   width: 450,
@@ -145,16 +147,32 @@ class _DayEventState extends State<DayEvent> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => GetDataForView(
-                                                eventID: eventID,
-                                              )),
+                                          builder: (context) => viewEventUser(
+                                              title: allData[index]['title'],
+                                              loc: allData[index]['location'],
+                                              description: allData[index]
+                                                  ['description'],
+                                              organiser: allData[index]
+                                                  ['organiser'],
+                                              start_date: allData[index]
+                                                      ['start_date']
+                                                  .toDate(),
+                                              start_time: allData[index]
+                                                      ['start_time']
+                                                  .toDate(),
+                                              event_type: allData[index]
+                                                  ['event_type'],
+                                              eventID: allData[index]
+                                                  ['eventID'],
+                                              imageURL: allData[index]
+                                                  ['imageURL'])),
                                     );
                                   },
                                   child: Column(
                                     children: [
                                       Text(
                                         allData[index]['title'].toString(),
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 18.0,
                                             fontWeight: FontWeight.w700),
@@ -164,7 +182,7 @@ class _DayEventState extends State<DayEvent> {
                                             .toDate()
                                             .toString()
                                             .substring(0, 10),
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 16.0),
                                       ),
@@ -179,22 +197,6 @@ class _DayEventState extends State<DayEvent> {
           future: getAllAdminsEvents(),
         ),
       );
-
-  // Future<bool?> getData(String? uid) async {
-  //   print('USER IDDDDD');
-  //   print(uid);
-  //   // Get docs from collection reference
-  //   QuerySnapshot<Map<String, dynamic>> mySnapshot;
-  //   mySnapshot = await FirebaseFirestore.instance
-  //       .collection('adminEvents')
-  //       .doc(uid)
-  //       .collection('Events')
-  //       .get();
-  //   allData = mySnapshot.docs.map((doc) => doc.data()).toList();
-  //   print("HELLOOOOO");
-  //   print(allData);
-  //   return true;
-  // }
 
   Future<List<Map<String, dynamic>>> getAdminIDs() async {
     // QuerySnapshot<Map<String, dynamic>> mySnap;
@@ -241,6 +243,16 @@ class _DayEventState extends State<DayEvent> {
     allData = allTheData;
 
     // return storeAllData;
-    return true;
+    Future<bool?> getData(String? uid) async {
+      // Get docs from collection reference
+      QuerySnapshot<Map<String, dynamic>> mySnapshot;
+      mySnapshot = await FirebaseFirestore.instance
+          .collection('adminEvents')
+          .doc(uid)
+          .collection('Events')
+          .get();
+      allData = mySnapshot.docs.map((doc) => doc.data()).toList();
+      return true;
+    }
   }
 }

@@ -98,36 +98,6 @@ class _adminState extends State<admin> {
               child: addedNews(),
             ),
             listNews(context, user),
-            // Row(
-            //   children: <Widget>[
-            //     Padding(
-            //   padding: const EdgeInsets.only(
-            //       left: 20.0, right: 15.0, bottom: 10.0, top: 10.0),
-            //   child: addEventButton(context),
-            // ),
-            // Spacer(),
-            //  Padding(padding: EdgeInsets.only(right: 15.0),),
-            //  Padding(
-            //   padding: const EdgeInsets.only(
-            //       left: 20.0, right: 15.0, bottom: 10.0, top: 10.0),
-            //   child: editEventButton(context),
-            // ),
-            //   ],
-
-            // ),
-
-            // Padding(
-            //   padding: const EdgeInsets.only(
-            //       left: 20.0, right: 15.0, bottom: 10.0, top: 10.0),
-            //   child: editEventButton(context),
-            // ),
-            // Padding(
-            //   padding: const EdgeInsets.only(
-            //       left: 20.0, right: 15.0, bottom: 10.0, top: 10.0),
-            //   child: viewCalender(),
-            // ),
-            // addedEvents(),
-            // Text(getData(user?.uid).toString()),
           ],
         )));
   }
