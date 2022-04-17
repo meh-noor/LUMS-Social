@@ -27,11 +27,11 @@ class _adminState extends State<admin> {
   CalendarFormat format = CalendarFormat.month;
 
   final List colors = [
-    const Color(0xffDDFFE7),
-    const Color(0xff98D7C2),
-    const Color(0xffc8e1cc),
-    const Color(0xffe0f0e3),
-    const Color(0xffABC7A2)
+    const Color(0xffFB6F92).withOpacity(0.7),
+    const Color(0xffB594CA).withOpacity(0.7),
+    const Color(0xff85E281).withOpacity(0.7),
+    const Color(0xffFFFF01).withOpacity(0.7),
+    const Color(0xffABC7A2).withOpacity(0.7)
   ];
 
   final List colorsB = [
@@ -394,7 +394,7 @@ class _adminState extends State<admin> {
                           // crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             Container(
-                              color: colorsB[_random.nextInt(4)],
+                              color: colors[_random.nextInt(4)],
                               width: 15,
                             ),
                             SizedBox(

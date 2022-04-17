@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lums_social_app2/screens/auth/sign_in.dart';
+import 'package:lums_social_app2/screens/news/viewDayEvent.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:lums_social_app2/services/auth.dart';
@@ -170,7 +171,7 @@ class _studentState extends State<student> {
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
-                        NewsStudent())); // update `_focusedDay` here as well
+                        DayEvent())); // update `_focusedDay` here as well
           });
         },
         headerStyle: HeaderStyle(
@@ -217,7 +218,7 @@ class _studentState extends State<student> {
           onPressed: () async {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => AddEvent()),
+              MaterialPageRoute(builder: (context) => NewsStudent()),
             );
           }));
 

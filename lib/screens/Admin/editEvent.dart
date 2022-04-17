@@ -386,6 +386,20 @@ class _EditEventState extends State<EditEvent> {
                 decoration: TextDecoration.underline),
           ),
         ),
-        onPressed: () async {},
+        onPressed: () async {
+          await FirebaseFirestore.instance
+              .collection('adminEvents')
+              .doc(uid)
+              .collection('Events')
+              .doc(widget.eventID) // <-- Doc ID to be deleted.
+              .delete()
+              .then((_) => print('Deleted'))
+              .catchError((error) => print('Delete failed: $error'));
+
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => admin()),
+          );
+        },
       );
 }
