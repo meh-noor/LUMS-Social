@@ -17,7 +17,7 @@ String? organiser;
 String? description;
 DateTime? start_date;
 DateTime? start_time;
-String? image;
+String? imageURL;
 String? event_type;
 String? uid;
 
@@ -125,6 +125,7 @@ class _GetDataForViewState extends State<GetDataForView> {
               start_time: start_time,
               event_type: event_type,
               eventID: widget.eventID,
+              imageURL: imageURL,
             );
           } else {
             // return Splash();
@@ -224,6 +225,7 @@ Future<bool> fetchData(user, eventID) async {
   start_time = time.toDate();
   organiser = mySnapshot.data()?['Organiser'];
   event_type = mySnapshot.data()?['event_type'];
+  imageURL = mySnapshot.data()?['imageURL'];
   return true;
 }
 
