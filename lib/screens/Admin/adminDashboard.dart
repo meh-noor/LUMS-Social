@@ -11,7 +11,6 @@ import 'package:lums_social_app2/splash.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:lums_social_app2/screens/Admin/addEvent.dart';
-import 'package:random_color/random_color.dart';
 import 'package:lums_social_app2/screens/news/editdeletenews.dart';
 // import 'package:';
 
@@ -407,7 +406,7 @@ class _adminState extends State<admin> {
                               },
                               child: Center(
                                   child: Text(
-                                newsData[index]['title'].toString() +
+                                newsData[index]['headline'].toString() +
                                     "\n\n" +
                                     //  allData[index]['location'] + "\n\n" +
                                     newsData[index]['start_date']
@@ -424,7 +423,7 @@ class _adminState extends State<admin> {
                   );
                 });
           },
-          future: getData(user?.uid),
+          future: GetNews('1234'),
         ),
       );
 
@@ -434,7 +433,7 @@ class _adminState extends State<admin> {
               height: 30.0,
               width: 30.0,
               child: FloatingActionButton(
-                  heroTag: 'hero1',
+                  heroTag: 'hero3',
                   elevation: 2,
                   // backgroundColor: Color(0xFF5DCAD1),
                   backgroundColor: Color(0xFF050A30),
@@ -461,6 +460,7 @@ class _adminState extends State<admin> {
               height: 30.0,
               width: 30.0,
               child: FloatingActionButton(
+                  heroTag: 'hero1',
                   elevation: 2,
                   // backgroundColor: Color(0xFF5DCAD1),
                   backgroundColor: Colors.black,
@@ -492,6 +492,7 @@ class _adminState extends State<admin> {
               height: 30.0,
               width: 30.0,
               child: FloatingActionButton(
+                  heroTag: 'hero2',
                   elevation: 2,
                   // backgroundColor: Color(0xFF5DCAD1),
                   backgroundColor: Colors.black,
@@ -583,10 +584,6 @@ class _adminState extends State<admin> {
     DocumentSnapshot<Map<String, dynamic>> mySnapshot;
     mySnapshot =
         await FirebaseFirestore.instance.collection('users').doc(uid).get();
-    // DocumentSnapshot querySnapshot = await eventCollection.doc(uid).get();
-    // print(querySnapshot.get('title'));
-    // Get data from docs and convert map to List
-    // final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
     return mySnapshot.data()?[dataType];
 
     // return ret;
@@ -609,9 +606,6 @@ class _adminState extends State<admin> {
         .doc(uid)
         .collection('Events')
         .get();
-
-    print('mera data');
-    print(uid);
     allData = mySnapshot.docs.map((doc) => doc.data()).toList();
 
     // print(allData);
