@@ -157,9 +157,11 @@ class _GetDataForViewState extends State<GetDataForView> {
 }
 
 class GetNewsforEdit extends StatefulWidget {
-  @override
+  // const GetNewsforEdit({Key? key}) : super(key: key);
   String? newsID;
   GetNewsforEdit({required this.newsID});
+
+  @override
   State<GetNewsforEdit> createState() => _GetNewsforEditState();
 
   // const GetNewsforEdit({Key? key}) : super(key: key);
@@ -200,15 +202,15 @@ class _GetNewsforEditState extends State<GetNewsforEdit> {
             );
           }
         }),
-        future: GetNews(),
+        future: GetNews(widget.newsID),
       );
     }
   }
 }
 
-Future<Object> GetNews() async {
+Future<Object> GetNews(newsID) async {
   DocumentSnapshot<Map<String, dynamic>> mySnapshot;
-  mySnapshot = await addCollection().getNews('abcd1234');
+  mySnapshot = await addCollection().getNews(newsID);
   headline = mySnapshot.data()?['headline'];
   description = mySnapshot.data()?['description'];
   news_author = mySnapshot.data()?['news_author'];

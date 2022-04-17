@@ -38,11 +38,11 @@ class addCollection {
     });
   }
 
-  Future<DocumentSnapshot<Map<String, dynamic>>> getNews(String uid) async {
+  Future<DocumentSnapshot<Map<String, dynamic>>> getNews(String newsID) async {
     // Get docs from collection reference
     DocumentSnapshot<Map<String, dynamic>> mySnapshot;
     mySnapshot =
-        await FirebaseFirestore.instance.collection('News').doc(uid).get();
+        await FirebaseFirestore.instance.collection('News').doc(newsID).get();
     return mySnapshot;
   }
 
