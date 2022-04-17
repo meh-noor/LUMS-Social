@@ -5,7 +5,7 @@ import 'package:lums_social_app2/models/user.dart';
 import 'package:lums_social_app2/screens/Admin/GetDataForEdit.dart';
 import 'package:lums_social_app2/screens/auth/sign_in.dart';
 import 'package:lums_social_app2/screens/news/addNews.dart';
-import 'package:lums_social_app2/screens/news/newsButton.dart';
+// import 'package:lums_social_app2/screens/news/newsButton.dart';
 import 'package:lums_social_app2/splash.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
